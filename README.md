@@ -9,6 +9,6 @@
 - BackTest
 - CalculateRevenue
 - AddStockAtGivenPrice
-- CleanAll
+- ClearAll
 
 
