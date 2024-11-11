@@ -1,14 +1,13 @@
-# CSC207Projectum
 
-- Entity
-Stock
-Portfolio
+## Entities
 
-- UserCase
-ModelPredict
-BackTest
-CalculateRevenue
-AddStockAtGivenPrice
-CleanAll
+- **Stock**
+- **Portfolio**
 
+## Use Cases
 
+- **ModelPredict**
+- **BackTest**
+- **CalculateRevenue**
+- **AddStockAtGivenPrice**
+- **CleanAll**
