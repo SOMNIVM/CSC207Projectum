@@ -7,7 +7,7 @@
 ### UserCase
 - ModelPredict: CD
 - BackTest: SD
-- CalculateRevenue: MW
+- CalculateRevenue: Whole team
 - AddStockAtGivenPrice: MW
 - ClearAll: CD
 
