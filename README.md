@@ -5,10 +5,9 @@
 - Portfolio
 
 ### UserCase
-- ModelPredict
-- BackTest
-- CalculateRevenue
-- AddStockAtGivenPrice
-- ClearAll
-
+- ModelPredict: CD
+- BackTest: SD
+- CalculateRevenue: Whole team
+- AddStockAtGivenPrice: MW
+- ClearAll: CD
 
