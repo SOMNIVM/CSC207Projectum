@@ -41,6 +41,3 @@
 - AddStockAtGivenPrice: MW
 - RemoveStock: SD
 - ClearAll: CD
-
-
-
