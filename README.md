@@ -39,6 +39,7 @@
 - BackTest: SD
 - CalculateRevenue: Whole team
 - AddStockAtGivenPrice: MW
+- RemoveStock: SD
 - ClearAll: CD
 
 
