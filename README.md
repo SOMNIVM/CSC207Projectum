@@ -9,14 +9,14 @@
        getters & setters
 
 
-- Stock: "Stock of companies"
+- Stock extends Asset: "Stock of companies"
     - #### instance attributes:
       stockSymbol: "The stock symbol of the stocks"
 
     - #### method:
       getters & setters
 
-- StockInPortfolio Extend Stock: "The stock exists in the portfolio"
+- StockInPortfolio extends Stock: "The stock exists in the portfolio"
     - #### instance attributes:
       averagePrice: "The average price that the user of this software paid the entire shares of the stock"
 
