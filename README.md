@@ -1,26 +1,26 @@
 # CSC207Projectum
 
 ### Entity
-- Asset: "The financial all the financial assets" 
+- Asset: "The financial all the financial assets"
     - #### instance attributes:
-        name: "The name of the assets"
-    
+      name: "The name of the assets"
+
     -  #### method:
-        getters & setters
+       getters & setters
 
 
-- Stock: "Stock of companies"
+- Stock extends Asset: "Stock of companies"
     - #### instance attributes:
       stockSymbol: "The stock symbol of the stocks"
 
     - #### method:
       getters & setters
-  
-- StockInPortfolio Extend Stock: "The stock exists in the portfolio"
+
+- StockInPortfolio extends Stock: "The stock exists in the portfolio"
     - #### instance attributes:
       averagePrice: "The average price that the user of this software paid the entire shares of the stock"
 
-        numberOfShares: "The total number of shares of the stock"
+      numberOfShares: "The total number of shares of the stock"
 
     - #### method:
       getters & setters
@@ -29,10 +29,10 @@
 
 - Portfolio
     - #### instance attributes:
-        stocksInPortfolio: "The list of all the stocks that exist in the portfolio"
+      stocksInPortfolio: "The list of all the stocks that exist in the portfolio"
 
     - #### method:
-        getters & setters
+      getters & setters
 
 ### UserCase
 - ModelPredict: CD
@@ -41,4 +41,3 @@
 - AddStockAtGivenPrice: MW
 - RemoveStock: SD
 - ClearAll: CD
-
