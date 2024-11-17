@@ -26,6 +26,7 @@ public class HomePageView extends JPanel implements PropertyChangeListener {
         this.viewManagerModel = managerModel;
         this.viewName = clearAllViewModel.getViewName();
         JLabel title = new JLabel(viewName);
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
         JPanel managePortfolioPanel = new JPanel();
         JPanel analysisPanel = new JPanel();
         JButton viewPortfolio = new JButton("view portfolio");
