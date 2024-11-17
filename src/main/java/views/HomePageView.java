@@ -1,14 +1,18 @@
 package views;
 
 import interface_adapters.ViewManagerModel;
+import interface_adapters.reset_portfolio.ClearAllController;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-public class HomePageView extends JPanel {
-    private String viewName;
+public class HomePageView extends JPanel implements PropertyChangeListener {
+    private final String viewName;
+    private ClearAllController clearAllController;
     private final ViewManagerModel viewManagerModel;
     private final JButton viewPortfolio;
     private final JButton buyStock;
@@ -61,9 +65,35 @@ public class HomePageView extends JPanel {
         this.clearAll.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                viewManagerModel.getState().setCurViewName("clear all");
-
+                clearAllController.execute();
             }
         });
+        this.predictRevenue.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                viewManagerModel.getState().setCurViewName("predict revenue");
+                viewManagerModel.firePropertyChange();
+            }
+        });
+        this.backtest.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                viewManagerModel.getState().setCurViewName("backtest");
+                viewManagerModel.firePropertyChange();
+            }
+        });
+    }
+    public String getViewName() {
+        return viewName;
+    }
+    public void setClearAllController(ClearAllController controller) {
+        clearAllController = controller;
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equals("cleared")) {
+            JOptionPane.showMessageDialog(this, evt.getNewValue());
+        }
     }
 }
