@@ -16,19 +16,19 @@ import java.beans.PropertyChangeListener;
 
 public class HomePageView extends JPanel implements PropertyChangeListener {
     private final String viewName;
-    private ClearAllViewModel clearAllViewModel;
+    private final ClearAllViewModel clearAllViewModel;
     private ClearAllController clearAllController;
     private ViewPortfolioController viewPortfolioController;
     private final ViewManagerModel viewManagerModel;
 
-    public HomePageView(ClearAllViewModel clearAllViewModel, ViewManagerModel managerModel) {
+    public HomePageView(ClearAllViewModel clearAllModel, ViewManagerModel managerModel) {
         super();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.clearAllViewModel = clearAllViewModel;
+        this.clearAllViewModel = clearAllModel;
         this.clearAllViewModel.addPropertyChangeListener(this);
         this.viewManagerModel = managerModel;
-        this.viewName = clearAllViewModel.getViewName();
-        JLabel title = new JLabel(viewName);
+        this.viewName = this.clearAllViewModel.getViewName();
+        JLabel title = new JLabel(this.viewName);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         JPanel managePortfolioPanel = new JPanel();
         JPanel analysisPanel = new JPanel();
@@ -44,9 +44,11 @@ public class HomePageView extends JPanel implements PropertyChangeListener {
         managePortfolioPanel.add(clearAll);
         analysisPanel.add(predictRevenue);
         analysisPanel.add(backtest);
-        this.add(title, BorderLayout.CENTER);
-        this.add(managePortfolioPanel, BorderLayout.CENTER);
-        this.add(analysisPanel, BorderLayout.CENTER);
+        managePortfolioPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        analysisPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.add(title);
+        this.add(managePortfolioPanel);
+        this.add(analysisPanel);
         viewPortfolio.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {

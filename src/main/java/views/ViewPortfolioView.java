@@ -11,16 +11,16 @@ import java.awt.event.ActionListener;
 public class ViewPortfolioView extends JPanel{
     private final String viewName;
     private final ViewManagerModel viewManagerModel;
-    public ViewPortfolioView(ViewPortfolioViewModel viewPortfolioViewModel, ViewManagerModel managerModel) {
+    public ViewPortfolioView(ViewPortfolioViewModel viewPortfolioModel, ViewManagerModel managerModel) {
         super();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.viewManagerModel = managerModel;
-        this.viewName = viewPortfolioViewModel.getViewName();
-        JLabel title = new JLabel(viewName);
+        this.viewName = viewPortfolioModel.getViewName();
+        JLabel title = new JLabel(this.viewName);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         JLabel totalValueSummary = new JLabel(ViewPortfolioViewModel.TOTAL_VALUE_LABEL + ": "
-                + viewPortfolioViewModel.getState().getTotalValue());
-        JTable data = new JTable(viewPortfolioViewModel.getState().getPortfolioData(), ViewPortfolioViewModel.COLUMNS);
+                + viewPortfolioModel.getState().getTotalValue());
+        JTable data = new JTable(viewPortfolioModel.getState().getPortfolioData(), ViewPortfolioViewModel.COLUMNS);
         JScrollPane dataScrollPane = new JScrollPane(data);
         JButton back = new JButton(ViewPortfolioViewModel.BACK_BUTTON_LABEL);
         back.addActionListener(new ActionListener() {
@@ -30,10 +30,13 @@ public class ViewPortfolioView extends JPanel{
                 viewManagerModel.firePropertyChange();
             }
         });
-        this.add(title, BorderLayout.CENTER);
-        this.add(totalValueSummary, BorderLayout.CENTER);
-        this.add(dataScrollPane, BorderLayout.CENTER);
-        this.add(back, BorderLayout.CENTER);
+        totalValueSummary.setAlignmentX(Component.CENTER_ALIGNMENT);
+        dataScrollPane.setAlignmentX(Component.CENTER_ALIGNMENT);
+        back.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.add(title);
+        this.add(totalValueSummary);
+        this.add(dataScrollPane);
+        this.add(back);
     }
     public String getViewName(){
         return viewName;

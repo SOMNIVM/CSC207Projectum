@@ -1,9 +1,9 @@
 package views;
 
+import interface_adapters.ModifyPortfolioState;
 import interface_adapters.ViewManagerModel;
-import interface_adapters.buy_stock.BuyStockController;
-import interface_adapters.buy_stock.BuyStockState;
-import interface_adapters.buy_stock.BuyStockViewModel;
+import interface_adapters.remove_stock.RemoveStockController;
+import interface_adapters.remove_stock.RemoveStockViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,59 +12,62 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class BuyStockView extends JPanel implements PropertyChangeListener {
+public class RemoveStockView extends JPanel implements PropertyChangeListener {
     private final String viewName;
-    private final BuyStockViewModel buyStockViewModel;
-    private BuyStockController buyStockController;
+    private final RemoveStockViewModel removeStockViewModel;
+    private RemoveStockController removeStockController;
     private final ViewManagerModel viewManagerModel;
+    private final JLabel errorMessageLabel;
     private final JTextField stockNameField;
     private final JTextField sharesField;
-    private final JLabel errorMessageLabel;
-    public BuyStockView(BuyStockViewModel buyStockModel, ViewManagerModel managerModel) {
+    public RemoveStockView(RemoveStockViewModel removeStockModel, ViewManagerModel managerModel) {
         super();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.removeStockViewModel = removeStockModel;
+        this.viewName = this.removeStockViewModel.getViewName();
         this.viewManagerModel = managerModel;
-        this.buyStockViewModel = buyStockModel;
-        this.viewName = buyStockModel.getViewName();
-        this.buyStockViewModel.addPropertyChangeListener(this);
+        this.removeStockViewModel.addPropertyChangeListener(this);
+        this.stockNameField = new JTextField(20);
+        this.stockNameField.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.sharesField = new JTextField(20);
+        this.sharesField.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.errorMessageLabel = new JLabel();
         this.errorMessageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        this.stockNameField = new JTextField(20);
-        this.sharesField = new JTextField(20);
         JLabel title = new JLabel(this.viewName);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         JPanel stockNamePanel = new JPanel();
-        stockNamePanel.add(new JLabel(BuyStockViewModel.STOCK_NAME_FIELD_LABEL));
+        stockNamePanel.add(new JLabel(RemoveStockViewModel.STOCK_NAME_FIELD_LABEL));
         stockNamePanel.add(this.stockNameField);
-        JPanel sharesFieldPanel = new JPanel();
-        sharesFieldPanel.add(new JLabel(BuyStockViewModel.SHARES_FIELD_LABEL));
-        sharesFieldPanel.add(this.sharesField);
-        JPanel buttonPanel = new JPanel();
-        JButton buyStock = new JButton(BuyStockViewModel.BUY_STOCK_BUTTON_LABEL);
-        JButton cancel = new JButton(BuyStockViewModel.CANCEL_BUTTON_LABEL);
-        buttonPanel.add(buyStock);
-        buttonPanel.add(cancel);
         stockNamePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JPanel sharesFieldPanel = new JPanel();
+        sharesFieldPanel.add(new JLabel(RemoveStockViewModel.SHARES_FIELD_LABEL));
+        sharesFieldPanel.add(this.sharesField);
         sharesFieldPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JPanel buttonPanel = new JPanel();
+        JButton removeStock = new JButton(RemoveStockViewModel.REMOVE_STOCK_BUTTON_LABEL);
+        JButton cancel = new JButton(RemoveStockViewModel.CANCEL_BUTTON_LABEL);
+        buttonPanel.add(removeStock);
+        buttonPanel.add(cancel);
         buttonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(title);
         this.add(stockNamePanel);
         this.add(sharesFieldPanel);
         this.add(this.errorMessageLabel);
         this.add(buttonPanel);
-        buyStock.addActionListener(new ActionListener() {
+        removeStock.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if (buyStockController != null) {
+                if (removeStockController != null) {
                     String stockNameInput = stockNameField.getText();
                     String sharesInput = sharesField.getText();
                     if (sharesInput.matches("\\d+")) {
                         int shares = Integer.parseInt(sharesInput);
-                        buyStockController.execute(stockNameInput, shares);
+                        removeStockController.execute(stockNameInput, shares);
                     }
                     else {
-                        buyStockViewModel.getState().setAsInvalid("Shares to buy should be a non-negative integer.");
-                        buyStockViewModel.firePropertyChange();
+                        removeStockViewModel.getState()
+                                .setAsInvalid("Shares to remove should be a non-negative integer.");
+                        removeStockViewModel.firePropertyChange();
                     }
                 }
             }
@@ -80,13 +83,12 @@ public class BuyStockView extends JPanel implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        BuyStockState state = (BuyStockState) evt.getNewValue();
+        ModifyPortfolioState state = (ModifyPortfolioState) evt.getNewValue();
         if (state.checkIfValid()) {
             errorMessageLabel.setText("");
-            JOptionPane.showMessageDialog(null,
-                    "You purchased " + state.getSharesChanged()
-                            + " shares of " + state.getStockName()
-                            + " stock at price $" + state.getBuyingPrice() + " per share.");
+            JOptionPane.showMessageDialog(null, "You removed " + state.getSharesChanged()
+                    + " shares of " + state.getStockName()
+                    + " stock from your portfolio.");
         }
         else {
             errorMessageLabel.setText(state.getErrorMessage());
@@ -95,7 +97,7 @@ public class BuyStockView extends JPanel implements PropertyChangeListener {
     public String getViewName() {
         return viewName;
     }
-    public void setBuyStockController(BuyStockController controller) {
-        buyStockController = controller;
+    public void setRemoveStockController(RemoveStockController controller) {
+        removeStockController = controller;
     }
 }
