@@ -1,10 +1,12 @@
 package app;
 import data_access.AlphaVantageDataAccess;
 import interface_adapters.ViewManagerModel;
+import interface_adapters.buy_stock.BuyStockViewModel;
+import interface_adapters.remove_stock.RemoveStockViewModel;
 import interface_adapters.reset_portfolio.ClearAllViewModel;
+import interface_adapters.view_portfolio.ViewPortfolioViewModel;
 import org.jetbrains.annotations.NotNull;
-import views.HomePageView;
-import views.ViewManager;
+import views.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +23,13 @@ public class Main {
           ViewManagerModel viewManagerModel = new ViewManagerModel();
           ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
           HomePageView homePageView = new HomePageView(new ClearAllViewModel(), viewManagerModel);
+          ViewPortfolioView viewPortfolioView = new ViewPortfolioView(new ViewPortfolioViewModel(), viewManagerModel);
+          BuyStockView buyStockView = new BuyStockView(new BuyStockViewModel(), viewManagerModel);
+          RemoveStockView removeStockView = new RemoveStockView(new RemoveStockViewModel(), viewManagerModel);
           cardPanel.add(homePageView, homePageView.getViewName());
+          cardPanel.add(viewPortfolioView, viewPortfolioView.getViewName());
+          cardPanel.add(buyStockView, buyStockView.getViewName());
+          cardPanel.add(removeStockView, removeStockView.getViewName());
           viewManagerModel.getState().setCurViewName(homePageView.getViewName());
           viewManagerModel.firePropertyChange();
           app.add(cardPanel);
