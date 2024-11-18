@@ -29,12 +29,12 @@ public class HomePageView extends JPanel implements PropertyChangeListener {
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         JPanel managePortfolioPanel = new JPanel();
         JPanel analysisPanel = new JPanel();
-        JButton viewPortfolio = new JButton("view portfolio");
-        JButton buyStock = new JButton("buy stock");
-        JButton removeStock = new JButton("remove stock");
-        JButton clearAll = new JButton("clear all");
-        JButton predictRevenue = new JButton("predict revenue");
-        JButton backtest = new JButton("backtest");
+        JButton viewPortfolio = new JButton(ClearAllViewModel.VIEW_PORTFOLIO_BUTTON_LABEL);
+        JButton buyStock = new JButton(ClearAllViewModel.BUY_STOCK_BUTTON_LABEL);
+        JButton removeStock = new JButton(ClearAllViewModel.REMOVE_STOCK_BUTTON_LABEL);
+        JButton clearAll = new JButton(ClearAllViewModel.CLEAR_ALL_BUTTON_LABEL);
+        JButton predictRevenue = new JButton(ClearAllViewModel.PREDICT_REVENUE_BUTTON_LABEL);
+        JButton backtest = new JButton(ClearAllViewModel.BACKTEST_BUTTON_LABEL);
         managePortfolioPanel.add(viewPortfolio);
         managePortfolioPanel.add(buyStock);
         managePortfolioPanel.add(removeStock);
@@ -98,9 +98,11 @@ public class HomePageView extends JPanel implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals("cleared")) {
+        if (evt.getSource().equals(clearAllViewModel)) {
             ClearAllState state = (ClearAllState) evt.getNewValue();
-            JOptionPane.showMessageDialog(this, state.getMessageUponClearing());
+            if (state.checkIfCleared()) {
+                JOptionPane.showMessageDialog(null, ClearAllViewModel.MESSAGE_UPON_CLEARING);
+            }
         }
     }
 }
