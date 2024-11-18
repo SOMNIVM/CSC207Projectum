@@ -1,6 +1,6 @@
 package usecases.view_portfolio;
 
-interface ViewPortfolioInputBoundary {
+public interface ViewPortfolioInputBoundary {
     /**
      * Display the portfolio.
      */

@@ -1,5 +1,5 @@
 package usecases.view_portfolio;
 
-interface ViewPortfolioOutputBoundary {
+public interface ViewPortfolioOutputBoundary {
     void prepareView();
 }

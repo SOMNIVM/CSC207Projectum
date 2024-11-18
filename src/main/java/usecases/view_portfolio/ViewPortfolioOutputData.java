@@ -1,11 +1,6 @@
 package usecases.view_portfolio;
 
-import entities.Portfolio;
-
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 public class ViewPortfolioOutputData {
     private final List<String> stockNames;

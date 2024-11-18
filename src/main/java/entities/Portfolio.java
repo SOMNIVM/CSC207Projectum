@@ -19,7 +19,7 @@ public class Portfolio {
         this.averagePrice = new HashMap<>();
     }
 
-    public Set<String> getStockNames() {
+    public Set<String> getStockSymbols() {
         return share.keySet();
     }
 

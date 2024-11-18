@@ -3,15 +3,15 @@ package interface_adapters.reset_portfolio;
 import usecases.reset_portfolio.ClearAllInputBoundary;
 
 public class ClearAllController {
-    private final ClearAllInputBoundary clearAllInputBoundary;
-    public ClearAllController(ClearAllInputBoundary clearAllInputBoundary) {
-        this.clearAllInputBoundary = clearAllInputBoundary;
+    private final ClearAllInputBoundary clearAllUseCaseInteractor;
+    public ClearAllController(ClearAllInputBoundary interactor) {
+        this.clearAllUseCaseInteractor = interactor;
     }
 
     /**
      * Clear the portfolio.
      */
     public void execute() {
-        clearAllInputBoundary.execute();
+        clearAllUseCaseInteractor.execute();
     }
 }

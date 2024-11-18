@@ -4,6 +4,8 @@ import interface_adapters.ViewManagerModel;
 import interface_adapters.reset_portfolio.ClearAllController;
 import interface_adapters.reset_portfolio.ClearAllState;
 import interface_adapters.reset_portfolio.ClearAllViewModel;
+import interface_adapters.view_portfolio.ViewPortfolioController;
+import interface_adapters.view_portfolio.ViewPortfolioViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +18,7 @@ public class HomePageView extends JPanel implements PropertyChangeListener {
     private final String viewName;
     private ClearAllViewModel clearAllViewModel;
     private ClearAllController clearAllController;
+    private ViewPortfolioController viewPortfolioController;
     private final ViewManagerModel viewManagerModel;
 
     public HomePageView(ClearAllViewModel clearAllViewModel, ViewManagerModel managerModel) {
@@ -47,8 +50,9 @@ public class HomePageView extends JPanel implements PropertyChangeListener {
         viewPortfolio.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                viewManagerModel.getState().setCurViewName("view portfolio");
-                viewManagerModel.firePropertyChange();
+                if (viewPortfolioController != null) {
+                    viewPortfolioController.execute();
+                }
             }
         });
         buyStock.addActionListener(new ActionListener() {
@@ -95,14 +99,15 @@ public class HomePageView extends JPanel implements PropertyChangeListener {
     public void setClearAllController(ClearAllController controller) {
         clearAllController = controller;
     }
+    public void setViewPortfolioController(ViewPortfolioController controller) {
+        viewPortfolioController = controller;
+    }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getSource().equals(clearAllViewModel)) {
-            ClearAllState state = (ClearAllState) evt.getNewValue();
-            if (state.checkIfCleared()) {
-                JOptionPane.showMessageDialog(null, ClearAllViewModel.MESSAGE_UPON_CLEARING);
-            }
+        ClearAllState state = (ClearAllState) evt.getNewValue();
+        if (state.checkIfCleared()) {
+            JOptionPane.showMessageDialog(null, ClearAllViewModel.MESSAGE_UPON_CLEARING);
         }
     }
 }
