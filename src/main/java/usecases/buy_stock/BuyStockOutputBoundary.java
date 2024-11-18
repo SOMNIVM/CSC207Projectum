@@ -1,6 +1,6 @@
 package usecases.buy_stock;
 
 public interface BuyStockOutputBoundary {
-    void prepareSuccessView(double buyingPrice);
+    void prepareSuccessView(BuyStockOutputData buyStockOutputData);
     void prepareFailView(String errorDescription);
 }

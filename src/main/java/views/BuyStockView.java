@@ -54,7 +54,12 @@ public class BuyStockView extends JPanel implements PropertyChangeListener {
                     String stockName = stockNameField.getText();
                     String sharesInput = stockNameField.getText();
                     if (sharesInput.matches("\\d+")) {
-                        buyStockController.execute(stockName, Integer.parseInt(sharesInput));
+                        int shares = Integer.parseInt(sharesInput);
+                        BuyStockState state = buyStockViewModel.getState();
+                        state.setAsValid();
+                        state.setStockName(stockName);
+                        state.setSharesChanged(shares);
+                        buyStockController.execute(stockName, shares);
                     }
                     else {
                         buyStockViewModel.getState().setAsInvalid("error: non-integer input for shares");
@@ -77,7 +82,9 @@ public class BuyStockView extends JPanel implements PropertyChangeListener {
         BuyStockState state = (BuyStockState) evt.getNewValue();
         if (state.checkIfValid()) {
             JOptionPane.showMessageDialog(null,
-                    "Stock successfully purchased at price $" + state.getBuyingPrice());
+                    "You purchased " + state.getSharesChanged()
+                            + " shares of " + state.getStockName()
+                            + " stock at price $" + state.getBuyingPrice() + " per share.");
         }
         else {
             errorMessageLabel.setText(state.getErrorMessage());
