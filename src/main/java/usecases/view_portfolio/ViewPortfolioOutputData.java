@@ -6,15 +6,21 @@ public class ViewPortfolioOutputData {
     private final List<String> stockNames;
     private final List<Integer> shares;
     private final List<Double> averagePrices;
-    private final List<Double> totalValues;
+    private final List<Double> values;
+    private final double totalValue;
     public ViewPortfolioOutputData(List<String> stockNames,
                                    List<Integer> shares,
                                    List<Double> averagePrices,
-                                   List<Double> totalValues) {
+                                   List<Double> values) {
         this.stockNames = stockNames;
         this.shares = shares;
         this.averagePrices = averagePrices;
-        this.totalValues = totalValues;
+        this.values = values;
+        double totalValue = 0.0;
+        for (double value: values) {
+            totalValue += value;
+        }
+        this.totalValue = totalValue;
     }
     public List<String> getStockNames() {
         return stockNames;
@@ -25,7 +31,10 @@ public class ViewPortfolioOutputData {
     public List<Double> getAveragePrices() {
         return averagePrices;
     }
-    public List<Double> getTotalValues() {
-        return totalValues;
+    public List<Double> getValues() {
+        return values;
+    }
+    public double getTotalValue() {
+        return totalValue;
     }
 }
