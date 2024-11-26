@@ -18,8 +18,8 @@ public class ViewPortfolioView extends JPanel{
         this.viewName = viewPortfolioModel.getViewName();
         JLabel title = new JLabel(this.viewName);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JLabel totalValueSummary = new JLabel(ViewPortfolioViewModel.TOTAL_VALUE_LABEL + ": "
-                + viewPortfolioModel.getState().getTotalValue());
+        JLabel totalValueSummary = new JLabel(String.format("%s: %.2f", ViewPortfolioViewModel.TOTAL_VALUE_LABEL,
+                viewPortfolioModel.getState().getTotalValue()));
         JTable data = new JTable(viewPortfolioModel.getState().getPortfolioData(), ViewPortfolioViewModel.COLUMNS);
         JScrollPane dataScrollPane = new JScrollPane(data);
         JButton back = new JButton(ViewPortfolioViewModel.BACK_BUTTON_LABEL);

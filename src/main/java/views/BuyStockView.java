@@ -84,9 +84,10 @@ public class BuyStockView extends JPanel implements PropertyChangeListener {
         if (state.checkIfValid()) {
             errorMessageLabel.setText("");
             JOptionPane.showMessageDialog(null,
-                    "You purchased " + state.getSharesChanged()
-                            + " shares of " + state.getStockName()
-                            + " stock at price $" + state.getBuyingPrice() + " per share.");
+                    String.format("You purchased %d shares of %s stocks at price $%.2f per share.",
+                            state.getSharesChanged(),
+                            state.getStockName(),
+                            state.getBuyingPrice()));
         }
         else {
             errorMessageLabel.setText(state.getErrorMessage());
