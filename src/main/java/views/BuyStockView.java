@@ -58,7 +58,7 @@ public class BuyStockView extends JPanel implements PropertyChangeListener {
                 if (buyStockController != null) {
                     String stockNameInput = stockNameField.getText();
                     String sharesInput = sharesField.getText();
-                    if (sharesInput.matches("\\d+")) {
+                    if (sharesInput.matches("^[0-9]+$")) {
                         int shares = Integer.parseInt(sharesInput);
                         buyStockController.execute(stockNameInput, shares);
                     }
