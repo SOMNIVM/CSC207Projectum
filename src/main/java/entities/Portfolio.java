@@ -8,8 +8,8 @@ import java.util.Set;
  * Represents a portfolio containing stocks with their number of shares and average price.
  */
 public class Portfolio {
-    private final HashMap<String, Integer> share;
-    private final HashMap<String, Double> averagePrice;
+    private final Map<String, Integer> share;
+    private final Map<String, Double> averagePrice;
 
     /**
      * Constructs an empty portfolio.

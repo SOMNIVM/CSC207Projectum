@@ -1,28 +1,40 @@
 package app;
 
+import org.json.JSONArray;
+
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Scanner;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Objects;
 
 public class Config {
-    public static final String API_KEY = initialize_api_key();
-    private static String initialize_api_key() {
-        try (InputStream inputStream = Config.class.getClassLoader().getResourceAsStream("api_key.txt")) {
-            if (inputStream != null) {
-                Scanner sc = new Scanner(inputStream);
-                if (sc.hasNextLine()) {
-                    return sc.nextLine().trim();
-                }
-                else {
-                    throw new RuntimeException("API key not found.");
-                }
-            }
-            else {
-                throw new RuntimeException("api_key.txt is not found.");
-            }
+    public static final String API_KEY = initializeAPIKey();
+    public static final JSONArray STOCK_LIST = initializeStockList();
+    private static String initializeAPIKey() {
+        try {
+            return Files.readString(Paths.get(Objects.requireNonNull(Config
+                    .class
+                    .getClassLoader()
+                    .getResource("/config/api_key.txt"))
+                    .toURI()))
+                    .trim();
         }
-        catch (IOException e) {
-            throw new RuntimeException("Error occurred while trying to get resource:\n" + e.getMessage());
+        catch (IOException | URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private static JSONArray initializeStockList() {
+        try {
+            String jsonString = Files.readString(Paths.get(Objects.requireNonNull(Config
+                    .class
+                    .getClassLoader()
+                    .getResource("/config/stock_list.json"))
+                    .toURI()));
+            return new JSONArray(jsonString);
+        }
+        catch (IOException | URISyntaxException e) {
+            throw new RuntimeException(e);
         }
     }
 }

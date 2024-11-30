@@ -1,51 +1,202 @@
 [
-  {"AbbVie": "ABBV"},
-  {"Accenture": "ACN"},
-  {"Amgen": "AMGN"},
-  {"Apple": "AAPL"},
-  {"Bristol-Myers Squibb": "BMY"},
-  {"Caterpillar": "CAT"},
-  {"Cisco": "CSCO"},
-  {"Coca-Cola": "KO"},
-  {"Exxon Mobil": "XOM"},
-  {"Home Depot": "HD"},
-  {"Johnson & Johnson": "JNJ"},
-  {"Lockheed Martin": "LMT"},
-  {"Mastercard": "MA"},
-  {"Merck & Co.": "MRK"},
-  {"Microsoft": "MSFT"},
-  {"Nike": "NKE"},
-  {"PepsiCo": "PEP"},
-  {"Pfizer": "PFE"},
-  {"Procter & Gamble": "PG"},
-  {"Raytheon Technologies": "RTX"},
-  {"Salesforce": "CRM"},
-  {"Schlumberger": "SLB"},
-  {"Southern Company": "SO"},
-  {"S&P Global": "SPGI"},
-  {"Tesla": "TSLA"},
-  {"Verizon": "VZ"},
-  {"Visa": "V"},
-  {"Walmart": "WMT"},
-  {"Wells Fargo": "WFC"},
-  {"Abbott Laboratories": "ABT"},
-  {"American Express": "AXP"},
-  {"Chevron": "CVX"},
-  {"ConocoPhillips": "COP"},
-  {"Danaher": "DHR"},
-  {"Delta Air Lines": "DAL"},
-  {"Disney": "DIS"},
-  {"General Electric": "GE"},
-  {"HCA Healthcare": "HCA"},
-  {"Intel": "INTC"},
-  {"Lowe's": "LOW"},
-  {"McDonald's": "MCD"},
-  {"Morgan Stanley": "MS"},
-  {"NextEra Energy": "NEE"},
-  {"Oracle": "ORCL"},
-  {"PepsiCo": "PEP"},
-  {"Raytheon Technologies": "RTX"},
-  {"Tesla": "TSLA"},
-  {"UnitedHealth Group": "UNH"},
-  {"Verisk Analytics": "VRSK"}
+  {
+    "name": "3M Co.",
+    "symbol": "MMM"
+  },
+  {
+    "name": "Alexion Pharmaceuticals",
+    "symbol": "ALXN"
+  },
+  {
+    "name": "Amazon.com Inc",
+    "symbol": "AMZN"
+  },
+  {
+    "name": "Apple Inc.",
+    "symbol": "AAPL"
+  },
+  {
+    "name": "AutoZone Inc",
+    "symbol": "AZO"
+  },
+  {
+    "name": "AvalonBay Communities, Inc.",
+    "symbol": "AVB"
+  },
+  {
+    "name": "BIOGEN IDEC Inc.",
+    "symbol": "BIIB"
+  },
+  {
+    "name": "Bard (C.R.) Inc.",
+    "symbol": "BCR"
+  },
+  {
+    "name": "BlackRock",
+    "symbol": "BLK"
+  },
+  {
+    "name": "Boston Properties",
+    "symbol": "BXP"
+  },
+  {
+    "name": "CF Industries Holdings Inc",
+    "symbol": "CF"
+  },
+  {
+    "name": "Chevron Corp.",
+    "symbol": "CVX"
+  },
+  {
+    "name": "Chipotle Mexican Grill",
+    "symbol": "CMG"
+  },
+  {
+    "name": "Colgate-Palmolive",
+    "symbol": "CL"
+  },
+  {
+    "name": "Costco Co.",
+    "symbol": "COST"
+  },
+  {
+    "name": "Cummins Inc.",
+    "symbol": "CMI"
+  },
+  {
+    "name": "DaVita Inc.",
+    "symbol": "DVA"
+  },
+  {
+    "name": "EOG Resources",
+    "symbol": "EOG"
+  },
+  {
+    "name": "Edwards Lifesciences",
+    "symbol": "EW"
+  },
+  {
+    "name": "F5 Networks",
+    "symbol": "FFIV"
+  },
+  {
+    "name": "Flowserve Corporation",
+    "symbol": "FLS"
+  },
+  {
+    "name": "Franklin Resources",
+    "symbol": "BEN"
+  },
+  {
+    "name": "Goldman Sachs Group",
+    "symbol": "GS"
+  },
+  {
+    "name": "Google Inc.",
+    "symbol": "GOOG"
+  },
+  {
+    "name": "Grainger (W.W.) Inc.",
+    "symbol": "GWW"
+  },
+  {
+    "name": "IntercontinentalExchange Inc.",
+    "symbol": "ICE"
+  },
+  {
+    "name": "International Bus. Machines",
+    "symbol": "IBM"
+  },
+  {
+    "name": "Intuitive Surgical Inc.",
+    "symbol": "ISRG"
+  },
+  {
+    "name": "Lorillard Inc.",
+    "symbol": "LO"
+  },
+  {
+    "name": "Mastercard Inc.",
+    "symbol": "MA"
+  },
+  {
+    "name": "NIKE Inc.",
+    "symbol": "NKE"
+  },
+  {
+    "name": "PPG Industries",
+    "symbol": "PPG"
+  },
+  {
+    "name": "Perrigo",
+    "symbol": "PRGO"
+  },
+  {
+    "name": "Philip Morris International",
+    "symbol": "PM"
+  },
+  {
+    "name": "Pioneer Natural Resources",
+    "symbol": "PXD"
+  },
+  {
+    "name": "Polo Ralph Lauren Corp.",
+    "symbol": "RL"
+  },
+  {
+    "name": "Praxair Inc.",
+    "symbol": "PX"
+  },
+  {
+    "name": "Precision Castparts",
+    "symbol": "PCP"
+  },
+  {
+    "name": "Priceline.com Inc",
+    "symbol": "PCLN"
+  },
+  {
+    "name": "Public Storage",
+    "symbol": "PSA"
+  },
+  {
+    "name": "Roper Industries",
+    "symbol": "ROP"
+  },
+  {
+    "name": "Salesforce.com",
+    "symbol": "CRM"
+  },
+  {
+    "name": "Sherwin-Williams",
+    "symbol": "SHW"
+  },
+  {
+    "name": "Simon Property Group Inc",
+    "symbol": "SPG"
+  },
+  {
+    "name": "Union Pacific",
+    "symbol": "UNP"
+  },
+  {
+    "name": "V.F. Corp.",
+    "symbol": "VFC"
+  },
+  {
+    "name": "Visa Inc.",
+    "symbol": "V"
+  },
+  {
+    "name": "Washington Post Co B",
+    "symbol": "WPO"
+  },
+  {
+    "name": "Whole Foods Market",
+    "symbol": "WFM"
+  },
+  {
+    "name": "Wynn Resorts Ltd",
+    "symbol": "WYNN"
+  }
 ]
