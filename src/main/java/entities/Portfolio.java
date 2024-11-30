@@ -30,7 +30,7 @@ public class Portfolio {
      * @return the number of shares for the specified stock symbol, or 0 if the symbol is not in the portfolio
      */
     public int getShares(String symbol) {
-        return share.get(symbol);
+        return share.getOrDefault(symbol, 0);
     }
 
     /**

@@ -4,13 +4,13 @@ package usecases.back_test;
  * Output boundary interface for backtest operations.
  * Defines methods for handling backtest results.
  */
-public interface BacktestOutputBoundary {
+public interface BackTestOutputBoundary {
     
     /**
      * Presents the success result of a backtest operation.
      * @param backtestResult The result data to be presented
      */
-    void presentSuccessResult(BacktestResponseModel backtestResult);
+    void presentSuccessResult(BackTestOutputData outputData);
 
     /**
      * Presents the failure result of a backtest operation.

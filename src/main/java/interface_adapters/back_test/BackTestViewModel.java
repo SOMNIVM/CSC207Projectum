@@ -1,5 +1,6 @@
 package interface_adapters.back_test;
 
+import interface_adapters.ViewModel;
 public class BackTestViewModel extends ViewModel<BackTestState> {
     public static final String START_DATE_LABEL = "Start Date (YYYY-MM-DD)";
     public static final String END_DATE_LABEL = "End Date (YYYY-MM-DD)";
