@@ -60,7 +60,7 @@ public class RemoveStockView extends JPanel implements PropertyChangeListener {
                 if (removeStockController != null) {
                     String stockNameInput = stockNameField.getText();
                     String sharesInput = sharesField.getText();
-                    if (sharesInput.matches("\\d+")) {
+                    if (sharesInput.matches("^[0-9]+$")) {
                         int shares = Integer.parseInt(sharesInput);
                         removeStockController.execute(stockNameInput, shares);
                     }
@@ -86,9 +86,10 @@ public class RemoveStockView extends JPanel implements PropertyChangeListener {
         ModifyPortfolioState state = (ModifyPortfolioState) evt.getNewValue();
         if (state.checkIfValid()) {
             errorMessageLabel.setText("");
-            JOptionPane.showMessageDialog(null, "You removed " + state.getSharesChanged()
-                    + " shares of " + state.getStockName()
-                    + " stock from your portfolio.");
+            JOptionPane.showMessageDialog(null, String.format(
+                    "You removed %d shares of %s stock from your portfolio",
+                    -state.getSharesChanged(),
+                    state.getStockName()));
         }
         else {
             errorMessageLabel.setText(state.getErrorMessage());
