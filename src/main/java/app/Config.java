@@ -10,6 +10,9 @@ import java.util.Objects;
 
 public class Config {
     public static final String API_KEY = initializeAPIKey();
+    public static final int INTRADAY_SAMPLE_SIZE = 24;
+    public static final int DAILY_SAMPLE_SIZE = 60;
+    public static final int WEEKLY_SAMPLE_SIZE = 48;
     public static final JSONArray STOCK_LIST = initializeStockList();
     private static String initializeAPIKey() {
         try {
