@@ -15,10 +15,30 @@ public class ViewPortfolioInteractor implements ViewPortfolioInputBoundary{
 
     @Override
     public void execute() {
-        ViewPortfolioOutputData outputData = new ViewPortfolioOutputData(viewPortfolioDataAccessObject.getStockNames(),
-                viewPortfolioDataAccessObject.getShares(),
-                viewPortfolioDataAccessObject.getAveragePrices(),
-                viewPortfolioDataAccessObject.getValues());
-        viewPortfolioPresenter.prepareView(outputData);
+        Portfolio currentPortfolio = viewPortfolioDataAccessObject.getCurrentPortfolio();
+        Set<String> symbols = currentPortfolio.getStockSymbols();
+        Map<String, String> symbolToName = viewPortfolioDataAccessObject.getSymbolToNameMap();
+        Map<String, String> nameToSymbol = viewPortfolioDataAccessObject.getNameToSymbolMap();
+        Map<String, Double> symbolToCurPrice = viewPortfolioDataAccessObject.getSymbolToCurrentPrice();
+        Set<String> names = new HashSet<>();
+        for (String sym: symbols) {
+            names.add(symbolToName.get(sym));
+        }
+        List<String> nameList = new ArrayList<>(names);
+        Collections.sort(nameList);
+        List<String> stockList = new ArrayList<>();
+        List<Integer> sharesList = new ArrayList<>();
+        List<Double> averageBuyingPriceList = new ArrayList<>();
+        List<Double> valuePerShareList = new ArrayList<>();
+        for (String name: nameList) {
+            stockList.add(name + " (" + nameToSymbol.get(name) + ")");
+            sharesList.add(currentPortfolio.getShares(nameToSymbol.get(name)));
+            averageBuyingPriceList.add(currentPortfolio.getAveragePrice(nameToSymbol.get(name)));
+            valuePerShareList.add(symbolToCurPrice.get(nameToSymbol.get(name)));
+        }
+        viewPortfolioPresenter.prepareView(new ViewPortfolioOutputData(stockList,
+                sharesList,
+                averageBuyingPriceList,
+                valuePerShareList));
     }
 }

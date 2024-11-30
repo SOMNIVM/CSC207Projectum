@@ -16,20 +16,23 @@ public class ViewPortfolioPresenter implements ViewPortfolioOutputBoundary {
 
     @Override
     public void prepareView(ViewPortfolioOutputData viewPortfolioOutputData) {
-        List<String> stockNames = viewPortfolioOutputData.getStockNames();
-        List<Integer> shares = viewPortfolioOutputData.getShares();
-        List<Double> averagePrices = viewPortfolioOutputData.getAveragePrices();
-        List<Double> values = viewPortfolioOutputData.getValues();
-        String[][] displayedDataArray = new String[stockNames.size()][4];
-        for (int i = 0; i < stockNames.size(); i++) {
-            displayedDataArray[i][0] = stockNames.get(i);
-            displayedDataArray[i][1] = Integer.toString(shares.get(i));
-            displayedDataArray[i][2] = String.format("%.2f", averagePrices.get(i));
-            displayedDataArray[i][3] = String.format("%.2f", values.get(i));
-        }
-        viewPortfolioViewModel.getState().setPortfolioData(displayedDataArray);
-        viewPortfolioViewModel.getState().setTotalValue(viewPortfolioOutputData.getTotalValue());
-        viewManagerModel.getState().setCurViewName("view portfolio");
-        viewManagerModel.firePropertyChange();
+       List<String> stockList = viewPortfolioOutputData.getStocks();
+       List<Integer> shares = viewPortfolioOutputData.getShares();
+       List<Double> averageBuyingPrices = viewPortfolioOutputData.getAveragePrices();
+       List<Double> valuesPerShare = viewPortfolioOutputData.getValuesPerShare();
+       List<Double> values = viewPortfolioOutputData.getValues();
+       String[][] displayedArray = new String[stockList.size()][5];
+       for (int i = 0; i < displayedArray.length; i++) {
+           displayedArray[i][0] = stockList.get(i);
+           displayedArray[i][1] = Integer.toString(shares.get(i));
+           displayedArray[i][2] = String.format("%.2f", averageBuyingPrices.get(i));
+           displayedArray[i][3] = String.format("%.2f", valuesPerShare.get(i));
+           displayedArray[i][4] = String.format("%.2f", values.get(i));
+       }
+       ViewPortfolioState state = viewPortfolioViewModel.getState();
+       state.setPortfolioData(displayedArray);
+       state.setTotalValue(viewPortfolioOutputData.getTotalValue());
+       viewManagerModel.getState().setCurViewName(viewPortfolioViewModel.getViewName());
+       viewManagerModel.firePropertyChange();
     }
 }
