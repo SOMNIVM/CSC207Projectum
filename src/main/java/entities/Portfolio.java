@@ -2,13 +2,14 @@ package entities;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Represents a portfolio containing stocks with their number of shares and average price.
  */
 public class Portfolio {
-    private HashMap<String, Integer> share;
-    private HashMap<String, Double> averagePrice;
+    private final Map<String, Integer> share;
+    private final Map<String, Double> averagePrice;
 
     /**
      * Constructs an empty portfolio.
@@ -16,6 +17,10 @@ public class Portfolio {
     public Portfolio() {
         this.share = new HashMap<>();
         this.averagePrice = new HashMap<>();
+    }
+
+    public Set<String> getStockSymbols() {
+        return share.keySet();
     }
 
     /**

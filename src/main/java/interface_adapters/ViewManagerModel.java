@@ -6,6 +6,6 @@ package interface_adapters;
  */
 public class ViewManagerModel extends ViewModel<ViewManagerState> {
     public ViewManagerModel() {
-        super("View Manager", new ViewManagerState());
+        super("view manager", new ViewManagerState());
     }
 }
