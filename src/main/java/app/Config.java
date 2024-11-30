@@ -18,11 +18,11 @@ public class Config {
                 }
             }
             else {
-                throw new RuntimeException("Generate input stream unsuccessful.");
+                throw new RuntimeException("api_key.txt is not found.");
             }
         }
         catch (IOException e) {
-            throw new RuntimeException("Failed to find api_key.txt");
+            throw new RuntimeException("Error occurred while trying to get resource:\n" + e.getMessage());
         }
     }
 }
