@@ -1,5 +1,6 @@
-package app;
+package data_access;
 
+import app.Config;
 import entities.Portfolio;
 import org.json.JSONArray;
 import org.json.JSONObject;
