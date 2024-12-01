@@ -21,6 +21,7 @@ public class ModelEvaluationInteractor implements ModelEvaluationInputBoundary {
     private double[] observations;
     private Model model;
 
+
     public ModelEvaluationInteractor(
             ModelEvaluationDataAccessInterface modelEvaluationDataAccessInterface,
             ModelEvaluationOutputBoundary modelEvaluationPresenter,
@@ -49,16 +50,32 @@ public class ModelEvaluationInteractor implements ModelEvaluationInputBoundary {
     this.modelType = modelType;
     this.model = Model.createModel(modelType, numOfInterval, observations);
     }
-
     @Override
     public void execute(ModelEvaluationInputData modelEvaluationInputData) {
         try {
             double meanSquaredError = getMeanSquaredError();
             double predictedPrice = getPredictedPrice();
-            doulbe meanAbsoluteError = getMeanAbsoluteError();
+            double meanAbsoluteError = getMeanAbsoluteError();
             double sharpeRatio = getSharpeRatio();
-            final ModelEvaluationOutputData modelEvaluationOutputData = new ModelEvaluationOutputData(meanSquaredError, predictedPrice, meanAbsoluteError, sharpeRatio);
+            double actualPrice = getActualPrice();
+            int length = this.numOfInterval;
+            String modelName = modelType;
+            String frequency = modelEvaluationInputData.getFrequency();
+    
+            final ModelEvaluationOutputData modelEvaluationOutputData =
+                    new ModelEvaluationOutputData(
+                            modelName,
+                            frequency,
+                            length,
+                            meanSquaredError,
+                            meanAbsoluteError,
+                            sharpeRatio,
+                            predictedPrice,
+                            actualPrice
+                    );
+    
             modelEvaluationPresenter.prepareSuccessView(modelEvaluationOutputData);
+            
         } catch (Exception e) {
             modelEvaluationPresenter.prepareFailView(e.getMessage());
         }
@@ -75,13 +92,14 @@ public class ModelEvaluationInteractor implements ModelEvaluationInputBoundary {
             }
             localObservations.add(currentValueOfPortfolio);
         }
+        return localObservations.stream().mapToDouble(Double::doubleValue).toArray();
     }
  
     private double getSharpeRatio() {
-        return model.sharpeRatio();
+        return model.getSharpeRatio();
     }
 
-    private doulbe getMeanAbsoluteError() {
+    private double getMeanAbsoluteError() {
         return model.getMeanAbsoluteError();
     }
 
@@ -91,6 +109,10 @@ public class ModelEvaluationInteractor implements ModelEvaluationInputBoundary {
 
 
     private double getPredictedPrice() {
-        return model.predict();
+        return model.getPredictedPrice();
     }
+    private double getActualPrice() {
+        return model.getActualPrice();
+
+}
 }

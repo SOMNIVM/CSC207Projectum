@@ -3,16 +3,14 @@ package usecases.ModelEvaluation;
 public class ModelEvaluationInputData {
     private final String modelType;
     private final String frequency;
-    private final String length;
-    private final String stockSymbol;
-    private final String endDate;
+    private final int length;
 
-    public ModelEvaluationInputData(String modelType, String frequency, String length, String stockSymbol, String endDate) {
+
+    public ModelEvaluationInputData(String modelType, String frequency, int length) {
         this.modelType = modelType;
-        this.frequency = frequency;
         this.length = length;
-        this.stockSymbol = stockSymbol;
-        this.endDate = endDate;
+        this.frequency = frequency;
+
     }
 
     public String getModelType() {
@@ -23,15 +21,7 @@ public class ModelEvaluationInputData {
         return frequency;
     }
 
-    public String getLength() {
+    public int getLength() {
         return length;
-    }
-
-    public String getStockSymbol() {
-        return stockSymbol;
-    }
-
-    public String getEndDate() {
-        return endDate;
     }
 }

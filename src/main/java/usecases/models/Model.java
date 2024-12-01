@@ -40,7 +40,6 @@ public abstract class Model {
      * @return The predicted value of the portfolio after the specified interval.
      * @throws IllegalArgumentException If the intervalName is not "day", "week", or "intraday".
      */
-    public abstract double predict(Portfolio portfolio, int intervalLength, String intervalName);
 
 
 
@@ -48,4 +47,8 @@ public abstract class Model {
     public abstract double getMeanAbsoluteError();
     public abstract double getSharpeRatio();
     public abstract double getPredictedPrice();
+    public abstract double getActualPrice();
+    public abstract double getVariance();
+    public abstract double getStandardDeviation();
+    public abstract double[] getObservations();
 }

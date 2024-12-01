@@ -1,4 +1,4 @@
-package usecases.models.avgmodel;
+package usecases.models;
 
 import app.Config;
 
@@ -7,19 +7,17 @@ public class AvgModel extends Model {
     private final double[] observations;
 
     public AvgModel(int numOfInterval, double[] observations) {
-        super();
-        if (numOfInterval <= 0) {
-            throw new IllegalArgumentException("Number of intervals must be greater than 0.");
-        }
-        if (observations == null || observations.length < numOfInterval) {
-            throw new IllegalArgumentException("Observations array is null or does not match the number of intervals.");
-        }
+        super(numOfInterval, observations, "avgModel");
         this.numOfInterval = numOfInterval;
         this.observations = observations;
     }
 
-    public double predict() {
+
+    public double getPredictedPrice() {
         return getAvg();
+    }
+    public double getActualPrice() {
+        return observations[numOfInterval - 1];
     }
 
     private double getAvg() {
@@ -41,7 +39,8 @@ public class AvgModel extends Model {
         return sum / n;
     }
 
-    public double getMeanSquareError() {
+    @Override
+    public double getMeanSquaredError() {
         double sum = 0;
         int validIntervals = 0;
         for (int i = 1; i < numOfInterval; i++) {
@@ -53,7 +52,7 @@ public class AvgModel extends Model {
         }
         return validIntervals > 0 ? sum / validIntervals : 0;
     }
-
+    @Override
     public double getMeanAbsoluteError() {
         double sum = 0;
         int validIntervals = 0;
@@ -66,7 +65,7 @@ public class AvgModel extends Model {
         }
         return validIntervals > 0 ? sum / validIntervals : 0;
     }
-
+    @Override
     public double getVariance() {
         double sum = 0;
         double avg = getAvg();
@@ -76,11 +75,11 @@ public class AvgModel extends Model {
         }
         return numOfInterval > 0 ? sum / numOfInterval : 0;
     }
-
+    @Override
     public double getStandardDeviation() {
         return Math.sqrt(getVariance());
     }
-
+    @Override
     public double getSharpeRatio() {
         double stdDev = getStandardDeviation();
         if (stdDev == 0) {
@@ -88,7 +87,7 @@ public class AvgModel extends Model {
         }
         return (getAvg() - Config.INTEREST_RATE) / stdDev;
     }
-
+    @Override
     public double[] getObservations() {
         return observations.clone();
     }
