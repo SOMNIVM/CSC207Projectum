@@ -16,14 +16,12 @@ public class BuyStockView extends JPanel implements PropertyChangeListener {
     private final String viewName;
     private final BuyStockViewModel buyStockViewModel;
     private BuyStockController buyStockController;
-    private final ViewManagerModel viewManagerModel;
     private final JTextField stockNameField;
     private final JTextField sharesField;
     private final JLabel errorMessageLabel;
-    public BuyStockView(BuyStockViewModel buyStockModel, ViewManagerModel managerModel) {
+    public BuyStockView(BuyStockViewModel buyStockModel) {
         super();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.viewManagerModel = managerModel;
         this.buyStockViewModel = buyStockModel;
         this.viewName = buyStockModel.getViewName();
         this.buyStockViewModel.addPropertyChangeListener(this);
@@ -72,8 +70,9 @@ public class BuyStockView extends JPanel implements PropertyChangeListener {
         cancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                viewManagerModel.getState().setCurViewName("homepage");
-                viewManagerModel.firePropertyChange();
+                if (buyStockController != null) {
+                    buyStockController.switchBack();
+                }
             }
         });
     }

@@ -1,9 +1,16 @@
 package app;
+import data_access.AlphaVantageDataAccessObject;
+import data_access.LocalDataAccessObject;
 import interface_adapters.ViewManagerModel;
 import interface_adapters.buy_stock.BuyStockViewModel;
 import interface_adapters.remove_stock.RemoveStockViewModel;
 import interface_adapters.reset_portfolio.ClearAllViewModel;
+import interface_adapters.view_portfolio.ViewPortfolioController;
+import interface_adapters.view_portfolio.ViewPortfolioPresenter;
 import interface_adapters.view_portfolio.ViewPortfolioViewModel;
+import usecases.LocalDataAccessInterface;
+import usecases.OnlineDataAccessInterface;
+import usecases.view_portfolio.ViewPortfolioInteractor;
 import views.*;
 
 import javax.swing.*;

@@ -10,4 +10,7 @@ public class ViewPortfolioController {
     public void execute() {
         viewPortfolioUseCaseInteractor.execute();
     }
+    public void switchBack() {
+        viewPortfolioUseCaseInteractor.switchBack();
+    }
 }
