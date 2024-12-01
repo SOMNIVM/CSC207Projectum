@@ -1,7 +1,7 @@
 package interface_adapters.ModelEvaluation;
 
-import usecases.ModelEvaluation.ModelEvaluationInputBoundary;
-import usecases.ModelEvaluation.ModelEvaluationInputData;
+import usecases.model_evaluation.ModelEvaluationInputBoundary;
+import usecases.model_evaluation.ModelEvaluationInputData;
 import app.Config;
 
 public class ModelEvaluationController {

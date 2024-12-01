@@ -1,4 +1,4 @@
-package usecases.ModelEvaluation;
+package usecases.model_evaluation;
 
 public interface ModelEvaluationOutputBoundary {
     void prepareSuccessView(ModelEvaluationOutputData modelEvaluationOutputData);

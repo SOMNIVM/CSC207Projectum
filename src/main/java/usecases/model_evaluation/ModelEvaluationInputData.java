@@ -1,4 +1,4 @@
-package usecases.ModelEvaluation;
+package usecases.model_evaluation;
 
 public class ModelEvaluationInputData {
     private final String modelType;

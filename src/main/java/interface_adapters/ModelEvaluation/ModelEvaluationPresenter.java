@@ -1,7 +1,7 @@
 package interface_adapters.ModelEvaluation;
 
-import usecases.ModelEvaluation.ModelEvaluationOutputBoundary;
-import usecases.ModelEvaluation.ModelEvaluationOutputData;
+import usecases.model_evaluation.ModelEvaluationOutputBoundary;
+import usecases.model_evaluation.ModelEvaluationOutputData;
 
 
 

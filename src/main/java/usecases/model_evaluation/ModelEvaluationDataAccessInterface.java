@@ -1,15 +1,12 @@
-package usecases.ModelEvaluation;
+package usecases.model_evaluation;
 
 import entities.Portfolio;
 import kotlin.Pair;
 
 import java.util.SortedMap;
 
-import javax.sound.sampled.Port;
-
 import java.util.List;
 import java.util.Map;
-import usecases.LocalDataAccessInterface;
 
 public interface ModelEvaluationDataAccessInterface {
 

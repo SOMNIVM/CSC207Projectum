@@ -1,4 +1,4 @@
-package usecases.AddStock;
+package usecases.add_stock;
 
 public interface AddStockOutputBoundary {
     void prepareSuccessView(AddStockOutputData addStockOutputData);

@@ -1,4 +1,4 @@
-package usecases.ModelEvaluation;
+package usecases.model_evaluation;
 
 import entities.Portfolio;
 import kotlin.Pair;
@@ -8,8 +8,6 @@ import usecases.LocalDataAccessInterface;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import org.json.JSONObject;
 
 public class ModelEvaluationInteractor implements ModelEvaluationInputBoundary {
     private final ModelEvaluationDataAccessInterface dataAccess;
