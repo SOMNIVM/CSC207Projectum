@@ -6,11 +6,11 @@ import interface_adapters.reset_portfolio.ClearAllViewModel;
 import usecases.buy_stock.BuyStockOutputBoundary;
 import usecases.buy_stock.BuyStockOutputData;
 
-public class BuyStockPresenter implements BuyStockOutputBoundary {
+public class AddStockPresenter implements BuyStockOutputBoundary {
     private final ViewManagerModel viewManagerModel;
     private final BuyStockViewModel buyStockViewModel;
     private final ClearAllViewModel clearAllViewModel;
-    public BuyStockPresenter(BuyStockViewModel buyStockModel,
+    public AddStockPresenter(BuyStockViewModel buyStockModel,
                              ClearAllViewModel clearAllModel,
                              ViewManagerModel managerModel) {
         this.viewManagerModel = managerModel;

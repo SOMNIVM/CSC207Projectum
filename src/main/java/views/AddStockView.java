@@ -1,6 +1,5 @@
 package views;
 
-import interface_adapters.ViewManagerModel;
 import interface_adapters.buy_stock.BuyStockController;
 import interface_adapters.buy_stock.BuyStockState;
 import interface_adapters.buy_stock.BuyStockViewModel;
@@ -12,14 +11,14 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class BuyStockView extends JPanel implements PropertyChangeListener {
+public class AddStockView extends JPanel implements PropertyChangeListener {
     private final String viewName;
     private final BuyStockViewModel buyStockViewModel;
     private BuyStockController buyStockController;
     private final JTextField stockNameField;
     private final JTextField sharesField;
     private final JLabel errorMessageLabel;
-    public BuyStockView(BuyStockViewModel buyStockModel) {
+    public AddStockView(BuyStockViewModel buyStockModel) {
         super();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.buyStockViewModel = buyStockModel;

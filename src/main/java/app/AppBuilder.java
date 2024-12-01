@@ -3,7 +3,7 @@ package app;
 import data_access.*;
 import interface_adapters.ViewManagerModel;
 import interface_adapters.buy_stock.BuyStockController;
-import interface_adapters.buy_stock.BuyStockPresenter;
+import interface_adapters.buy_stock.AddStockPresenter;
 import interface_adapters.buy_stock.BuyStockViewModel;
 import interface_adapters.remove_stock.RemoveStockController;
 import interface_adapters.remove_stock.RemoveStockPresenter;
@@ -21,7 +21,6 @@ import usecases.buy_stock.BuyStockInputBoundary;
 import usecases.buy_stock.BuyStockInteractor;
 import usecases.buy_stock.BuyStockOutputBoundary;
 import usecases.remove_stock.RemoveStockInputBoundary;
-import usecases.remove_stock.RemoveStockInputData;
 import usecases.remove_stock.RemoveStockInteractor;
 import usecases.remove_stock.RemoveStockOutputBoundary;
 import usecases.reset_portfolio.ClearAllDataAccessInterface;
@@ -50,7 +49,7 @@ public class AppBuilder {
     private ViewPortfolioViewModel viewPortfolioViewModel;
     private ViewPortfolioView viewPortfolioView;
     private BuyStockViewModel buyStockViewModel;
-    private BuyStockView buyStockView;
+    private AddStockView addStockView;
     private RemoveStockViewModel removeStockViewModel;
     private RemoveStockView removeStockView;
     public AppBuilder addViewPortfolioView() {
@@ -61,8 +60,8 @@ public class AppBuilder {
     }
     public AppBuilder addBuyStockView() {
         buyStockViewModel = new BuyStockViewModel();
-        buyStockView = new BuyStockView(buyStockViewModel);
-        cardPanel.add(buyStockView, buyStockView.getViewName());
+        addStockView = new AddStockView(buyStockViewModel);
+        cardPanel.add(addStockView, addStockView.getViewName());
         return this;
     }
     public AppBuilder addRemoveStockView() {
@@ -88,7 +87,7 @@ public class AppBuilder {
         return this;
     }
     public AppBuilder addBuyStockUseCase() {
-        BuyStockOutputBoundary buyStockPresenter = new BuyStockPresenter(
+        BuyStockOutputBoundary buyStockPresenter = new AddStockPresenter(
                 buyStockViewModel,
                 clearAllViewModel,
                 viewManagerModel);
@@ -99,7 +98,7 @@ public class AppBuilder {
                 buyStockPresenter,
                 buyStockDataAccessObject);
         BuyStockController buyStockController = new BuyStockController(buyStockInteractor);
-        buyStockView.setBuyStockController(buyStockController);
+        addStockView.setBuyStockController(buyStockController);
         return this;
     }
     public AppBuilder addRemoveStockUseCase() {

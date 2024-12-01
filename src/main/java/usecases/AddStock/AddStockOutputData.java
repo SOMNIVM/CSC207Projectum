@@ -1,11 +1,11 @@
 package usecases.AddStock;
 
-public class BuyStockOutputData {
+public class AddStockOutputData {
     private final String stockName;
     private final int sharesPurchased;
     private final double buyingPrice;
 
-    public BuyStockOutputData(String stockName, int sharesPurchased, double buyingPrice) {
+    public AddStockOutputData(String stockName, int sharesPurchased, double buyingPrice) {
         this.stockName = stockName;
         this.sharesPurchased = sharesPurchased;
         this.buyingPrice = buyingPrice;

@@ -1,6 +1,6 @@
 package usecases.AddStock;
 
-public interface BuyStockInputBoundary {
-    void execute(BuyStockInputData buyStockInputData);
+public interface AddStockInputBoundary {
+    void execute(AddStockInputData addStockInputData);
     void switchBack();
 }
