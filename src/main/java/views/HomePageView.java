@@ -19,14 +19,12 @@ public class HomePageView extends JPanel implements PropertyChangeListener {
     private final ClearAllViewModel clearAllViewModel;
     private ClearAllController clearAllController;
     private ViewPortfolioController viewPortfolioController;
-    private final ViewManagerModel viewManagerModel;
 
-    public HomePageView(ClearAllViewModel clearAllModel, ViewManagerModel managerModel) {
+    public HomePageView(ClearAllViewModel clearAllModel) {
         super();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.clearAllViewModel = clearAllModel;
         this.clearAllViewModel.addPropertyChangeListener(this);
-        this.viewManagerModel = managerModel;
         this.viewName = this.clearAllViewModel.getViewName();
         JLabel title = new JLabel(this.viewName);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -60,16 +58,17 @@ public class HomePageView extends JPanel implements PropertyChangeListener {
         buyStock.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                clearAllViewModel.getState().unclear();
-                viewManagerModel.getState().setCurViewName("buy stock");
-                viewManagerModel.firePropertyChange();
+                if (clearAllController != null) {
+                    clearAllController.switchToBuyStock();
+                }
             }
         });
         removeStock.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                viewManagerModel.getState().setCurViewName("remove stock");
-                viewManagerModel.firePropertyChange();
+                if (clearAllController != null) {
+                    clearAllController.switchToRemoveStock();
+                }
             }
         });
         clearAll.addActionListener(new ActionListener() {
@@ -83,15 +82,17 @@ public class HomePageView extends JPanel implements PropertyChangeListener {
         predictRevenue.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                viewManagerModel.getState().setCurViewName("predict revenue");
-                viewManagerModel.firePropertyChange();
+                if (clearAllController != null) {
+                    clearAllController.switchToPredictRevenue();
+                }
             }
         });
         backtest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                viewManagerModel.getState().setCurViewName("backtest");
-                viewManagerModel.firePropertyChange();
+                if (clearAllController != null) {
+                    clearAllController.switchToBacktest();
+                }
             }
         });
     }

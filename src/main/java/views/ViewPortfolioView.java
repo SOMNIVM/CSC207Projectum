@@ -1,6 +1,7 @@
 package views;
 
 import interface_adapters.ViewManagerModel;
+import interface_adapters.view_portfolio.ViewPortfolioController;
 import interface_adapters.view_portfolio.ViewPortfolioViewModel;
 
 import javax.swing.*;
@@ -10,11 +11,10 @@ import java.awt.event.ActionListener;
 
 public class ViewPortfolioView extends JPanel{
     private final String viewName;
-    private final ViewManagerModel viewManagerModel;
-    public ViewPortfolioView(ViewPortfolioViewModel viewPortfolioModel, ViewManagerModel managerModel) {
+    private ViewPortfolioController viewPortfolioController;
+    public ViewPortfolioView(ViewPortfolioViewModel viewPortfolioModel) {
         super();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.viewManagerModel = managerModel;
         this.viewName = viewPortfolioModel.getViewName();
         JLabel title = new JLabel(this.viewName);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -26,8 +26,7 @@ public class ViewPortfolioView extends JPanel{
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                viewManagerModel.getState().setCurViewName("homepage");
-                viewManagerModel.firePropertyChange();
+                viewPortfolioController.switchBack();
             }
         });
         totalValueSummary.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -40,5 +39,8 @@ public class ViewPortfolioView extends JPanel{
     }
     public String getViewName(){
         return viewName;
+    }
+    public void setViewPortfolioController(ViewPortfolioController controller) {
+        viewPortfolioController = controller;
     }
 }

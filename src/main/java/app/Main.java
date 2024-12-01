@@ -1,11 +1,16 @@
 package app;
-import data_access.AlphaVantageDataAccess;
+import data_access.AlphaVantageDataAccessObject;
+import data_access.LocalDataAccessObject;
 import interface_adapters.ViewManagerModel;
 import interface_adapters.buy_stock.BuyStockViewModel;
 import interface_adapters.remove_stock.RemoveStockViewModel;
 import interface_adapters.reset_portfolio.ClearAllViewModel;
+import interface_adapters.view_portfolio.ViewPortfolioController;
+import interface_adapters.view_portfolio.ViewPortfolioPresenter;
 import interface_adapters.view_portfolio.ViewPortfolioViewModel;
-import org.jetbrains.annotations.NotNull;
+import usecases.LocalDataAccessInterface;
+import usecases.OnlineDataAccessInterface;
+import usecases.view_portfolio.ViewPortfolioInteractor;
 import views.*;
 
 import javax.swing.*;
@@ -15,34 +20,7 @@ import java.awt.*;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-          JFrame app = new JFrame("App");
-          app.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-          JPanel cardPanel = new JPanel();
-          CardLayout cardLayout = new CardLayout();
-          cardPanel.setLayout(cardLayout);
-          ViewManagerModel viewManagerModel = new ViewManagerModel();
-          ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
-          HomePageView homePageView = new HomePageView(new ClearAllViewModel(), viewManagerModel);
-          ViewPortfolioView viewPortfolioView = new ViewPortfolioView(new ViewPortfolioViewModel(), viewManagerModel);
-          BuyStockView buyStockView = new BuyStockView(new BuyStockViewModel(), viewManagerModel);
-          RemoveStockView removeStockView = new RemoveStockView(new RemoveStockViewModel(), viewManagerModel);
-          cardPanel.add(homePageView, homePageView.getViewName());
-          cardPanel.add(viewPortfolioView, viewPortfolioView.getViewName());
-          cardPanel.add(buyStockView, buyStockView.getViewName());
-          cardPanel.add(removeStockView, removeStockView.getViewName());
-          viewManagerModel.getState().setCurViewName(homePageView.getViewName());
-          viewManagerModel.firePropertyChange();
-          app.add(cardPanel);
-          app.pack();
-          app.setVisible(true);
-//        JFrame homepage = new JFrame("Homepage");
-//        homepage.setSize(250, 150);
-//        homepage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        JPanel mainPanel = new JPanel();
-//        JPanel buttonPanel = getPanel();
-//        mainPanel.add(buttonPanel, BorderLayout.CENTER);
-//        homepage.setContentPane(mainPanel);
-//        homepage.setVisible(true);
+          AppBuilder appBuilder = new AppBuilder();
     }
 
 //    @NotNull
