@@ -30,4 +30,9 @@ public class BuyStockInteractor implements BuyStockInputBoundary{
             buyStockPresenter.prepareFailView("The stock can't be found. Please try again.");
         }
     }
+
+    @Override
+    public void switchBack() {
+        buyStockPresenter.switchBack();
+    }
 }

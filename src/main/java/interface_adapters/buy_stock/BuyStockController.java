@@ -9,6 +9,9 @@ public class BuyStockController {
         this.buyStockUseCaseInteractor = interactor;
     }
     public void execute(String stockName, int shares) {
-        this.buyStockUseCaseInteractor.execute(new BuyStockInputData(stockName, shares));
+        buyStockUseCaseInteractor.execute(new BuyStockInputData(stockName, shares));
+    }
+    public void switchBack() {
+        buyStockUseCaseInteractor.switchBack();
     }
 }

@@ -11,4 +11,7 @@ public class RemoveStockController {
     public void execute(String stockName, int sharesToRemove) {
         removeStockUseCaseInteractor.execute(new RemoveStockInputData(stockName, sharesToRemove));
     }
+    public void switchBack() {
+        removeStockUseCaseInteractor.switchBack();
+    }
 }

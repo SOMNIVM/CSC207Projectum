@@ -13,4 +13,24 @@ public class ClearAllInteractor implements ClearAllInputBoundary{
         clearAllDataAccessObject.ClearPortfolioData();
         clearAllOutputPresenter.prepareClearedView();
     }
+
+    @Override
+    public void switchToBuyStock() {
+        clearAllOutputPresenter.switchToBuyStock();
+    }
+
+    @Override
+    public void switchToRemoveStock() {
+        clearAllOutputPresenter.switchToRemoveStock();
+    }
+
+    @Override
+    public void switchToPredictRevenue() {
+        clearAllOutputPresenter.switchToPredictRevenue();
+    }
+
+    @Override
+    public void switchToBacktest() {
+        clearAllOutputPresenter.switchToBacktest();
+    }
 }
