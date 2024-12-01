@@ -10,10 +10,10 @@ public class RemoveStockPresenter implements RemoveStockOutputBoundary {
     private final RemoveStockViewModel removeStockViewModel;
     private final ClearAllViewModel clearAllViewModel;
     private final ViewManagerModel viewManagerModel;
-    public RemoveStockPresenter(RemoveStockViewModel viewModel,
+    public RemoveStockPresenter(RemoveStockViewModel removeStockModel,
                                 ClearAllViewModel clearAllModel,
                                 ViewManagerModel managerModel) {
-        this.removeStockViewModel = viewModel;
+        this.removeStockViewModel = removeStockModel;
         this.clearAllViewModel = clearAllModel;
         this.viewManagerModel = managerModel;
     }

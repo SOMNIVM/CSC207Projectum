@@ -10,11 +10,11 @@ public class BuyStockPresenter implements BuyStockOutputBoundary {
     private final ViewManagerModel viewManagerModel;
     private final BuyStockViewModel buyStockViewModel;
     private final ClearAllViewModel clearAllViewModel;
-    public BuyStockPresenter(BuyStockViewModel viewModel,
+    public BuyStockPresenter(BuyStockViewModel buyStockModel,
                              ClearAllViewModel clearAllModel,
                              ViewManagerModel managerModel) {
         this.viewManagerModel = managerModel;
-        this.buyStockViewModel = viewModel;
+        this.buyStockViewModel = buyStockModel;
         this.clearAllViewModel = clearAllModel;
     }
 

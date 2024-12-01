@@ -20,26 +20,7 @@ import java.awt.*;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-          JFrame app = new JFrame("App");
-          app.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-          JPanel cardPanel = new JPanel();
-          CardLayout cardLayout = new CardLayout();
-          cardPanel.setLayout(cardLayout);
-          ViewManagerModel viewManagerModel = new ViewManagerModel();
-          ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
-          HomePageView homePageView = new HomePageView(new ClearAllViewModel(), viewManagerModel);
-          ViewPortfolioView viewPortfolioView = new ViewPortfolioView(new ViewPortfolioViewModel(), viewManagerModel);
-          BuyStockView buyStockView = new BuyStockView(new BuyStockViewModel(), viewManagerModel);
-          RemoveStockView removeStockView = new RemoveStockView(new RemoveStockViewModel(), viewManagerModel);
-          cardPanel.add(homePageView, homePageView.getViewName());
-          cardPanel.add(viewPortfolioView, viewPortfolioView.getViewName());
-          cardPanel.add(buyStockView, buyStockView.getViewName());
-          cardPanel.add(removeStockView, removeStockView.getViewName());
-          viewManagerModel.getState().setCurViewName(homePageView.getViewName());
-          viewManagerModel.firePropertyChange();
-          app.add(cardPanel);
-          app.pack();
-          app.setVisible(true);
+          AppBuilder appBuilder = new AppBuilder();
     }
 
 //    @NotNull
