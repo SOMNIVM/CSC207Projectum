@@ -5,44 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e6372a4-5beb-456b-b458-fd5a4b0ca81a" name="Changes" comment="Merge attempt with main">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapters/buy_stock/BuyStockController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapters/buy_stock/BuyStockController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapters/buy_stock/BuyStockPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapters/buy_stock/AddStockPresenter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/AddStock/BuyStockDataAccessInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/AddStock/AddStockDataAccessInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/AddStock/BuyStockInputBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/AddStock/AddStockInputBoundary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/AddStock/BuyStockInputData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/AddStock/AddStockInputData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/AddStock/BuyStockInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/AddStock/AddStockInteractor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/AddStock/BuyStockOutputBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/AddStock/AddStockOutputBoundary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/AddStock/BuyStockOutputData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/AddStock/AddStockOutputData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/views/BuyStockView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/AddStockView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/app/AppBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/app/AppBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/app/Config.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/app/Config.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/BuyStockDataAccessObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/BuyStockDataAccessObject.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/LocalDataAccessObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/LocalDataAccessObject.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/buy_stock/BuyStockController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/buy_stock/BuyStockController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/buy_stock/BuyStockPresenter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/buy_stock/BuyStockState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/buy_stock/BuyStockState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/buy_stock/BuyStockViewModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/buy_stock/BuyStockViewModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/remove_stock/RemoveStockController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/remove_stock/RemoveStockController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/remove_stock/RemoveStockPresenter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/remove_stock/RemoveStockPresenter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/reset_portfolio/ClearAllPresenter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/reset_portfolio/ClearAllPresenter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/view_portfolio/ViewPortfolioPresenter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/view_portfolio/ViewPortfolioPresenter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/usecases/AddStock/BuyStockDataAccessInterface.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/usecases/AddStock/BuyStockInputBoundary.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/usecases/AddStock/BuyStockInteractor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/usecases/AddStock/BuyStockOutputBoundary.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/usecases/AddStock/BuyStockOutputData.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/usecases/remove_stock/RemoveStockInputBoundary.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/usecases/remove_stock/RemoveStockInputBoundary.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/usecases/remove_stock/RemoveStockInteractor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/usecases/remove_stock/RemoveStockInteractor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/usecases/reset_portfolio/ClearAllInteractor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/usecases/reset_portfolio/ClearAllInteractor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/usecases/view_portfolio/ViewPortfolioInteractor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/usecases/view_portfolio/ViewPortfolioInteractor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/usecases/view_portfolio/ViewPortfolioOutputBoundary.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/usecases/view_portfolio/ViewPortfolioOutputBoundary.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/BuyStockView$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/BuyStockView$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/BuyStockView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/HomePageView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/HomePageView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/RemoveStockView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/RemoveStockView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/ViewPortfolioView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/ViewPortfolioView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data_access/BuyStockDataAccessObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data_access/AddStockDataAccessObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapters/buy_stock/AddStockPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapters/buy_stock/AddStockPresenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/app/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/data_access/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/entities/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/entities/Asset.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/entities/Asset.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/entities/Portfolio.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/entities/Portfolio.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/entities/Stock.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/entities/Stock.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/entities/StockInPortfolio.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/entities/StockInPortfolio.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/.gitignore" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,27 +57,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;#3 on shane.dong&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Lenovo/Desktop/207proj/CSC207Projectum&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Lenovo/Desktop/207proj/CSC207Projectum",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="CSC207Projectum-2" />
@@ -141,7 +117,7 @@
       <workItem from="1733003897368" duration="565000" />
       <workItem from="1733024283319" duration="777000" />
       <workItem from="1733091491269" duration="163000" />
-      <workItem from="1733092325179" duration="372000" />
+      <workItem from="1733092325179" duration="1375000" />
     </task>
     <task id="LOCAL-00001" summary="Write template of ModelEvaluation">
       <option name="closed" value="true" />

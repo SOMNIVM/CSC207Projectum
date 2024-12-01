@@ -10,10 +10,10 @@ import usecases.AddStock.AddStockDataAccessInterface;
 import java.util.List;
 import java.util.Map;
 
-public class BuyStockDataAccessObject implements AddStockDataAccessInterface {
+public class AddStockDataAccessObject implements AddStockDataAccessInterface {
     private final LocalDataAccessInterface localDataAccessObject;
     private final OnlineDataAccessInterface onlineDataAccessObject;
-    public BuyStockDataAccessObject(LocalDataAccessInterface localDataAccess,
+    public AddStockDataAccessObject(LocalDataAccessInterface localDataAccess,
                                     OnlineDataAccessInterface onlineDataAccess) {
         this.localDataAccessObject = localDataAccess;
         this.onlineDataAccessObject = onlineDataAccess;

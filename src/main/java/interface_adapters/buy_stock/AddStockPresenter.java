@@ -3,10 +3,10 @@ package interface_adapters.buy_stock;
 import interface_adapters.ViewManagerModel;
 import interface_adapters.reset_portfolio.ClearAllPresenter;
 import interface_adapters.reset_portfolio.ClearAllViewModel;
-import usecases.buy_stock.BuyStockOutputBoundary;
-import usecases.buy_stock.BuyStockOutputData;
+import usecases.AddStock.AddStockOutputBoundary;
+import usecases.AddStock.AddStockOutputData;
 
-public class AddStockPresenter implements BuyStockOutputBoundary {
+public class AddStockPresenter implements AddStockOutputBoundary {
     private final ViewManagerModel viewManagerModel;
     private final BuyStockViewModel buyStockViewModel;
     private final ClearAllViewModel clearAllViewModel;
@@ -19,7 +19,7 @@ public class AddStockPresenter implements BuyStockOutputBoundary {
     }
 
     @Override
-    public void prepareSuccessView(BuyStockOutputData buyStockOutputData) {
+    public void prepareSuccessView(AddStockOutputData buyStockOutputData) {
         clearAllViewModel.getState().unclear();
         BuyStockState state = buyStockViewModel.getState();
         state.setAsValid();

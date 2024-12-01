@@ -14,12 +14,12 @@ import interface_adapters.reset_portfolio.ClearAllViewModel;
 import interface_adapters.view_portfolio.ViewPortfolioController;
 import interface_adapters.view_portfolio.ViewPortfolioPresenter;
 import interface_adapters.view_portfolio.ViewPortfolioViewModel;
+import usecases.AddStock.AddStockInputBoundary;
+import usecases.AddStock.AddStockInteractor;
 import usecases.LocalDataAccessInterface;
 import usecases.OnlineDataAccessInterface;
-import usecases.buy_stock.BuyStockDataAccessInterface;
-import usecases.buy_stock.BuyStockInputBoundary;
-import usecases.buy_stock.BuyStockInteractor;
-import usecases.buy_stock.BuyStockOutputBoundary;
+import usecases.AddStock.AddStockDataAccessInterface;
+import usecases.AddStock.AddStockOutputBoundary;
 import usecases.remove_stock.RemoveStockInputBoundary;
 import usecases.remove_stock.RemoveStockInteractor;
 import usecases.remove_stock.RemoveStockOutputBoundary;
@@ -48,7 +48,7 @@ public class AppBuilder {
     private final HomePageView homePageView = new HomePageView(clearAllViewModel);
     private ViewPortfolioViewModel viewPortfolioViewModel;
     private ViewPortfolioView viewPortfolioView;
-    private BuyStockViewModel buyStockViewModel;
+    private BuyStockViewModel AddStockViewModel;
     private AddStockView addStockView;
     private RemoveStockViewModel removeStockViewModel;
     private RemoveStockView removeStockView;
@@ -59,8 +59,8 @@ public class AppBuilder {
         return this;
     }
     public AppBuilder addBuyStockView() {
-        buyStockViewModel = new BuyStockViewModel();
-        addStockView = new AddStockView(buyStockViewModel);
+        AddStockViewModel = new BuyStockViewModel();
+        addStockView = new AddStockView(AddStockViewModel);
         cardPanel.add(addStockView, addStockView.getViewName());
         return this;
     }
@@ -87,14 +87,14 @@ public class AppBuilder {
         return this;
     }
     public AppBuilder addBuyStockUseCase() {
-        BuyStockOutputBoundary buyStockPresenter = new AddStockPresenter(
-                buyStockViewModel,
+        AddStockOutputBoundary buyStockPresenter = new AddStockPresenter(
+                AddStockViewModel,
                 clearAllViewModel,
                 viewManagerModel);
-        BuyStockDataAccessInterface buyStockDataAccessObject = new BuyStockDataAccessObject(
+        AddStockDataAccessInterface buyStockDataAccessObject = new AddStockDataAccessObject(
                 localDataAccessObject,
                 onlineDataAccessObject);
-        BuyStockInputBoundary buyStockInteractor = new BuyStockInteractor(
+        AddStockInputBoundary buyStockInteractor = new AddStockInteractor(
                 buyStockPresenter,
                 buyStockDataAccessObject);
         BuyStockController buyStockController = new BuyStockController(buyStockInteractor);
@@ -116,7 +116,7 @@ public class AppBuilder {
     public AppBuilder addClearAllUseCase() {
         ClearAllOutputBoundary clearAllPresenter = new ClearAllPresenter(
                 clearAllViewModel,
-                buyStockViewModel,
+                AddStockViewModel,
                 removeStockViewModel,
                 viewManagerModel);
         ClearAllDataAccessInterface clearAllDataAccessObject = new ClearAllDataAccessObject(localDataAccessObject);
