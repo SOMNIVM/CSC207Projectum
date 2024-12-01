@@ -4,7 +4,7 @@ package usecases.revenue_prediction;
  * Data class containing the results of a revenue prediction calculation.
  */
 public class RevenuePredictionOutputData {
-    private final String predictedRevenue;
+    private final double predictedRevenue;
     private final int intervalLength;
     private final String intervalName;
 
@@ -15,7 +15,7 @@ public class RevenuePredictionOutputData {
      * @param intervalLength the length of the prediction interval
      * @param intervalName the type of interval used (day, week, or intraday)
      */
-    public RevenuePredictionOutputData(String predictedRevenue, int intervalLength, String intervalName) {
+    public RevenuePredictionOutputData(double predictedRevenue, int intervalLength, String intervalName) {
         this.predictedRevenue = predictedRevenue;
         this.intervalLength = intervalLength;
         this.intervalName = intervalName;
@@ -26,7 +26,7 @@ public class RevenuePredictionOutputData {
      *
      * @return the predicted revenue as a formatted string
      */
-    public String getPredictedRevenue() {
+    public double getPredictedRevenue() {
         return predictedRevenue;
     }
     /**

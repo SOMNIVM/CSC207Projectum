@@ -64,7 +64,7 @@ public class RevenuePredictionInteractor implements RevenuePredictionInputBounda
             String formattedRevenue = String.format("%.2f", predictedRevenue);
 
             RevenuePredictionOutputData outputData = new RevenuePredictionOutputData(
-                    formattedRevenue,
+                    predictedRevenue,
                     revenuePredictionInputData.getIntervalLength(),
                     revenuePredictionInputData.getIntervalName()
             );
