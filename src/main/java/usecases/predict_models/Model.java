@@ -1,4 +1,4 @@
-package usecases.models;
+package usecases.predict_models;
 
 import entities.Portfolio;
 

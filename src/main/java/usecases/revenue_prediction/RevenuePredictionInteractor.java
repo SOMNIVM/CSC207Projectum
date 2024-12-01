@@ -2,7 +2,7 @@ package usecases.revenue_prediction;
 
 import entities.Portfolio;
 import usecases.LocalDataAccessInterface;
-import usecases.models.Model;
+import usecases.predict_models.Model;
 import java.util.Map;
 
 /**
