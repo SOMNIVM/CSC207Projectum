@@ -5,8 +5,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-import org.json.JSONArray;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
+import usecases.OnlineDataAccessInterface;
 
 import java.io.IOException;
 import java.util.*;
@@ -15,7 +16,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Callable;
 
-public class AlphaVantageDataAccess {
+public class AlphaVantageDataAccessObject implements OnlineDataAccessInterface {
     private final String apiKey;
     private static final String baseURL = "https://www.alphavantage.com/query?";
     private static final String INTRADAY_FUNC_NAME = "TIME_SERIES_INTRADAY";
@@ -24,7 +25,7 @@ public class AlphaVantageDataAccess {
     private static final String CLOSING_PRICE_LABEL = "4. close";
 
     private final OkHttpClient client;
-    public AlphaVantageDataAccess(String apiKey) {
+    public AlphaVantageDataAccessObject(String apiKey) {
         this.apiKey = apiKey;
         this.client = new OkHttpClient().newBuilder().build();
     }
@@ -112,21 +113,50 @@ public class AlphaVantageDataAccess {
         return getTimeSeriesFromJSONObject(dataObject, sampleSize);
     }
 
-    public Map<String, List<Pair<String, Double>>> getBulkTimeSeriesIntraDay(List<String> symbols, int sampleSize, int interval) {
+    public Map<String, List<Pair<String, Double>>> getBulkTimeSeriesIntraDay(List<String> symbols,
+                                                                             int sampleSize,
+                                                                             int interval) {
         List<String> urls = new ArrayList<>();
         for (String symbol: symbols) {
             urls.add(getQueryURL(setParamsIntraDay(symbol, interval)));
         }
+        return JSONToMap(symbols, sampleSize, urls);
+    }
+
+    @NotNull
+    private Map<String, List<Pair<String, Double>>> JSONToMap(List<String> symbols, int sampleSize, List<String> urls) {
         List<JSONObject> dataList = getBulkTimeSeriesData(urls);
         Map<String, List<Pair<String, Double>>> result = new HashMap<>();
         for (int i = 0; i < urls.size(); i++) {
-            result.put()
+            result.put(symbols.get(i), getTimeSeriesFromJSONObject(dataList.get(i), sampleSize));
         }
+        return result;
     }
 
-    private List<Pair<String, String>> setParameters(String symbol, String weeklyFuncName) {
+    public Map<String, List<Pair<String, Double>>> getBulkTimeSeriesDaily(List<String> symbols,
+                                                                          int sampleSize) {
+        return getBulkTimeSeries(symbols, sampleSize, DAILY_FUNC_NAME);
+    }
+
+    public Map<String, List<Pair<String, Double>>> getBulkTimeSeriesWeekly(List<String> symbols,
+                                                                           int sampleSize) {
+        return getBulkTimeSeries(symbols, sampleSize, WEEKLY_FUNC_NAME);
+    }
+
+    @NotNull
+    private Map<String, List<Pair<String, Double>>> getBulkTimeSeries(List<String> symbols,
+                                                                      int sampleSize,
+                                                                      String funcName) {
+        List<String> urls = new ArrayList<>();
+        for (String symbol: symbols) {
+            urls.add(getQueryURL(setParameters(symbol, funcName)));
+        }
+        return JSONToMap(symbols, sampleSize, urls);
+    }
+
+    private List<Pair<String, String>> setParameters(String symbol, String funcName) {
         List<Pair<String, String>> parameters = new ArrayList<>();
-        parameters.add(new Pair<>("function", weeklyFuncName));
+        parameters.add(new Pair<>("function", funcName));
         parameters.add(new Pair<>("symbol", symbol));
         parameters.add(new Pair<>("apikey", apiKey));
         return parameters;
