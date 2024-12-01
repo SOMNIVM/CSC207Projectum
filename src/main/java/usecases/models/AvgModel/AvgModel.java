@@ -1,5 +1,7 @@
 package usecases.models.AvgModel;
+
 import app.Config;
+
 
 public class AvgModel {
     private final int numOfInterval;
@@ -10,7 +12,10 @@ public class AvgModel {
         this.numOfInterval = numOfInterval;
         this.observations = observations;
     }
-    public double getAvg() {
+    public double predict() {
+        return getAvg();
+    }
+    private double getAvg() {
         double sum = 0;
         for (int i = 0; i < numOfInterval; i++) {
             sum += observations[i];
@@ -55,5 +60,5 @@ public class AvgModel {
     public double[] getObservations() {
         return observations;
     }
-    
+
 }
