@@ -1,4 +1,4 @@
-package usecases.buy_stock;
+package usecases.AddStock;
 
 public class BuyStockOutputData {
     private final String stockName;

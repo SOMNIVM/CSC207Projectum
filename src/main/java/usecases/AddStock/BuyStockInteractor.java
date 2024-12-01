@@ -1,4 +1,4 @@
-package usecases.buy_stock;
+package usecases.AddStock;
 
 import entities.Portfolio;
 import usecases.LocalDataAccessInterface;

@@ -5,7 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e6372a4-5beb-456b-b458-fd5a4b0ca81a" name="Changes" comment="Merge attempt with main">
-      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/ModelEvaluation/ModelEvaluationInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/ModelEvaluation/ModelEvaluationInteractor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/buy_stock/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/buy_stock/BuyStockDataAccessInterface.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/buy_stock/BuyStockInputBoundary.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/buy_stock/BuyStockInputData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/buy_stock/BuyStockInteractor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/buy_stock/BuyStockOutputBoundary.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/buy_stock/BuyStockOutputData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/ModelEvaluation/ModelEvaluationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/ModelEvaluation/ModelEvaluationController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/ModelEvaluation/ModelEvaluationPresenter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/ModelEvaluation/ModelEvaluationPresenter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/ModelEvaluation/ModelEvaluationViewModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/ModelEvaluation/ModelEvaluationViewModel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/ModelEvaluation/ModelResultState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/ModelEvaluation/ModelResultState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/usecases/ModelEvaluation/ModelEvaluationInteractor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/usecases/ModelEvaluation/ModelEvaluationInteractor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/usecases/ModelEvaluation/ModelEvaluationOutputData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/usecases/ModelEvaluation/ModelEvaluationOutputData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/usecases/models/AvgModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/usecases/models/AvgModel.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +45,7 @@
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
     "url": "https://github.com/SOMNIVM/CSC207Projectum.git",
-    "accountId": "398a498b-2913-4ebf-b1be-51dffdf248b6"
+    "accountId": "ede0c8f1-9d79-4ac3-b037-712a3de3e2e3"
   },
   "editorReviewEnabled": false
 }]]></component>
@@ -54,6 +67,7 @@
     "git-widget-placeholder": "#3 on shane.dong",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Lenovo/Desktop/207proj/CSC207Projectum",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -83,8 +97,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
-        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
+        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142" />
+        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142" />
       </set>
     </attachedChunks>
   </component>
@@ -102,6 +116,7 @@
       <workItem from="1732999045871" duration="3182000" />
       <workItem from="1733003897368" duration="565000" />
       <workItem from="1733024283319" duration="777000" />
+      <workItem from="1733091491269" duration="163000" />
     </task>
     <task id="LOCAL-00001" summary="Write template of ModelEvaluation">
       <option name="closed" value="true" />
