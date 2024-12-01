@@ -5,17 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e6372a4-5beb-456b-b458-fd5a4b0ca81a" name="Changes" comment="Merge attempt with main">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data_access/InMemoryPortfolioDataAccessObject.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/back_test/BackTestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/back_test/BackTestController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/back_test/BackTestViewModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/back_test/BackTestViewModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/buy_stock/BuyStockViewModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/buy_stock/BuyStockViewModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/remove_stock/RemoveStockPresenter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/remove_stock/RemoveStockPresenter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/remove_stock/RemoveStockViewModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/remove_stock/RemoveStockViewModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/usecases/back_test/BackTestInputData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/usecases/back_test/BackTestInputData.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/usecases/back_test/BacktestInteractor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/usecases/back_test/BacktestInteractor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/usecases/remove_stock/RemoveStockInteractor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/usecases/remove_stock/RemoveStockInteractor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/BuyStockView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/BuyStockView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/ModelEvaluation/ModelEvaluationInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/ModelEvaluation/ModelEvaluationInteractor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,13 +29,13 @@
     &quot;assignee&quot;: &quot;MrNovocain&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/SOMNIVM/CSC207Projectum.git&quot;,
-    &quot;accountId&quot;: &quot;ede0c8f1-9d79-4ac3-b037-712a3de3e2e3&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/SOMNIVM/CSC207Projectum.git",
+    "accountId": "398a498b-2913-4ebf-b1be-51dffdf248b6"
   },
-  &quot;editorReviewEnabled&quot;: false
-}</component>
+  "editorReviewEnabled": false
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -58,6 +48,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "SONARLINT_PRECOMMIT_ANALYSIS": "true",
     "git-widget-placeholder": "#3 on shane.dong",
@@ -92,8 +83,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142" />
-        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142" />
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
+        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
       </set>
     </attachedChunks>
   </component>
@@ -110,6 +101,7 @@
       <workItem from="1732998644959" duration="18000" />
       <workItem from="1732999045871" duration="3182000" />
       <workItem from="1733003897368" duration="565000" />
+      <workItem from="1733024283319" duration="777000" />
     </task>
     <task id="LOCAL-00001" summary="Write template of ModelEvaluation">
       <option name="closed" value="true" />
