@@ -17,6 +17,9 @@ import interface_adapters.revenue_prediction.RevenuePredictionViewModel;
 import interface_adapters.view_portfolio.ViewPortfolioController;
 import interface_adapters.view_portfolio.ViewPortfolioPresenter;
 import interface_adapters.view_portfolio.ViewPortfolioViewModel;
+import interface_adapters.model_evaluation.ModelEvaluationController;
+import interface_adapters.model_evaluation.ModelEvaluationPresenter;
+import interface_adapters.model_evaluation.ModelEvaluationViewModel;
 import usecases.add_stock.*;
 import usecases.LocalDataAccessInterface;
 import usecases.OnlineDataAccessInterface;
@@ -26,6 +29,7 @@ import usecases.remove_stock.*;
 import usecases.reset_portfolio.*;
 import usecases.revenue_prediction.*;
 import usecases.view_portfolio.*;
+import usecases.model_evaluation.*;
 import views.*;
 
 import javax.swing.*;
@@ -51,7 +55,8 @@ public class AppBuilder {
     private RemoveStockView removeStockView;
     private RevenuePredictionViewModel revenuePredictionViewModel;
     private RevenuePredictionView revenuePredictionView;
-
+    private ModelEvaluationViewModel modelEvaluationViewModel;
+    private ModelEvaluationView modelEvaluationView;
     /**
      * Constructs a new AppBuilder and initializes the core components.
      */
@@ -116,6 +121,16 @@ public class AppBuilder {
         cardPanel.add(revenuePredictionView, revenuePredictionView.getViewName());
         return this;
     }
+
+    public AppBuilder addModelEvaluationView() {
+        modelEvaluationViewModel = new ModelEvaluationViewModel();
+        modelEvaluationView = new ModelEvaluationView(modelEvaluationViewModel, viewManagerModel);
+        cardPanel.add(modelEvaluationView, modelEvaluationView.getViewName());
+        return this;
+    }
+
+
+
 
     /**
      * Wires up the portfolio viewing use case.
@@ -199,6 +214,31 @@ public class AppBuilder {
         return this;
     }
 
+
+
+    /**
+     * Adds a model evaluation case to the application.
+     * This method initializes the necessary components for model evaluation,
+     * including the presenter, interactor, and controller, and sets the controller
+     * for the model evaluation view.
+     *
+     * @return the current instance of AppBuilder for method chaining
+     */
+    public AppBuilder addModelEvaluationCase() {
+        ModelEvaluationOutputBoundary modelEvaluationPresenter = new ModelEvaluationPresenter(
+                modelEvaluationViewModel,
+                viewManagerModel);
+        ModelEvaluationInputBoundary modelEvaluationInteractor = new ModelEvaluationInteractor(
+                onlineDataAccessObject,
+                localDataAccessObject,
+                modelEvaluationPresenter);
+
+        ModelEvaluationController modelEvaluationController = new ModelEvaluationController(modelEvaluationInteractor);
+        modelEvaluationView.setModelEvaluationController(modelEvaluationController);
+        return this;
+    }
+
+
     /**
      * Wires up the portfolio clearing use case.
      *
@@ -210,6 +250,7 @@ public class AppBuilder {
                 addStockViewModel,
                 removeStockViewModel,
                 revenuePredictionViewModel,  // Added RevenuePredictionViewModel
+                modelEvaluationViewModel,    // Added ModelEvaluationViewModel
                 viewManagerModel);
         ClearAllDataAccessInterface clearAllDataAccessObject = new ClearAllDataAccessObject(localDataAccessObject);
         ClearAllInputBoundary clearAllInteractor = new ClearAllInteractor(clearAllPresenter,
@@ -232,4 +273,6 @@ public class AppBuilder {
         viewManagerModel.firePropertyChange();
         return app;
     }
+
+
 }

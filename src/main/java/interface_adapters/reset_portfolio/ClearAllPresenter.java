@@ -2,6 +2,7 @@ package interface_adapters.reset_portfolio;
 
 import interface_adapters.ViewManagerModel;
 import interface_adapters.add_stock.AddStockViewModel;
+import interface_adapters.model_evaluation.ModelEvaluationViewModel;
 import interface_adapters.remove_stock.RemoveStockViewModel;
 import interface_adapters.revenue_prediction.RevenuePredictionViewModel;
 import usecases.reset_portfolio.ClearAllOutputBoundary;
@@ -16,7 +17,7 @@ public class ClearAllPresenter implements ClearAllOutputBoundary {
     private final AddStockViewModel addStockViewModel;
     private final RemoveStockViewModel removeStockViewModel;
     private final RevenuePredictionViewModel revenuePredictionViewModel;
-
+    private final ModelEvaluationViewModel modelEvaluationViewModel;
     /**
      * Constructs a ClearAllPresenter with required view models.
      *
@@ -30,12 +31,14 @@ public class ClearAllPresenter implements ClearAllOutputBoundary {
                              AddStockViewModel buyStockModel,
                              RemoveStockViewModel removeStockModel,
                              RevenuePredictionViewModel revenuePredictionModel,
+                             ModelEvaluationViewModel modelEvaluationViewModel,
                              ViewManagerModel managerModel) {
         this.viewManagerModel = managerModel;
         this.clearAllViewModel = clearAllModel;
         this.addStockViewModel = buyStockModel;
         this.removeStockViewModel = removeStockModel;
         this.revenuePredictionViewModel = revenuePredictionModel;
+        this.modelEvaluationViewModel = modelEvaluationViewModel;
     }
 
     /**
@@ -86,6 +89,9 @@ public class ClearAllPresenter implements ClearAllOutputBoundary {
      */
     @Override
     public void switchToBacktest() {
-        // Not implemented yet
+        if (modelEvaluationViewModel != null) {
+            viewManagerModel.getState().setCurViewName(modelEvaluationViewModel.getViewName());
+            viewManagerModel.firePropertyChange();
+        }
     }
 }
