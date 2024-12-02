@@ -157,17 +157,18 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
         if (state.checkIfValid()) {
             errorMessageLabel.setText("");
             resultLabel.setText(String.format(
-                    RevenuePredictionViewModel.RESULT_FORMAT,
-                    state.getPredictedRevenue()
+                    "<html>Predicted Revenue: $%.2f<br>" +
+                            "%.0f%% Confidence Interval:<br>" +
+                            "[$%.2f, $%.2f]</html>",
+                    state.getPredictedRevenue(),
+                    state.getConfidenceLevel() * 100,
+                    state.getLowerBound(),
+                    state.getUpperBound()
             ));
         } else {
             errorMessageLabel.setText(state.getErrorMessage());
             resultLabel.setText("");
         }
-    }
-
-    public String getViewName() {
-        return viewName;
     }
 
     /**
@@ -177,5 +178,14 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
      */
     public void setRevenuePredictionController(RevenuePredictionController controller) {
         this.revenuePredictionController = controller;
+    }
+
+    /**
+     * Gets the name of this view.
+     *
+     * @return the view name as defined in the view model
+     */
+    public String getViewName() {
+        return viewName;
     }
 }

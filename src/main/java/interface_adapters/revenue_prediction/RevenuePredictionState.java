@@ -1,13 +1,16 @@
 package interface_adapters.revenue_prediction;
 
 /**
- * State class for revenue prediction view model.
+ * State class for the revenue prediction view model.
  * Maintains the state information needed to display revenue predictions including
- * selected model, prediction results, interval information, and validation status.
+ * predicted values, confidence intervals, and validation status.
  */
 public class RevenuePredictionState {
     private String selectedModel;
     private double predictedRevenue;
+    private double lowerBound;
+    private double upperBound;
+    private double confidenceLevel;
     private String predictionInterval;
     private int intervalLength;
     private boolean isValidInput;
@@ -15,15 +18,72 @@ public class RevenuePredictionState {
 
     /**
      * Constructs a new RevenuePredictionState with default values.
-     * Initializes all fields to their default states.
+     * Initializes all numeric fields to zero and sets default confidence level to 95%.
      */
     public RevenuePredictionState() {
         this.selectedModel = "";
         this.predictedRevenue = 0.0;
+        this.lowerBound = 0.0;
+        this.upperBound = 0.0;
+        this.confidenceLevel = 0.95; // Default 95% confidence level
         this.predictionInterval = "";
         this.intervalLength = 0;
         this.isValidInput = true;
         this.errorMessage = "";
+    }
+
+    /**
+     * Gets the lower bound of the confidence interval.
+     *
+     * @return the lower bound value
+     */
+    public double getLowerBound() {
+        return lowerBound;
+    }
+
+    /**
+     * Sets the lower bound of the confidence interval.
+     *
+     * @param lowerBound the new lower bound value
+     */
+    public void setLowerBound(double lowerBound) {
+        this.lowerBound = lowerBound;
+    }
+
+    /**
+     * Gets the upper bound of the confidence interval.
+     *
+     * @return the upper bound value
+     */
+    public double getUpperBound() {
+        return upperBound;
+    }
+
+    /**
+     * Sets the upper bound of the confidence interval.
+     *
+     * @param upperBound the new upper bound value
+     */
+    public void setUpperBound(double upperBound) {
+        this.upperBound = upperBound;
+    }
+
+    /**
+     * Gets the confidence level of the prediction interval.
+     *
+     * @return the confidence level as a decimal (e.g., 0.95 for 95%)
+     */
+    public double getConfidenceLevel() {
+        return confidenceLevel;
+    }
+
+    /**
+     * Sets the confidence level for the prediction interval.
+     *
+     * @param confidenceLevel the new confidence level (e.g., 0.95 for 95%)
+     */
+    public void setConfidenceLevel(double confidenceLevel) {
+        this.confidenceLevel = confidenceLevel;
     }
 
     /**

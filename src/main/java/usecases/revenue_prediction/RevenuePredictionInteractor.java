@@ -3,17 +3,20 @@ package usecases.revenue_prediction;
 import entities.Portfolio;
 import usecases.LocalDataAccessInterface;
 import usecases.OnlineDataAccessInterface;
+import usecases.predict_models.PredictAvgModel;
 import usecases.predict_models.PredictModel;
 
 /**
  * Implements the revenue prediction use case by coordinating between the data access layer,
- * prediction models, and output boundary.
+ * prediction models, and output boundary. Handles both point estimates and confidence intervals
+ * for revenue predictions.
  */
 public class RevenuePredictionInteractor implements RevenuePredictionInputBoundary {
     private final RevenuePredictionOutputBoundary revenuePredictionPresenter;
     private final LocalDataAccessInterface localDataAccessObject;
     private final OnlineDataAccessInterface onlineDataAccessObject;
     private PredictModel predictModel;
+    private static final double DEFAULT_CONFIDENCE_LEVEL = 0.95;
 
     /**
      * Constructs a RevenuePredictionInteractor with necessary dependencies.
@@ -46,37 +49,20 @@ public class RevenuePredictionInteractor implements RevenuePredictionInputBounda
     @Override
     public void execute(RevenuePredictionInputData revenuePredictionInputData) {
         try {
-            Portfolio portfolio = localDataAccessObject.getCurrentPortfolio();
+            // Validate inputs and get portfolio
+            Portfolio portfolio = validateAndGetPortfolio(revenuePredictionInputData);
 
-            if (portfolio.getStockSymbols().isEmpty()) {
-                revenuePredictionPresenter.prepareFailView("Portfolio is empty. Please add stocks before predicting revenue.");
-                return;
-            }
+            // Get prediction and confidence interval
+            PredictionResult result = getPredictionWithInterval(portfolio, revenuePredictionInputData);
 
-            if (revenuePredictionInputData.getIntervalLength() <= 0) {
-                revenuePredictionPresenter.prepareFailView("Interval length must be positive.");
-                return;
-            }
-
-            // Validate interval type
-            String intervalType = revenuePredictionInputData.getIntervalName().toLowerCase();
-            if (!isValidIntervalType(intervalType)) {
-                revenuePredictionPresenter.prepareFailView(
-                        "Invalid interval type. Please use 'intraday', 'day', or 'week'.");
-                return;
-            }
-
-            // Get prediction using the provided model
-            double predictedRevenue = predictModel.predict(
-                    portfolio,
-                    revenuePredictionInputData.getIntervalLength(),
-                    intervalType
-            );
-
+            // Create output data with prediction results
             RevenuePredictionOutputData outputData = new RevenuePredictionOutputData(
-                    predictedRevenue,
+                    result.pointEstimate,
+                    result.lowerBound,
+                    result.upperBound,
                     revenuePredictionInputData.getIntervalLength(),
-                    revenuePredictionInputData.getIntervalName()
+                    revenuePredictionInputData.getIntervalName(),
+                    DEFAULT_CONFIDENCE_LEVEL
             );
 
             revenuePredictionPresenter.prepareSuccessView(outputData);
@@ -90,6 +76,61 @@ public class RevenuePredictionInteractor implements RevenuePredictionInputBounda
     }
 
     /**
+     * Validates input parameters and retrieves the portfolio.
+     *
+     * @param inputData the input data to validate
+     * @return the validated portfolio
+     * @throws IllegalArgumentException if validation fails
+     */
+    private Portfolio validateAndGetPortfolio(RevenuePredictionInputData inputData) {
+        Portfolio portfolio = localDataAccessObject.getCurrentPortfolio();
+
+        if (portfolio.getStockSymbols().isEmpty()) {
+            throw new IllegalArgumentException("Portfolio is empty. Please add stocks before predicting revenue.");
+        }
+
+        if (inputData.getIntervalLength() <= 0) {
+            throw new IllegalArgumentException("Interval length must be positive.");
+        }
+
+        String intervalType = inputData.getIntervalName().toLowerCase();
+        if (!isValidIntervalType(intervalType)) {
+            throw new IllegalArgumentException(
+                    "Invalid interval type. Please use 'intraday', 'day', or 'week'.");
+        }
+
+        return portfolio;
+    }
+
+    /**
+     * Gets prediction and confidence interval from the model.
+     *
+     * @param portfolio the portfolio to predict for
+     * @param inputData the input parameters
+     * @return PredictionResult containing point estimate and confidence bounds
+     */
+    private PredictionResult getPredictionWithInterval(Portfolio portfolio, RevenuePredictionInputData inputData) {
+        double pointEstimate = predictModel.predict(
+                portfolio,
+                inputData.getIntervalLength(),
+                inputData.getIntervalName().toLowerCase()
+        );
+
+        // If using PredictAvgModel, get confidence interval
+        if (predictModel instanceof PredictAvgModel avgModel) {
+            double[] intervalResults = avgModel.predictWithInterval(
+                    portfolio,
+                    inputData.getIntervalLength(),
+                    inputData.getIntervalName().toLowerCase()
+            );
+            return new PredictionResult(intervalResults[0], intervalResults[1], intervalResults[2]);
+        }
+
+        // For other models, use point estimate with no interval
+        return new PredictionResult(pointEstimate, pointEstimate, pointEstimate);
+    }
+
+    /**
      * Validates if the given interval type is supported.
      *
      * @param intervalType the interval type to validate
@@ -100,4 +141,9 @@ public class RevenuePredictionInteractor implements RevenuePredictionInputBounda
                 intervalType.equals("day") ||
                 intervalType.equals("week");
     }
+
+    /**
+     * Record class to hold prediction results including confidence interval.
+     */
+    private record PredictionResult(double pointEstimate, double lowerBound, double upperBound) {}
 }

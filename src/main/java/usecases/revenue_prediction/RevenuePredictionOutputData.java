@@ -1,44 +1,76 @@
 package usecases.revenue_prediction;
 
 /**
- * Data class containing the results of a revenue prediction calculation.
+ * Data class containing the results of a revenue prediction calculation including confidence intervals.
+ * This class encapsulates all output data related to revenue predictions, including point estimates,
+ * confidence intervals, and interval metadata.
  */
 public class RevenuePredictionOutputData {
     private final double predictedRevenue;
+    private final double lowerBound;
+    private final double upperBound;
     private final int intervalLength;
     private final String intervalName;
+    private final double confidenceLevel;
 
     /**
-     * Constructs a RevenuePredictionOutputData with the prediction results.
+     * Constructs a RevenuePredictionOutputData with prediction results and confidence interval information.
      *
-     * @param predictedRevenue the predicted revenue formatted as a string with 2 decimal places
+     * @param predictedRevenue the point estimate for predicted revenue
+     * @param lowerBound the lower bound of the confidence interval
+     * @param upperBound the upper bound of the confidence interval
      * @param intervalLength the length of the prediction interval
-     * @param intervalName the type of interval used (day, week, or intraday)
+     * @param intervalName the type of interval used (e.g., "day", "week", "intraday")
+     * @param confidenceLevel the confidence level (e.g., 0.95 for 95% confidence)
      */
-    public RevenuePredictionOutputData(double predictedRevenue, int intervalLength, String intervalName) {
+    public RevenuePredictionOutputData(double predictedRevenue, double lowerBound, double upperBound,
+                                       int intervalLength, String intervalName, double confidenceLevel) {
         this.predictedRevenue = predictedRevenue;
+        this.lowerBound = lowerBound;
+        this.upperBound = upperBound;
         this.intervalLength = intervalLength;
         this.intervalName = intervalName;
+        this.confidenceLevel = confidenceLevel;
     }
 
     /**
-     * Gets the predicted revenue value.
+     * Gets the point estimate of predicted revenue.
      *
-     * @return the predicted revenue as a formatted string
+     * @return the predicted revenue value
      */
     public double getPredictedRevenue() {
         return predictedRevenue;
     }
+
     /**
-     * Gets the interval length used for the prediction.
+     * Gets the lower bound of the confidence interval.
+     *
+     * @return the lower bound value
+     */
+    public double getLowerBound() {
+        return lowerBound;
+    }
+
+    /**
+     * Gets the upper bound of the confidence interval.
+     *
+     * @return the upper bound value
+     */
+    public double getUpperBound() {
+        return upperBound;
+    }
+
+    /**
+     * Gets the length of the prediction interval.
      *
      * @return the interval length
      */
     public int getIntervalLength() {
         return intervalLength;
     }
+
     /**
-     * Gets the type of interval used for the prediction.
+     * Gets the name/type of the prediction interval.
      *
      * @return the interval name
      */
@@ -47,14 +79,29 @@ public class RevenuePredictionOutputData {
     }
 
     /**
-     * Creates a formatted message describing the prediction result.
+     * Gets the confidence level of the prediction interval.
      *
-     * @return a user-friendly message with the prediction details
+     * @return the confidence level as a decimal (e.g., 0.95 for 95%)
+     */
+    public double getConfidenceLevel() {
+        return confidenceLevel;
+    }
+
+    /**
+     * Creates a formatted message describing the prediction results.
+     * Includes the point estimate and confidence interval information.
+     *
+     * @return a formatted string containing prediction details
      */
     public String getFormattedMessage() {
-        return String.format("Predicted revenue after %d %s(s): $%s",
+        return String.format("Predicted revenue after %d %s(s):%n" +
+                        "Point estimate: $%.2f%n" +
+                        "%.0f%% Confidence Interval: [$%.2f, $%.2f]",
                 intervalLength,
                 intervalName,
-                predictedRevenue);
+                predictedRevenue,
+                confidenceLevel * 100,
+                lowerBound,
+                upperBound);
     }
 }
