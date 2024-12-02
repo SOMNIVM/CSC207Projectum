@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="bdc1af01-ae4f-45b7-954b-d30d8941682d" name="Changes" comment="Added data access objects.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +58,7 @@
     "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "mingxiao.wei",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/17764/Desktop/CSC207/HomeWork",
     "node.js.detected.package.eslint": "true",
