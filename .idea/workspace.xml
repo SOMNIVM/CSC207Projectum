@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0e6372a4-5beb-456b-b458-fd5a4b0ca81a" name="Changes" comment="Checkstyle first half">
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/Config.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;MrNovocain&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/SOMNIVM/CSC207Projectum.git&quot;,
+    &quot;accountId&quot;: &quot;398a498b-2913-4ebf-b1be-51dffdf248b6&quot;
+  },
+  &quot;editorReviewEnabled&quot;: false
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2paBqa9k3k1yOJJweb3LwRxnmAF" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ModelEvaluationUseCaseTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ModelEvaluationUseCaseTest.testModelEvaluationFailureInvalidModelType.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PortfolioTest.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;W:/Java/proj207/CSC207Projectum/src/main/resources/config&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.infernus.idea.checkstyle.CheckStyleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="W:\Java\proj207\CSC207Projectum\src\main\resources\config" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="app.Main" />
+      <module name="CSC207CourseProject" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="app.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ModelEvaluationUseCaseTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CSC207CourseProject" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="usecases.ModelEvaluation.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="usecases.ModelEvaluation" />
+      <option name="MAIN_CLASS_NAME" value="usecases.ModelEvaluation.ModelEvaluationUseCaseTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ModelEvaluationUseCaseTest.testModelEvaluationFailureInvalidModelType" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CSC207CourseProject" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="usecases.ModelEvaluation.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="usecases.ModelEvaluation" />
+      <option name="MAIN_CLASS_NAME" value="usecases.ModelEvaluation.ModelEvaluationUseCaseTest" />
+      <option name="METHOD_NAME" value="testModelEvaluationFailureInvalidModelType" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PortfolioTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CSC207CourseProject" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="PortfolioTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="CSC207Projectum-2" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="CSC207Projectum-2" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.ModelEvaluationUseCaseTest.testModelEvaluationFailureInvalidModelType" />
+        <item itemvalue="JUnit.ModelEvaluationUseCaseTest" />
+        <item itemvalue="JUnit.PortfolioTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
+        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0e6372a4-5beb-456b-b458-fd5a4b0ca81a" name="Changes" comment="" />
+      <created>1732994498199</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1732994498199</updated>
+      <workItem from="1732994499446" duration="1269000" />
+      <workItem from="1732996325437" duration="2023000" />
+      <workItem from="1732998644959" duration="18000" />
+      <workItem from="1732999045871" duration="3182000" />
+      <workItem from="1733003897368" duration="565000" />
+      <workItem from="1733024283319" duration="777000" />
+      <workItem from="1733091491269" duration="163000" />
+      <workItem from="1733092325179" duration="1375000" />
+      <workItem from="1733095956651" duration="1489000" />
+      <workItem from="1733097502716" duration="4347000" />
+      <workItem from="1733108213561" duration="1424000" />
+      <workItem from="1733115874650" duration="8680000" />
+    </task>
+    <task id="LOCAL-00001" summary="Write template of ModelEvaluation">
+      <option name="closed" value="true" />
+      <created>1733001136874</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1733001136874</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Merge attempt with main">
+      <option name="closed" value="true" />
+      <created>1733001484373</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1733001484373</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Merge attempt with main">
+      <option name="closed" value="true" />
+      <created>1733001520424</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1733001520424</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Merge attempt with main">
+      <option name="closed" value="true" />
+      <created>1733001548816</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1733001548816</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Merge attempt with shane.dong">
+      <option name="closed" value="true" />
+      <created>1733123186417</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1733123186417</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Merge attempt with shane.dong">
+      <option name="closed" value="true" />
+      <created>1733123301292</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1733123301292</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Merge attempt with shane.dong">
+      <option name="closed" value="true" />
+      <created>1733123501011</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1733123501011</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Checkstyle first half">
+      <option name="closed" value="true" />
+      <created>1733127896013</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1733127896013</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Write template of ModelEvaluation" />
+    <MESSAGE value="Merge attempt with main" />
+    <MESSAGE value="Merge attempt with shane.dong" />
+    <MESSAGE value="Checkstyle first half" />
+    <option name="LAST_COMMIT_MESSAGE" value="Checkstyle first half" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
