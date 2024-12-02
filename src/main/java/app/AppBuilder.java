@@ -1,3 +1,4 @@
+
 package app;
 
 import java.awt.CardLayout;
@@ -148,17 +149,17 @@ public class AppBuilder {
      * @return this builder instance for method chaining
      */
     public AppBuilder addViewPortfolioUseCase() {
-        ViewPortfolioOutputBoundary viewPortfolioPresenter = new ViewPortfolioPresenter(
+        final ViewPortfolioOutputBoundary viewPortfolioPresenter = new ViewPortfolioPresenter(
                 viewPortfolioViewModel,
                 clearAllViewModel,
                 viewManagerModel);
-        ViewPortfolioDataAccessInterface viewPortfolioDataAccessObject = new ViewPortfolioDataAccessObject(
+        final ViewPortfolioDataAccessInterface viewPortfolioDataAccessObject = new ViewPortfolioDataAccessObject(
                 localDataAccessObject,
                 onlineDataAccessObject);
-        ViewPortfolioInputBoundary viewPortfolioInteractor = new ViewPortfolioInteractor(
+        final ViewPortfolioInputBoundary viewPortfolioInteractor = new ViewPortfolioInteractor(
                 viewPortfolioPresenter,
                 viewPortfolioDataAccessObject);
-        ViewPortfolioController viewPortfolioController = new ViewPortfolioController(viewPortfolioInteractor);
+        final ViewPortfolioController viewPortfolioController = new ViewPortfolioController(viewPortfolioInteractor);
         homePageView.setViewPortfolioController(viewPortfolioController);
         viewPortfolioView.setViewPortfolioController(viewPortfolioController);
         return this;
@@ -170,17 +171,17 @@ public class AppBuilder {
      * @return this builder instance for method chaining
      */
     public AppBuilder addAddStockUseCase() {
-        AddStockOutputBoundary buyStockPresenter = new AddStockPresenter(
+        final AddStockOutputBoundary buyStockPresenter = new AddStockPresenter(
                 addStockViewModel,
                 clearAllViewModel,
                 viewManagerModel);
-        AddStockDataAccessInterface buyStockDataAccessObject = new AddStockDataAccessObject(
+        final AddStockDataAccessInterface buyStockDataAccessObject = new AddStockDataAccessObject(
                 localDataAccessObject,
                 onlineDataAccessObject);
-        AddStockInputBoundary buyStockInteractor = new AddStockInteractor(
+        final AddStockInputBoundary buyStockInteractor = new AddStockInteractor(
                 buyStockPresenter,
                 buyStockDataAccessObject);
-        AddStockController addStockController = new AddStockController(buyStockInteractor);
+        final AddStockController addStockController = new AddStockController(buyStockInteractor);
         addStockView.setBuyStockController(addStockController);
         return this;
     }
@@ -191,14 +192,14 @@ public class AppBuilder {
      * @return this builder instance for method chaining
      */
     public AppBuilder addRemoveStockUseCase() {
-        RemoveStockOutputBoundary removeStockPresenter = new RemoveStockPresenter(
+        final RemoveStockOutputBoundary removeStockPresenter = new RemoveStockPresenter(
                 removeStockViewModel,
                 clearAllViewModel,
                 viewManagerModel);
-        RemoveStockInputBoundary removeStockInteractor = new RemoveStockInteractor(
+        final RemoveStockInputBoundary removeStockInteractor = new RemoveStockInteractor(
                 removeStockPresenter,
                 localDataAccessObject);
-        RemoveStockController removeStockController = new RemoveStockController(removeStockInteractor);
+        final RemoveStockController removeStockController = new RemoveStockController(removeStockInteractor);
         removeStockView.setRemoveStockController(removeStockController);
         return this;
     }
@@ -209,17 +210,18 @@ public class AppBuilder {
      * @return this builder instance for method chaining
      */
     public AppBuilder addRevenuePredictionUseCase() {
-        RevenuePredictionOutputBoundary revenuePredictionPresenter = new RevenuePredictionPresenter(
+        final RevenuePredictionOutputBoundary revenuePredictionPresenter = new RevenuePredictionPresenter(
                 revenuePredictionViewModel,
                 viewManagerModel);
-        PredictModel predictModel = new PredictAvgModel();
+        final PredictModel predictModel = new PredictAvgModel();
         predictModel.setOnlineDataAccess(onlineDataAccessObject);
-        RevenuePredictionInputBoundary revenuePredictionInteractor = new RevenuePredictionInteractor(
+        final RevenuePredictionInputBoundary revenuePredictionInteractor = new RevenuePredictionInteractor(
                 revenuePredictionPresenter,
                 localDataAccessObject,
                 onlineDataAccessObject,
                 predictModel);
-        RevenuePredictionController revenuePredictionController = new RevenuePredictionController(revenuePredictionInteractor);
+        final RevenuePredictionController revenuePredictionController =
+                new RevenuePredictionController(revenuePredictionInteractor);
         revenuePredictionView.setRevenuePredictionController(revenuePredictionController);
         return this;
     }
@@ -230,16 +232,17 @@ public class AppBuilder {
      * @return this builder instance for method chaining
      */
     public AppBuilder addClearAllUseCase() {
-        ClearAllOutputBoundary clearAllPresenter = new ClearAllPresenter(
+        final ClearAllOutputBoundary clearAllPresenter = new ClearAllPresenter(
                 clearAllViewModel,
                 addStockViewModel,
                 removeStockViewModel,
                 revenuePredictionViewModel,
                 viewManagerModel);
-        ClearAllDataAccessInterface clearAllDataAccessObject = new ClearAllDataAccessObject(localDataAccessObject);
-        ClearAllInputBoundary clearAllInteractor = new ClearAllInteractor(clearAllPresenter,
+        final ClearAllDataAccessInterface clearAllDataAccessObject =
+                new ClearAllDataAccessObject(localDataAccessObject);
+        final ClearAllInputBoundary clearAllInteractor = new ClearAllInteractor(clearAllPresenter,
                 clearAllDataAccessObject);
-        ClearAllController clearAllController = new ClearAllController(clearAllInteractor);
+        final ClearAllController clearAllController = new ClearAllController(clearAllInteractor);
         homePageView.setClearAllController(clearAllController);
         return this;
     }
@@ -250,7 +253,7 @@ public class AppBuilder {
      * @return the configured JFrame containing the application
      */
     public JFrame build() {
-        JFrame app = new JFrame("Portfolio Management System");
+        final JFrame app = new JFrame("Portfolio Management System");
         app.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         app.add(cardPanel);
         viewManagerModel.getState().setCurViewName(homePageView.getViewName());

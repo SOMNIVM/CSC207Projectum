@@ -30,8 +30,8 @@ public class Config {
                     .toURI()))
                     .trim();
         }
-        catch (IOException | URISyntaxException e) {
-            throw new RuntimeException(e);
+        catch (IOException | URISyntaxException ex) {
+            throw new RuntimeException(ex);
         }
     }
 

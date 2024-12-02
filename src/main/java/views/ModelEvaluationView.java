@@ -68,11 +68,8 @@
 // }
 package views;
 
-import interface_adapters.ViewManagerModel;
-import interface_adapters.ModelEvaluation.ModelEvaluationController;
-import interface_adapters.ModelEvaluation.ModelEvaluationViewModel;
-import interface_adapters.ModelEvaluation.ModelResultState;
-import interface_adapters.ViewModel;
+import interface_adapters.model_evaluation.ModelEvaluationController;
+import interface_adapters.model_evaluation.ModelEvaluationViewModel;
 
 import javax.swing.*;
 import java.awt.*;

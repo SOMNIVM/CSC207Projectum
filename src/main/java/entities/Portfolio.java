@@ -31,7 +31,6 @@ public class Portfolio {
         return share.get(symbol);
     }
 
-
     /**
      * Adds or updates a stock in the portfolio.
      *
@@ -40,8 +39,8 @@ public class Portfolio {
      * @param avgPrice     the average price at which the shares were bought
      */
     public void addStock(String symbol, int shares, double avgPrice) {
-        int existingShares = share.getOrDefault(symbol, 0);
-        int totalShares = existingShares + shares;
+        final int existingShares = share.getOrDefault(symbol, 0);
+        final int totalShares = existingShares + shares;
         share.put(symbol, totalShares);
     }
 
@@ -51,22 +50,24 @@ public class Portfolio {
      *
      * @param symbol the stock symbol
      * @param shares the number of shares to remove
+     * @return true if some shares of the given stock has been removed.
      */
     public boolean removeStock(String symbol, int shares) {
-        if (!share.containsKey(symbol)) {
-            return false;
-        }
+        boolean removed = false;
+        if (share.containsKey(symbol)) {
+            final int existingShares = share.get(symbol);
 
-        int existingShares = share.get(symbol);
-
-        if (shares >= existingShares) {
-            // Remove the stock entirely if removing equal or more shares than existing
-            share.remove(symbol);
-        } else {
-            // Reduce the shares count without changing the average price
-            share.put(symbol, existingShares - shares);
+            if (shares >= existingShares) {
+                // Remove the stock entirely if removing equal or more shares than existing
+                share.remove(symbol);
+            }
+            else {
+                // Reduce the shares count without changing the average price
+                share.put(symbol, existingShares - shares);
+            }
+            removed = true;
         }
-        return true;
+        return removed;
     }
 
     /**
@@ -76,11 +77,11 @@ public class Portfolio {
      */
     @Override
     public String toString() {
-        StringBuilder portfolioSummary = new StringBuilder("Your portfolio contains the following assets:\n");
+        final StringBuilder portfolioSummary = new StringBuilder("Your portfolio contains the following assets:\n");
 
         for (Map.Entry<String, Integer> entry : share.entrySet()) {
-            String symbol = entry.getKey();
-            int shares = entry.getValue();
+            final String symbol = entry.getKey();
+            final int shares = entry.getValue();
 
             portfolioSummary.append(String.format("%d shares of %s", shares, symbol));
         }

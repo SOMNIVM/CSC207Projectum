@@ -12,8 +12,8 @@ public class Main {
      * @param args The arguments for JVM.
      */
     public static void main(String[] args) {
-        AppBuilder appBuilder = new AppBuilder();
-        JFrame app = appBuilder
+        final AppBuilder appBuilder = new AppBuilder();
+        final JFrame app = appBuilder
                 .addViewPortfolioView()
                 .addAddStockView()
                 .addRemoveStockView()
@@ -25,5 +25,4 @@ public class Main {
         app.pack();
         app.setVisible(true);
     }
-
 }

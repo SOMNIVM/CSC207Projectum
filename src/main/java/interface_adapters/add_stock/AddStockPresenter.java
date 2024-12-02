@@ -5,10 +5,14 @@ import interface_adapters.reset_portfolio.ClearAllViewModel;
 import usecases.add_stock.AddStockOutputBoundary;
 import usecases.add_stock.AddStockOutputData;
 
+/**
+ * The presenter for the add stock use case.
+ */
 public class AddStockPresenter implements AddStockOutputBoundary {
     private final ViewManagerModel viewManagerModel;
     private final AddStockViewModel addStockViewModel;
     private final ClearAllViewModel clearAllViewModel;
+
     public AddStockPresenter(AddStockViewModel buyStockModel,
                              ClearAllViewModel clearAllModel,
                              ViewManagerModel managerModel) {
@@ -20,7 +24,7 @@ public class AddStockPresenter implements AddStockOutputBoundary {
     @Override
     public void prepareSuccessView(AddStockOutputData addStockOutputData) {
         clearAllViewModel.getState().unclear();
-        AddStockState state = addStockViewModel.getState();
+        final AddStockState state = addStockViewModel.getState();
         state.setAsValid();
         state.setStockName(addStockOutputData.getStockName());
         state.setSharesChanged(addStockOutputData.getSharesPurchased());

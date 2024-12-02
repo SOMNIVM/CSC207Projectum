@@ -313,12 +313,6 @@
         </module>
 
         <!-- Class Design -->
-        <module name="DesignForExtension">
-            <property name="ignoredAnnotations"
-                      value="Override, Test, Before, After, BeforeClass, AfterClass"/>
-            <property name="ignoredAnnotations"
-                      value="BeforeAll, AfterAll, BeforeEach, AfterEach"/>
-        </module>
         <module name="FinalClass"/>
         <module name="InnerTypeLast"/>
         <module name="InterfaceIsType"/>
@@ -345,6 +339,7 @@
         <module name="EqualsHashCode"/>
         <module name="ExplicitInitialization"/>
         <module name="FallThrough"/>
+        <module name="FinalLocalVariable"/>
         <module name="HiddenField">
             <property name="ignoreConstructorParameter" value="true"/>
             <property name="ignoreSetter" value="true"/>
@@ -514,7 +509,7 @@
         <module name="ParameterAssignment"/>
         <module name="RequireThis"/>
         <module name="ReturnCount">
-            <property name="max" value="2"/>
+            <property name="max" value="1"/>
             <property name="maxForVoid" value="0"/>
             <property name="format" value="^create"/>
         </module>
@@ -536,6 +531,7 @@
         <module name="UnnecessarySemicolonAfterTypeMemberDeclaration"/>
         <module name="UnnecessarySemicolonInEnumeration"/>
         <module name="UnnecessarySemicolonInTryWithResources"/>
+        <module name="UnusedLocalVariable"/>
         <module name="VariableDeclarationUsageDistance"/>
 
         <!-- Filters -->
@@ -672,6 +668,7 @@
                        HashMap, SortedMap, TreeMap, DetailsAST, CheckstyleException,
                        UnsupportedEncodingException, BuildException, ConversionException,
                        FileNotFoundException, TestException"/>
+            <property name="max" value="15"/>
         </module>
         <module name="ClassFanOutComplexity">
             <property name="max" value="25"/>
@@ -722,6 +719,9 @@
         </module>
         <module name="OuterTypeFilename"/>
         <module name="TrailingComment"/>
+        <module name="UncommentedMain">
+            <property name="excludedClasses" value="\.(Main.*|JavadocPropertiesGenerator)$"/>
+        </module>
         <module name="UpperEll"/>
 
         <!-- Modifiers -->
@@ -740,7 +740,7 @@
         <module name="AbbreviationAsWordInName">
             <property name="ignoreFinal" value="false"/>
             <property name="allowedAbbreviationLength" value="0"/>
-            <property name="allowedAbbreviations" value="AST,HTML,ID,JSON"/>
+            <property name="allowedAbbreviations" value="DB,AST,HTML,ID,JSON,CSV"/>
         </module>
         <module name="AbstractClassName"/>
         <module name="ClassTypeParameterName"/>
@@ -757,7 +757,9 @@
         </module>
         <module name="MethodName"/>
         <module name="MethodTypeParameterName"/>
-        <module name="PackageName"/>
+        <module name="PackageName">
+            <property name="format" value="^[a-z][a-z_]*(\.[a-z][a-zA-Z_]*)*$"/>
+        </module>
         <module name="ParameterName">
             <property name="format" value="^(id)|([a-z][a-z0-9][a-zA-Z0-9]+)$"/>
             <property name="ignoreOverridden" value="true"/>
@@ -782,9 +784,16 @@
         <module name="RegexpSinglelineJava">
             <property name="id" value="regexpSingleLineDefault"/>
         </module>
+        <module name="RegexpSinglelineJava">
+            <property name="id" value="checkASCII"/>
+            <property name="format" value="[^\p{ASCII}]"/>
+            <property name="ignoreComments" value="true"/>
+        </module>
 
         <!-- Size Violations -->
-        <module name="AnonInnerLength"/>
+        <module name="AnonInnerLength">
+            <property name="max" value="30"/>
+        </module>
         <module name="ExecutableStatementCount">
             <property name="max" value="30"/>
         </module>

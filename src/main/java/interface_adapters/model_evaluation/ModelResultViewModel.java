@@ -1,4 +1,4 @@
-package interface_adapters.ModelEvaluation;
+package interface_adapters.model_evaluation;
 
 import javax.swing.Icon;
 

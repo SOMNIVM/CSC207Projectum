@@ -64,6 +64,7 @@ public class StockInPortfolio extends Stock {
      * @return the current price of the stock (placeholder value)
      */
     public double lookForPrice() {
-        return 0; // Have not implemented the use case yet.
+        return 0;
+        // Have not implemented the use case yet.
     }
 }
