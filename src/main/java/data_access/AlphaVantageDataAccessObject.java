@@ -165,7 +165,7 @@ public class AlphaVantageDataAccessObject implements OnlineDataAccessInterface {
         Map<String, List<Pair<String, Double>>> result = new HashMap<>();
         for (int i = 0; i < symbols.size(); i++) {
             List<Pair<String, Double>> curTimeSeries = getTimeSeriesFromJSONObject(
-                    resultList.get(i).getJSONObject("Time Series (Weekly)"),
+                    resultList.get(i).getJSONObject("Weekly Time Series"),
                     sampleSize);
             result.put(symbols.get(i), curTimeSeries);
         }

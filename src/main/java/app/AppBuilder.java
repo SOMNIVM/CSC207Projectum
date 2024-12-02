@@ -21,7 +21,6 @@ import usecases.buy_stock.BuyStockInputBoundary;
 import usecases.buy_stock.BuyStockInteractor;
 import usecases.buy_stock.BuyStockOutputBoundary;
 import usecases.remove_stock.RemoveStockInputBoundary;
-import usecases.remove_stock.RemoveStockInputData;
 import usecases.remove_stock.RemoveStockInteractor;
 import usecases.remove_stock.RemoveStockOutputBoundary;
 import usecases.reset_portfolio.ClearAllDataAccessInterface;
@@ -59,7 +58,7 @@ public class AppBuilder {
                 (CardLayout) cardPanel.getLayout(),
                 viewManagerModel);
         localDataAccessObject = new LocalDataAccessObject();
-        onlineDataAccessObject = new AlphaVantageDataAccessObject(Config.API_KEY);
+        onlineDataAccessObject = new MockOnlineDataAccessObject();
         clearAllViewModel = new ClearAllViewModel();
         homePageView = new HomePageView(clearAllViewModel);
         cardPanel.add(homePageView, homePageView.getViewName());

@@ -1,7 +1,6 @@
 package interface_adapters.buy_stock;
 
 import interface_adapters.ViewManagerModel;
-import interface_adapters.reset_portfolio.ClearAllPresenter;
 import interface_adapters.reset_portfolio.ClearAllViewModel;
 import usecases.buy_stock.BuyStockOutputBoundary;
 import usecases.buy_stock.BuyStockOutputData;
