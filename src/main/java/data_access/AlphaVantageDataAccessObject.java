@@ -1,20 +1,30 @@
+
 package data_access;
+
 import app.Config;
 import kotlin.Pair;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-import org.jetbrains.annotations.NotNull;
+
 import org.json.JSONObject;
+
 import usecases.OnlineDataAccessInterface;
 
 import java.io.IOException;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Callable;
+
+import org.jetbrains.annotations.NotNull;
 
 public class AlphaVantageDataAccessObject implements OnlineDataAccessInterface {
     private final String apiKey;
@@ -221,8 +231,8 @@ public class AlphaVantageDataAccessObject implements OnlineDataAccessInterface {
     }
 
     private List<JSONObject> getBulkTimeSeriesData(List<String> urls) {
-        List<String> synchronizedURLs = Collections.synchronizedList(urls);
-        List<JSONObject> bulkResult = Collections.synchronizedList(new ArrayList<>());
+        final List<String> synchronizedURLs = Collections.synchronizedList(urls);
+        final List<JSONObject> bulkResult = Collections.synchronizedList(new ArrayList<>());
         for (int i = 0; i < urls.size(); i++) {
             bulkResult.add(null);
         }
