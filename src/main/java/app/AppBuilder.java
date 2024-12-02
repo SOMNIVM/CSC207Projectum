@@ -33,6 +33,8 @@ import usecases.add_stock.AddStockDataAccessInterface;
 import usecases.add_stock.AddStockInputBoundary;
 import usecases.add_stock.AddStockInteractor;
 import usecases.add_stock.AddStockOutputBoundary;
+import usecases.predict_models.PredictAvgModel;
+import usecases.predict_models.PredictModel;
 import usecases.remove_stock.RemoveStockInputBoundary;
 import usecases.remove_stock.RemoveStockInteractor;
 import usecases.remove_stock.RemoveStockOutputBoundary;
@@ -40,6 +42,9 @@ import usecases.reset_portfolio.ClearAllDataAccessInterface;
 import usecases.reset_portfolio.ClearAllInputBoundary;
 import usecases.reset_portfolio.ClearAllInteractor;
 import usecases.reset_portfolio.ClearAllOutputBoundary;
+import usecases.revenue_prediction.RevenuePredictionInputBoundary;
+import usecases.revenue_prediction.RevenuePredictionInteractor;
+import usecases.revenue_prediction.RevenuePredictionOutputBoundary;
 import usecases.view_portfolio.ViewPortfolioDataAccessInterface;
 import usecases.view_portfolio.ViewPortfolioInputBoundary;
 import usecases.view_portfolio.ViewPortfolioInteractor;
@@ -47,6 +52,7 @@ import usecases.view_portfolio.ViewPortfolioOutputBoundary;
 import views.AddStockView;
 import views.HomePageView;
 import views.RemoveStockView;
+import views.RevenuePredictionView;
 import views.ViewManager;
 import views.ViewPortfolioView;
 
@@ -228,7 +234,7 @@ public class AppBuilder {
                 clearAllViewModel,
                 addStockViewModel,
                 removeStockViewModel,
-                revenuePredictionViewModel,  // Added RevenuePredictionViewModel
+                revenuePredictionViewModel,
                 viewManagerModel);
         ClearAllDataAccessInterface clearAllDataAccessObject = new ClearAllDataAccessObject(localDataAccessObject);
         ClearAllInputBoundary clearAllInteractor = new ClearAllInteractor(clearAllPresenter,
