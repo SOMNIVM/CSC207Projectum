@@ -11,12 +11,15 @@ public class Main {
                   .addViewPortfolioView()
                   .addAddStockView()
                   .addRemoveStockView()
+                  .addRevenuePredictionView()
                   .addViewPortfolioUseCase()
                   .addAddStockUseCase()
                   .addRemoveStockUseCase()
+                  .addRevenuePredictionUseCase()
                   .addClearAllUseCase()
                   .build();
           app.pack();
           app.setVisible(true);
     }
+
 }
