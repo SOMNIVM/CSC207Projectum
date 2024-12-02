@@ -1,6 +1,16 @@
 package app;
 
-import data_access.*;
+import java.awt.CardLayout;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
+
+import data_access.AddStockDataAccessObject;
+import data_access.ClearAllDataAccessObject;
+import data_access.LocalDataAccessObject;
+import data_access.MockOnlineDataAccessObject;
+import data_access.ViewPortfolioDataAccessObject;
 import interface_adapters.ViewManagerModel;
 import interface_adapters.add_stock.AddStockController;
 import interface_adapters.add_stock.AddStockPresenter;
@@ -14,11 +24,11 @@ import interface_adapters.reset_portfolio.ClearAllViewModel;
 import interface_adapters.view_portfolio.ViewPortfolioController;
 import interface_adapters.view_portfolio.ViewPortfolioPresenter;
 import interface_adapters.view_portfolio.ViewPortfolioViewModel;
-import usecases.add_stock.AddStockInputBoundary;
-import usecases.add_stock.AddStockInteractor;
 import usecases.LocalDataAccessInterface;
 import usecases.OnlineDataAccessInterface;
 import usecases.add_stock.AddStockDataAccessInterface;
+import usecases.add_stock.AddStockInputBoundary;
+import usecases.add_stock.AddStockInteractor;
 import usecases.add_stock.AddStockOutputBoundary;
 import usecases.remove_stock.RemoveStockInputBoundary;
 import usecases.remove_stock.RemoveStockInteractor;
@@ -31,10 +41,11 @@ import usecases.view_portfolio.ViewPortfolioDataAccessInterface;
 import usecases.view_portfolio.ViewPortfolioInputBoundary;
 import usecases.view_portfolio.ViewPortfolioInteractor;
 import usecases.view_portfolio.ViewPortfolioOutputBoundary;
-import views.*;
-
-import javax.swing.*;
-import java.awt.*;
+import views.AddStockView;
+import views.HomePageView;
+import views.RemoveStockView;
+import views.ViewManager;
+import views.ViewPortfolioView;
 
 public class AppBuilder {
     private final JPanel cardPanel;
