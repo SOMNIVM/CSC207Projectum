@@ -3,7 +3,7 @@ package interface_adapters;
 public class ViewManagerState {
     private String curViewName;
     public ViewManagerState() {
-        this.curViewName = "Homepage";
+        this.curViewName = "homepage";
     }
     public String getCurViewName() {
         return curViewName;
