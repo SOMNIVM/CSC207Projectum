@@ -1,8 +1,11 @@
-package usecases.ModelEvaluation;
+package usecases.model_evaluation;
 
 import app.Config;
 import entities.Portfolio;
 import kotlin.Pair;
+import usecases.model_evaluation.ModelEvaluationDataAccessInterface;
+import usecases.model_evaluation.ModelEvaluationInputBoundary;
+import usecases.model_evaluation.ModelEvaluationOutputBoundary;
 import usecases.models.*;
 import usecases.LocalDataAccessInterface;
 import usecases.OnlineDataAccessInterface;
