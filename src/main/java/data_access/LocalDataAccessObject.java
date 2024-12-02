@@ -37,8 +37,7 @@ public class LocalDataAccessObject implements LocalDataAccessInterface {
                 for (Object obj: portfolioData) {
                     JSONObject portfolioDataObj = (JSONObject) obj;
                     this.portfolio.addStock(portfolioDataObj.getString(symbolLabel),
-                            portfolioDataObj.getInt(sharesLabel),
-                            portfolioDataObj.getDouble(averagePriceLabel));
+                            portfolioDataObj.getInt(sharesLabel), 0.0);
                 }
             }
         }
@@ -59,7 +58,6 @@ public class LocalDataAccessObject implements LocalDataAccessInterface {
             JSONObject portfolioDataObj = new JSONObject();
             portfolioDataObj.put(symbolLabel, symbol);
             portfolioDataObj.put(sharesLabel, portfolio.getShares(symbol));
-            portfolioDataObj.put(averagePriceLabel, portfolio.getAveragePrice(symbol));
             curPortfolioData.put(portfolioDataObj);
         }
         try {

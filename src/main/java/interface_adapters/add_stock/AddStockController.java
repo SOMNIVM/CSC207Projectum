@@ -1,11 +1,11 @@
-package interface_adapters.buy_stock;
+package interface_adapters.add_stock;
 
 import usecases.add_stock.AddStockInputBoundary;
 import usecases.add_stock.AddStockInputData;
 
-public class BuyStockController {
+public class AddStockController {
     private final AddStockInputBoundary buyStockUseCaseInteractor;
-    public BuyStockController(AddStockInputBoundary interactor) {
+    public AddStockController(AddStockInputBoundary interactor) {
         this.buyStockUseCaseInteractor = interactor;
     }
     public void execute(String stockName, int shares) {

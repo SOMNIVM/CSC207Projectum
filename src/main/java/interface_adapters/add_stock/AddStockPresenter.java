@@ -1,4 +1,4 @@
-package interface_adapters.buy_stock;
+package interface_adapters.add_stock;
 
 import interface_adapters.ViewManagerModel;
 import interface_adapters.reset_portfolio.ClearAllViewModel;
@@ -7,31 +7,31 @@ import usecases.add_stock.AddStockOutputData;
 
 public class AddStockPresenter implements AddStockOutputBoundary {
     private final ViewManagerModel viewManagerModel;
-    private final BuyStockViewModel buyStockViewModel;
+    private final AddStockViewModel addStockViewModel;
     private final ClearAllViewModel clearAllViewModel;
-    public AddStockPresenter(BuyStockViewModel buyStockModel,
+    public AddStockPresenter(AddStockViewModel buyStockModel,
                              ClearAllViewModel clearAllModel,
                              ViewManagerModel managerModel) {
         this.viewManagerModel = managerModel;
-        this.buyStockViewModel = buyStockModel;
+        this.addStockViewModel = buyStockModel;
         this.clearAllViewModel = clearAllModel;
     }
 
     @Override
-    public void prepareSuccessView(AddStockOutputData buyStockOutputData) {
+    public void prepareSuccessView(AddStockOutputData addStockOutputData) {
         clearAllViewModel.getState().unclear();
-        BuyStockState state = buyStockViewModel.getState();
+        AddStockState state = addStockViewModel.getState();
         state.setAsValid();
-        state.setStockName(buyStockOutputData.getStockName());
-        state.setSharesChanged(buyStockOutputData.getSharesPurchased());
-        state.setBuyingPrice(buyStockOutputData.getBuyingPrice());
-        buyStockViewModel.firePropertyChange();
+        state.setStockName(addStockOutputData.getStockName());
+        state.setSharesChanged(addStockOutputData.getSharesPurchased());
+        state.setCurrentPrice(addStockOutputData.getCurrentPrice());
+        addStockViewModel.firePropertyChange();
     }
 
     @Override
     public void prepareFailView(String errorDescription) {
-        buyStockViewModel.getState().setAsInvalid(errorDescription);
-        buyStockViewModel.firePropertyChange();
+        addStockViewModel.getState().setAsInvalid(errorDescription);
+        addStockViewModel.firePropertyChange();
     }
 
     @Override
