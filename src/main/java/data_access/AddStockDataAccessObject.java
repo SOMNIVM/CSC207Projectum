@@ -5,15 +5,15 @@ import entities.Portfolio;
 import kotlin.Pair;
 import usecases.LocalDataAccessInterface;
 import usecases.OnlineDataAccessInterface;
-import usecases.buy_stock.BuyStockDataAccessInterface;
+import usecases.buy_stock.AddStockDataAccessInterface;
 
 import java.util.List;
 import java.util.Map;
 
-public class BuyStockDataAccessObject implements BuyStockDataAccessInterface {
+public class AddStockDataAccessObject implements AddStockDataAccessInterface {
     private final LocalDataAccessInterface localDataAccessObject;
     private final OnlineDataAccessInterface onlineDataAccessObject;
-    public BuyStockDataAccessObject(LocalDataAccessInterface localDataAccess,
+    public AddStockDataAccessObject(LocalDataAccessInterface localDataAccess,
                                     OnlineDataAccessInterface onlineDataAccess) {
         this.localDataAccessObject = localDataAccess;
         this.onlineDataAccessObject = onlineDataAccess;

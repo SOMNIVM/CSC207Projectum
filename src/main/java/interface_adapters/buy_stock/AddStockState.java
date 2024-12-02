@@ -2,9 +2,9 @@ package interface_adapters.buy_stock;
 
 import interface_adapters.ModifyPortfolioState;
 
-public class BuyStockState extends ModifyPortfolioState {
+public class AddStockState extends ModifyPortfolioState {
     private double buyingPrice;
-    public BuyStockState() {
+    public AddStockState() {
         super();
         this.buyingPrice = 0.0;
     }

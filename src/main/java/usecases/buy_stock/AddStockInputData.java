@@ -1,9 +1,9 @@
 package usecases.buy_stock;
 
-public class BuyStockInputData {
+public class AddStockInputData {
     private final String stockName;
     private final int sharesToBuy;
-    public BuyStockInputData(String stockName, int sharesToBuy) {
+    public AddStockInputData(String stockName, int sharesToBuy) {
         this.stockName = stockName;
         this.sharesToBuy = sharesToBuy;
     }

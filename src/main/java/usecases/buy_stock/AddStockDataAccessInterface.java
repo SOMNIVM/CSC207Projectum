@@ -2,6 +2,6 @@ package usecases.buy_stock;
 
 import usecases.LocalDataAccessInterface;
 
-public interface BuyStockDataAccessInterface extends LocalDataAccessInterface {
+public interface AddStockDataAccessInterface extends LocalDataAccessInterface {
     double queryPrice(String symbol);
 }
