@@ -1,14 +1,12 @@
 package usecases.models;
 
-import entities.Portfolio;
-
 public abstract class Model {
     private final int numOfInterval;
     private final double[] observations;
     private String type;
 
     protected Model(int numOfInterval, double[] observations,
-        String type) {
+                    String type) {
         if (numOfInterval <= 0) {
             throw new IllegalArgumentException("Number of intervals must be greater than 0.");
         }

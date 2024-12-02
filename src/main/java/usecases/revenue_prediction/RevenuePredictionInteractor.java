@@ -2,7 +2,7 @@ package usecases.revenue_prediction;
 
 import entities.Portfolio;
 import usecases.LocalDataAccessInterface;
-import usecases.predict_models.Model;
+import usecases.predict_models.PredictModel;
 import java.util.Map;
 
 /**
@@ -12,7 +12,7 @@ import java.util.Map;
 public class RevenuePredictionInteractor implements RevenuePredictionInputBoundary {
     private final RevenuePredictionOutputBoundary revenuePredictionPresenter;
     private final LocalDataAccessInterface dataAccessObject;
-    private final Map<String, Model> predictionModels;
+    private final Map<String, PredictModel> predictionModels;
 
     /**
      * Constructs a RevenuePredictionInteractor with necessary dependencies.
@@ -24,7 +24,7 @@ public class RevenuePredictionInteractor implements RevenuePredictionInputBounda
     public RevenuePredictionInteractor(
             RevenuePredictionOutputBoundary presenter,
             LocalDataAccessInterface dataAccessObject,
-            Map<String, Model> predictionModels) {
+            Map<String, PredictModel> predictionModels) {
         this.revenuePredictionPresenter = presenter;
         this.dataAccessObject = dataAccessObject;
         this.predictionModels = predictionModels;
@@ -45,16 +45,16 @@ public class RevenuePredictionInteractor implements RevenuePredictionInputBounda
                 return;
             }
 
-            Model selectedModel = getAppropriateModel(revenuePredictionInputData.getIntervalName());
+            PredictModel selectedPredictModel = getAppropriateModel(revenuePredictionInputData.getIntervalName());
 
-            if (selectedModel == null) {
+            if (selectedPredictModel == null) {
                 revenuePredictionPresenter.prepareFailView(
                         "No prediction model available for interval type: " + revenuePredictionInputData.getIntervalName());
                 return;
             }
 
             double predictedRevenue = makePrediction(
-                    selectedModel,
+                    selectedPredictModel,
                     portfolio,
                     revenuePredictionInputData.getIntervalLength(),
                     revenuePredictionInputData.getIntervalName()
@@ -85,26 +85,26 @@ public class RevenuePredictionInteractor implements RevenuePredictionInputBounda
      * @param intervalName the type of interval for prediction
      * @return the appropriate Model implementation, or null if none available
      */
-    private Model getAppropriateModel(String intervalName) {
+    private PredictModel getAppropriateModel(String intervalName) {
         return predictionModels.get(intervalName.toLowerCase());
     }
 
     /**
      * Makes a revenue prediction using the selected model and parameters.
      *
-     * @param model the prediction model to use
+     * @param predictModel the prediction model to use
      * @param portfolio the portfolio to predict revenue for
      * @param intervalLength the length of the prediction interval
      * @param intervalName the type of interval
      * @return predicted revenue value
      * @throws IllegalArgumentException if interval type is invalid
      */
-    private double makePrediction(Model model, Portfolio portfolio, int intervalLength, String intervalName) {
+    private double makePrediction(PredictModel predictModel, Portfolio portfolio, int intervalLength, String intervalName) {
         // Check if intervalName is valid
         switch (intervalName.toLowerCase()) {
             case "day", "week", "intraday" -> {
                 // Proceed with prediction logic
-                return model.predict(portfolio, intervalLength, intervalName.toLowerCase());
+                return predictModel.predict(portfolio, intervalLength, intervalName.toLowerCase());
             }
             default -> throw new IllegalArgumentException(
                     "Unsupported interval type: " + intervalName + ". Use 'day', 'week', or 'intraday'.");

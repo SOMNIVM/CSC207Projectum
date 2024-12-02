@@ -2,7 +2,7 @@ package usecases.predict_models;
 
 import entities.Portfolio;
 
-public interface Model {
+public interface PredictModel {
     /**
      * Predicts the portfolio's value based on the given interval name and length.
      *
