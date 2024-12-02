@@ -1,0 +1,157 @@
+Index: src/main/java/views/RevenuePredictionView.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/views/RevenuePredictionView.java b/src/main/java/views/RevenuePredictionView.java
+new file mode 100644
+--- /dev/null	(date 1733093782255)
++++ b/src/main/java/views/RevenuePredictionView.java	(date 1733093782255)
+@@ -0,0 +1,147 @@
++package views;
++
++import interface_adapters.ViewManagerModel;
++import interface_adapters.revenue_prediction.RevenuePredictionController;
++import interface_adapters.revenue_prediction.RevenuePredictionState;
++import interface_adapters.revenue_prediction.RevenuePredictionViewModel;
++
++import javax.swing.*;
++import java.awt.*;
++import java.awt.event.ActionEvent;
++import java.awt.event.ActionListener;
++import java.beans.PropertyChangeEvent;
++import java.beans.PropertyChangeListener;
++
++public class RevenuePredictionView extends JPanel implements PropertyChangeListener {
++    private final String viewName;
++    private final RevenuePredictionViewModel revenuePredictionViewModel;
++    private RevenuePredictionController revenuePredictionController;
++    private final ViewManagerModel viewManagerModel;
++    private final JLabel errorMessageLabel;
++    private final JComboBox<String> intervalTypeComboBox;
++    private final JTextField intervalLengthField;
++    private final JLabel resultLabel;
++
++    public RevenuePredictionView(RevenuePredictionViewModel viewModel, ViewManagerModel managerModel) {
++        super();
++        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
++        this.revenuePredictionViewModel = viewModel;
++        this.viewManagerModel = managerModel;
++        this.viewName = viewModel.getViewName();
++        this.revenuePredictionViewModel.addPropertyChangeListener(this);
++
++        // Initialize components
++        JLabel title = new JLabel(RevenuePredictionViewModel.TITLE_LABEL);
++        title.setAlignmentX(Component.CENTER_ALIGNMENT);
++
++        // Interval Type Selection
++        JPanel intervalTypePanel = new JPanel();
++        intervalTypePanel.add(new JLabel(RevenuePredictionViewModel.INTERVAL_TYPE_LABEL));
++        this.intervalTypeComboBox = new JComboBox<>(RevenuePredictionViewModel.INTERVAL_OPTIONS);
++        intervalTypePanel.add(intervalTypeComboBox);
++        intervalTypePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
++
++        // Interval Length Input
++        JPanel intervalLengthPanel = new JPanel();
++        intervalLengthPanel.add(new JLabel(RevenuePredictionViewModel.INTERVAL_LENGTH_LABEL));
++        this.intervalLengthField = new JTextField(10);
++        intervalLengthPanel.add(intervalLengthField);
++        intervalLengthPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
++
++        // Error Message Label
++        this.errorMessageLabel = new JLabel();
++        this.errorMessageLabel.setForeground(Color.RED);
++        this.errorMessageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
++
++        // Result Label
++        this.resultLabel = new JLabel();
++        this.resultLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
++
++        // Button Panel
++        JPanel buttonPanel = new JPanel();
++        JButton predictButton = new JButton(RevenuePredictionViewModel.PREDICT_BUTTON_LABEL);
++        JButton backButton = new JButton(RevenuePredictionViewModel.BACK_BUTTON_LABEL);
++        buttonPanel.add(predictButton);
++        buttonPanel.add(backButton);
++        buttonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
++
++        // Add components to panel
++        this.add(Box.createVerticalStrut(10));
++        this.add(title);
++        this.add(Box.createVerticalStrut(20));
++        this.add(intervalTypePanel);
++        this.add(Box.createVerticalStrut(10));
++        this.add(intervalLengthPanel);
++        this.add(Box.createVerticalStrut(10));
++        this.add(errorMessageLabel);
++        this.add(Box.createVerticalStrut(10));
++        this.add(resultLabel);
++        this.add(Box.createVerticalStrut(20));
++        this.add(buttonPanel);
++
++        // Add button listeners
++        predictButton.addActionListener(new ActionListener() {
++            @Override
++            public void actionPerformed(ActionEvent e) {
++                if (revenuePredictionController != null) {
++                    try {
++                        String intervalLengthText = intervalLengthField.getText().trim();
++                        if (!intervalLengthText.matches("^[0-9]+$")) {
++                            revenuePredictionViewModel.getState().setAsInvalid(
++                                    "Interval length must be a positive integer.");
++                            revenuePredictionViewModel.firePropertyChange();
++                            return;
++                        }
++
++                        int intervalLength = Integer.parseInt(intervalLengthText);
++                        String intervalType = (String) intervalTypeComboBox.getSelectedItem();
++
++                        if (intervalLength <= 0) {
++                            revenuePredictionViewModel.getState().setAsInvalid(
++                                    "Interval length must be greater than 0.");
++                            revenuePredictionViewModel.firePropertyChange();
++                            return;
++                        }
++
++                        revenuePredictionController.execute(intervalLength, intervalType);
++                    } catch (NumberFormatException ex) {
++                        revenuePredictionViewModel.getState().setAsInvalid(
++                                "Invalid interval length format.");
++                        revenuePredictionViewModel.firePropertyChange();
++                    }
++                }
++            }
++        });
++
++        backButton.addActionListener(new ActionListener() {
++            @Override
++            public void actionPerformed(ActionEvent e) {
++                viewManagerModel.getState().setCurViewName("homepage");
++                viewManagerModel.firePropertyChange();
++            }
++        });
++    }
++
++    @Override
++    public void propertyChange(PropertyChangeEvent evt) {
++        RevenuePredictionState state = (RevenuePredictionState) evt.getNewValue();
++        if (state.checkIfValid()) {
++            errorMessageLabel.setText("");
++            resultLabel.setText(String.format(
++                    RevenuePredictionViewModel.RESULT_FORMAT,
++                    state.getPredictedRevenue()
++            ));
++        } else {
++            errorMessageLabel.setText(state.getErrorMessage());
++            resultLabel.setText("");
++        }
++    }
++
++    public String getViewName() {
++        return viewName;
++    }
++
++    public void setRevenuePredictionController(RevenuePredictionController controller) {
++        this.revenuePredictionController = controller;
++    }
++}

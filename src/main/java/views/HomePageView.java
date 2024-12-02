@@ -1,11 +1,9 @@
 package views;
 
-import interface_adapters.ViewManagerModel;
 import interface_adapters.reset_portfolio.ClearAllController;
 import interface_adapters.reset_portfolio.ClearAllState;
 import interface_adapters.reset_portfolio.ClearAllViewModel;
 import interface_adapters.view_portfolio.ViewPortfolioController;
-import interface_adapters.view_portfolio.ViewPortfolioViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,11 +29,11 @@ public class HomePageView extends JPanel implements PropertyChangeListener {
         JPanel managePortfolioPanel = new JPanel();
         JPanel analysisPanel = new JPanel();
         JButton viewPortfolio = new JButton(ClearAllViewModel.VIEW_PORTFOLIO_BUTTON_LABEL);
-        JButton buyStock = new JButton(ClearAllViewModel.BUY_STOCK_BUTTON_LABEL);
+        JButton buyStock = new JButton(ClearAllViewModel.ADD_STOCK_BUTTON_LABEL);
         JButton removeStock = new JButton(ClearAllViewModel.REMOVE_STOCK_BUTTON_LABEL);
         JButton clearAll = new JButton(ClearAllViewModel.CLEAR_ALL_BUTTON_LABEL);
         JButton predictRevenue = new JButton(ClearAllViewModel.PREDICT_REVENUE_BUTTON_LABEL);
-        JButton backtest = new JButton(ClearAllViewModel.BACKTEST_BUTTON_LABEL);
+        JButton backtest = new JButton(ClearAllViewModel.EVALUATE_BUTTON_LABEL);
         managePortfolioPanel.add(viewPortfolio);
         managePortfolioPanel.add(buyStock);
         managePortfolioPanel.add(removeStock);

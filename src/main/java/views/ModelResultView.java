@@ -11,12 +11,11 @@ import java.awt.*;
 public class ModelResultView extends JPanel {
     private final String viewName;
     private final ModelResultViewModel modelResultViewModel;
-    private final ModelEvaluationController controller;
+    private ModelEvaluationController controller;
     private final JTable resultTable;
     private final DefaultTableModel tableModel;
 
-    public ModelResultView(ModelResultViewModel modelResultViewModel, ModelEvaluationController controller) {
-        super();
+    public ModelResultView(ModelResultViewModel modelResultViewModel) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.modelResultViewModel = modelResultViewModel;
         this.controller = controller;
@@ -57,12 +56,14 @@ public class ModelResultView extends JPanel {
         this.add(Box.createRigidArea(new Dimension(0, 10)));
         this.add(backButton);
     }
+
     public String getViewName() {
         return viewName;
     }
+
     public void setModuleEvaluationController(ModelEvaluationController controller) {
 
-        controller = controller;
+        this.controller = controller;
     }
 
     private void updateTable(ModelResultState state) {
@@ -90,5 +91,9 @@ public class ModelResultView extends JPanel {
 
         // Refresh table
         tableModel.fireTableDataChanged();
+    }
+
+    public void setModelResultController(ModelEvaluationController resultController) {
+        this.controller = resultController;
     }
 }

@@ -9,14 +9,12 @@ import java.util.Set;
  */
 public class Portfolio {
     private final Map<String, Integer> share;
-    private final Map<String, Double> averagePrice;
 
     /**
      * Constructs an empty portfolio.
      */
     public Portfolio() {
         this.share = new HashMap<>();
-        this.averagePrice = new HashMap<>();
     }
 
     public Set<String> getStockSymbols() {
@@ -33,15 +31,6 @@ public class Portfolio {
         return share.get(symbol);
     }
 
-    /**
-     * Gets the average price for a given stock symbol.
-     *
-     * @param symbol the stock symbol
-     * @return the average price for the specified stock symbol, or null if the symbol is not in the portfolio
-     */
-    public Double getAveragePrice(String symbol){
-        return averagePrice.get(symbol);
-    }
 
     /**
      * Adds or updates a stock in the portfolio.
@@ -52,13 +41,8 @@ public class Portfolio {
      */
     public void addStock(String symbol, int shares, double avgPrice) {
         int existingShares = share.getOrDefault(symbol, 0);
-        double existingAvgPrice = averagePrice.getOrDefault(symbol, 0.0);
-
         int totalShares = existingShares + shares;
-        double newAvgPrice = (existingShares * existingAvgPrice + shares * avgPrice) / totalShares;
-
         share.put(symbol, totalShares);
-        averagePrice.put(symbol, newAvgPrice);
     }
 
     /**
@@ -78,7 +62,6 @@ public class Portfolio {
         if (shares >= existingShares) {
             // Remove the stock entirely if removing equal or more shares than existing
             share.remove(symbol);
-            averagePrice.remove(symbol);
         } else {
             // Reduce the shares count without changing the average price
             share.put(symbol, existingShares - shares);
@@ -98,10 +81,8 @@ public class Portfolio {
         for (Map.Entry<String, Integer> entry : share.entrySet()) {
             String symbol = entry.getKey();
             int shares = entry.getValue();
-            double avgPrice = averagePrice.get(symbol);
 
-            portfolioSummary.append(String.format("%d shares of %s with an average price of $%.2f%n",
-                    shares, symbol, avgPrice));
+            portfolioSummary.append(String.format("%d shares of %s", shares, symbol));
         }
 
         return portfolioSummary.toString();

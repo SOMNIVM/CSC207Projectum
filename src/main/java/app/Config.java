@@ -23,7 +23,7 @@ public class Config {
             return Files.readString(Paths.get(Objects.requireNonNull(Config
                     .class
                     .getClassLoader()
-                    .getResource("/config/api_key.txt"))
+                    .getResource("config/api_key.txt"))
                     .toURI()))
                     .trim();
         }
@@ -36,12 +36,13 @@ public class Config {
             String jsonString = Files.readString(Paths.get(Objects.requireNonNull(Config
                     .class
                     .getClassLoader()
-                    .getResource("/config/stock_list.json"))
-                    .toURI()));
+                    .getResource("config/stock_list.json"))
+                    .toURI()))
+                    .trim();
             return new JSONArray(jsonString);
         }
         catch (IOException | URISyntaxException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage());
         }
     }
 }
