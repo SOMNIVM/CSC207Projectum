@@ -16,6 +16,9 @@ import interface_adapters.ViewManagerModel;
 import interface_adapters.add_stock.AddStockController;
 import interface_adapters.add_stock.AddStockPresenter;
 import interface_adapters.add_stock.AddStockViewModel;
+import interface_adapters.model_evaluation.ModelEvaluationController;
+import interface_adapters.model_evaluation.ModelEvaluationPresenter;
+import interface_adapters.model_evaluation.ModelEvaluationViewModel;
 import interface_adapters.remove_stock.RemoveStockController;
 import interface_adapters.remove_stock.RemoveStockPresenter;
 import interface_adapters.remove_stock.RemoveStockViewModel;
@@ -28,15 +31,15 @@ import interface_adapters.revenue_prediction.RevenuePredictionViewModel;
 import interface_adapters.view_portfolio.ViewPortfolioController;
 import interface_adapters.view_portfolio.ViewPortfolioPresenter;
 import interface_adapters.view_portfolio.ViewPortfolioViewModel;
-import interface_adapters.model_evaluation.ModelEvaluationController;
-import interface_adapters.model_evaluation.ModelEvaluationPresenter;
-import interface_adapters.model_evaluation.ModelEvaluationViewModel;
 import usecases.LocalDataAccessInterface;
 import usecases.OnlineDataAccessInterface;
 import usecases.add_stock.AddStockDataAccessInterface;
 import usecases.add_stock.AddStockInputBoundary;
 import usecases.add_stock.AddStockInteractor;
 import usecases.add_stock.AddStockOutputBoundary;
+import usecases.model_evaluation.ModelEvaluationInputBoundary;
+import usecases.model_evaluation.ModelEvaluationInteractor;
+import usecases.model_evaluation.ModelEvaluationOutputBoundary;
 import usecases.predict_models.PredictAvgModel;
 import usecases.predict_models.PredictModel;
 import usecases.remove_stock.RemoveStockInputBoundary;
@@ -55,12 +58,11 @@ import usecases.view_portfolio.ViewPortfolioInteractor;
 import usecases.view_portfolio.ViewPortfolioOutputBoundary;
 import views.AddStockView;
 import views.HomePageView;
+import views.ModelEvaluationView;
 import views.RemoveStockView;
 import views.RevenuePredictionView;
 import views.ViewManager;
 import views.ViewPortfolioView;
-import usecases.model_evaluation.*;
-import views.*;
 
 /**
  * Builder class for constructing the application's UI and wiring together its components.
@@ -241,7 +243,6 @@ public class AppBuilder {
         return this;
     }
 
-
     /**
      * Adds a model evaluation case to the application.
      * This method initializes the necessary components for model evaluation,
@@ -251,19 +252,19 @@ public class AppBuilder {
      * @return the current instance of AppBuilder for method chaining
      */
     public AppBuilder addModelEvaluationCase() {
-        ModelEvaluationOutputBoundary modelEvaluationPresenter = new ModelEvaluationPresenter(
+        final ModelEvaluationOutputBoundary modelEvaluationPresenter = new ModelEvaluationPresenter(
                 modelEvaluationViewModel,
                 viewManagerModel);
-        ModelEvaluationInputBoundary modelEvaluationInteractor = new ModelEvaluationInteractor(
+        final ModelEvaluationInputBoundary modelEvaluationInteractor = new ModelEvaluationInteractor(
                 onlineDataAccessObject,
                 localDataAccessObject,
                 modelEvaluationPresenter);
 
-        ModelEvaluationController modelEvaluationController = new ModelEvaluationController(modelEvaluationInteractor);
+        final ModelEvaluationController modelEvaluationController =
+                new ModelEvaluationController(modelEvaluationInteractor);
         modelEvaluationView.setModelEvaluationController(modelEvaluationController);
         return this;
     }
-
 
     /**
      * Wires up the portfolio clearing use case.
@@ -275,8 +276,8 @@ public class AppBuilder {
                 clearAllViewModel,
                 addStockViewModel,
                 removeStockViewModel,
-                revenuePredictionViewModel,  // Added RevenuePredictionViewModel
-                modelEvaluationViewModel,    // Added ModelEvaluationViewModel
+                revenuePredictionViewModel,
+                modelEvaluationViewModel,
                 viewManagerModel);
         final ClearAllDataAccessInterface clearAllDataAccessObject =
                 new ClearAllDataAccessObject(localDataAccessObject);

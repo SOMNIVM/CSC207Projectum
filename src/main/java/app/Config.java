@@ -37,7 +37,7 @@ public class Config {
 
     private static JSONArray initializeStockList() {
         try {
-            String jsonString = Files.readString(Paths.get(Objects.requireNonNull(Config
+            final String jsonString = Files.readString(Paths.get(Objects.requireNonNull(Config
                     .class
                     .getClassLoader()
                     .getResource("config/stock_list.json"))
