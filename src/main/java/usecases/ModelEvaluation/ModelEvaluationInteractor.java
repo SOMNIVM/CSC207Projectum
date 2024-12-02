@@ -11,6 +11,31 @@ import java.util.Map;
 
 import org.json.JSONObject;
 
+/**
+ * ModelEvaluationInteractor class implements ModelEvaluationInputBoundary interface and handles the evaluation
+ * of different prediction models for portfolio performance.
+ * 
+ * This class is responsible for:
+ * - Calculating various performance metrics for the selected model
+ * - Processing portfolio observations
+ * - Managing model evaluation data and presenting results
+ *
+ *
+ * 
+ * 
+ * The class supports different types of models and can evaluate them using metrics such as:
+ * - Mean Squared Error
+ * - Mean Absolute Error
+ * - Sharpe Ratio
+ * - Predicted vs Actual Price comparison
+ *
+ * @see ModelEvaluationInputBoundary
+ * @see ModelEvaluationDataAccessInterface
+ * @see ModelEvaluationOutputBoundary
+ * @see LocalDataAccessInterface
+ * @see Portfolio
+ * @see Model
+ */
 public class ModelEvaluationInteractor implements ModelEvaluationInputBoundary {
     private final ModelEvaluationDataAccessInterface dataAccess;
     private final ModelEvaluationOutputBoundary modelEvaluationPresenter;
@@ -84,8 +109,8 @@ public class ModelEvaluationInteractor implements ModelEvaluationInputBoundary {
     private double[] getPortfolioObservations(Portfolio portfolio, ModelEvaluationDataAccessInterface data) {
         double currentValueOfPortfolio = 0;
         List<Double> localObservations = new ArrayList<>();
-        Map<String,List<Pair<String,Double>>> historicalPrices = data.getHistoricalPricesInList(portfolio, numOfInterval);
-        for (int i = 1; i < numOfInterval; i++) {
+        Map<String,List<Pair<String,Double>>> historicalPrices = data.getHistoricalPrices(portfolio, numOfInterval);
+        for (int i = 0; i < numOfInterval; i++) {
             for (String stockSymbol : historicalPrices.keySet()) {
                 double currentValueOfStock = portfolio.getShares(stockSymbol) * historicalPrices.get(stockSymbol).get(i).getSecond();
                 currentValueOfPortfolio += currentValueOfStock;

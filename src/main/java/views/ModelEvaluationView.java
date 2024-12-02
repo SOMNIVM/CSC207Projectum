@@ -1,4 +1,4 @@
 package views;
 
-public class ModelEvaluation {
+public class ModelEvaluationView {
 }
