@@ -1,4 +1,4 @@
-package interface_adapters.ModelEvaluation;
+package interface_adapters.model_evaluation;
 
 import usecases.model_evaluation.ModelEvaluationInputBoundary;
 import usecases.model_evaluation.ModelEvaluationInputData;
@@ -30,5 +30,6 @@ public class ModelEvaluationController {
 }
     public void switchBack() {
         modelEvaluationUseCaseInteractor.switchBack();
+        System.out.println("controller switch back");
     }
 }

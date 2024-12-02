@@ -16,15 +16,15 @@ public abstract class Model {
         this.numOfInterval = numOfInterval;
         this.observations = observations;
         this.type = type;
+
     }
     public static Model createModel(String type, int numOfInterval, double[] observations) {
-         switch (type) {
-            case "avgModel":
+            // "Average model, Moving average model(Not implemented yet), ML model(Not implemented yet)"
+         switch (type.toLowerCase()) {
+            case "average model":
                 return new AvgModel(numOfInterval, observations);
-            case "linearRegressionModel":
-                throw new IllegalArgumentException("Model not implemented yet: " + type);
             default:
-                        throw new IllegalArgumentException("Invalid model type: " + type);
+                throw new IllegalArgumentException("Invalid model type: " + type);
                 }
     }
 

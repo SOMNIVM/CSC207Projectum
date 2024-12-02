@@ -193,4 +193,15 @@ public class RevenuePredictionState {
     public String getErrorMessage() {
         return errorMessage;
     }
+    private void reset() {
+        this.selectedModel = "";
+        this.predictedRevenue = 0.0;
+        this.lowerBound = 0.0;
+        this.upperBound = 0.0;
+        this.confidenceLevel = 0.95; // Default 95% confidence level
+        this.predictionInterval = "";
+        this.intervalLength = 0;
+        this.isValidInput = true;
+        this.errorMessage = "";
+    }
 }
