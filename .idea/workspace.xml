@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="21bd282b-02a1-41dd-879d-e75b71e0bc9b" name="Changes" comment="Commit before merge">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/app/AppBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/app/AppBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/app/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/app/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/reset_portfolio/ClearAllPresenter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/reset_portfolio/ClearAllPresenter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/usecases/model_evaluation/ModelEvaluationInteractor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/usecases/model_evaluation/ModelEvaluationInteractor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/usecases/models/Model.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/usecases/models/Model.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/ModelEvaluationView$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/ModelEvaluationView$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/ModelEvaluationView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/ModelEvaluationView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/views/RevenuePredictionView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/RevenuePredictionView.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
