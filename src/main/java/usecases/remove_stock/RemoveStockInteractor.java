@@ -24,7 +24,9 @@ public class RemoveStockInteractor implements RemoveStockInputBoundary {
             if (sharesToRemove <= existingShares) {
                 portfolio.removeStock(symbol, sharesToRemove);
                 removeStockDataAccessInterface.writeCurrentPortfolio();
-                removeStockPresenter.prepareSuccessView(new RemoveStockOutputData(stockName, sharesToRemove));
+                removeStockPresenter.prepareSuccessView(new RemoveStockOutputData(stockName,
+                        sharesToRemove,
+                        portfolio.getStockSymbols().isEmpty()));
             }
             else {
                 removeStockPresenter.prepareFailView(
@@ -34,5 +36,10 @@ public class RemoveStockInteractor implements RemoveStockInputBoundary {
         else {
             removeStockPresenter.prepareFailView("The stock to be removed is not in your portfolio.");
         }
+    }
+
+    @Override
+    public void switchBack() {
+        removeStockPresenter.switchBack();
     }
 }

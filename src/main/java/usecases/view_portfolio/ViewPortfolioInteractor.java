@@ -41,4 +41,9 @@ public class ViewPortfolioInteractor implements ViewPortfolioInputBoundary{
                 averageBuyingPriceList,
                 valuePerShareList));
     }
+
+    @Override
+    public void switchBack() {
+        viewPortfolioPresenter.switchBack();
+    }
 }

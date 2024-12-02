@@ -16,16 +16,14 @@ public class RemoveStockView extends JPanel implements PropertyChangeListener {
     private final String viewName;
     private final RemoveStockViewModel removeStockViewModel;
     private RemoveStockController removeStockController;
-    private final ViewManagerModel viewManagerModel;
     private final JLabel errorMessageLabel;
     private final JTextField stockNameField;
     private final JTextField sharesField;
-    public RemoveStockView(RemoveStockViewModel removeStockModel, ViewManagerModel managerModel) {
+    public RemoveStockView(RemoveStockViewModel removeStockModel) {
         super();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.removeStockViewModel = removeStockModel;
         this.viewName = this.removeStockViewModel.getViewName();
-        this.viewManagerModel = managerModel;
         this.removeStockViewModel.addPropertyChangeListener(this);
         this.stockNameField = new JTextField(20);
         this.stockNameField.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -75,8 +73,9 @@ public class RemoveStockView extends JPanel implements PropertyChangeListener {
         cancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                viewManagerModel.getState().setCurViewName("homepage");
-                viewManagerModel.firePropertyChange();
+                if (removeStockController != null) {
+                    removeStockController.switchBack();
+                }
             }
         });
     }
