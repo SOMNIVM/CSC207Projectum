@@ -209,7 +209,6 @@ public class ModelEvaluationView extends JPanel implements PropertyChangeListene
             // Refresh the UI
             this.revalidate();
             this.repaint();
-            System.out.println("Result table removed.");
         }
     }
 

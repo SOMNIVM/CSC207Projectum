@@ -40,5 +40,6 @@ public class RevenuePredictionViewModel extends ViewModel<RevenuePredictionState
      */
     public RevenuePredictionViewModel() {
         super("predict revenue", new RevenuePredictionState());
+
     }
 }

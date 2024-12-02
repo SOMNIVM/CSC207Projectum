@@ -14,4 +14,6 @@ public interface RevenuePredictionInputBoundary {
      *                                   (e.g., 5 and "days" for a 5-day prediction)
      */
     void execute(RevenuePredictionInputData revenuePredictionInputData);
+
+    void switchBack();
 }
