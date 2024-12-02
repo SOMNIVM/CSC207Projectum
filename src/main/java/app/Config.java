@@ -14,17 +14,16 @@ public class Config {
     public static final int DAILY_SAMPLE_SIZE = 60;
     public static final int WEEKLY_SAMPLE_SIZE = 48;
     public static final int INTRADAY_PREDICT_INTERVAL = 5;
+    public static final int INTEREST_RATE = 5;
     public static final int CONCURRENCY_THREAD_COUNT = Runtime.getRuntime().availableProcessors();
     public static final JSONArray STOCK_LIST = initializeStockList();
-    public static final double INTEREST_RATE = 0.05;
-
     private static String initializeAPIKey() {
         try {
             return Files.readString(Paths.get(Objects.requireNonNull(Config
-                    .class
-                    .getClassLoader()
-                    .getResource("/config/api_key.txt"))
-                    .toURI()))
+                                    .class
+                                    .getClassLoader()
+                                    .getResource("config/api_key.txt"))
+                            .toURI()))
                     .trim();
         }
         catch (IOException | URISyntaxException e) {
@@ -34,14 +33,15 @@ public class Config {
     private static JSONArray initializeStockList() {
         try {
             String jsonString = Files.readString(Paths.get(Objects.requireNonNull(Config
-                    .class
-                    .getClassLoader()
-                    .getResource("/config/stock_list.json"))
-                    .toURI()));
+                                    .class
+                                    .getClassLoader()
+                                    .getResource("config/stock_list.json"))
+                            .toURI()))
+                    .trim();
             return new JSONArray(jsonString);
         }
         catch (IOException | URISyntaxException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage());
         }
     }
 }
