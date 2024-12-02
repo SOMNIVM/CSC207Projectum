@@ -4,6 +4,7 @@ import entities.Portfolio;
 import kotlin.Pair;
 import usecases.models.*;
 import usecases.LocalDataAccessInterface;
+import usecases.OnlineDataAccessInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ import org.json.JSONObject;
  * @see Model
  */
 public class ModelEvaluationInteractor implements ModelEvaluationInputBoundary {
-    private final ModelEvaluationDataAccessInterface dataAccess;
+    private final OnlineDataAccessInterface dataAccess;
     private final ModelEvaluationOutputBoundary modelEvaluationPresenter;
     private String modelType = "avgModel";
     private final LocalDataAccessInterface localDataAccessInterface;
@@ -106,19 +107,19 @@ public class ModelEvaluationInteractor implements ModelEvaluationInputBoundary {
         }
     }
 
-    private double[] getPortfolioObservations(Portfolio portfolio, ModelEvaluationDataAccessInterface data) {
+private double[] getPortfolioObservations(Portfolio portfolio, ModelEvaluationDataAccessInterface data) {
+    List<Double> localObservations = new ArrayList<>();
+    Map<String, List<Pair<String, Double>>> historicalPrices = data.getHistoricalPrices(portfolio, numOfInterval);
+    for (int i = 0; i < numOfInterval; i++) {
         double currentValueOfPortfolio = 0;
-        List<Double> localObservations = new ArrayList<>();
-        Map<String,List<Pair<String,Double>>> historicalPrices = data.getHistoricalPrices(portfolio, numOfInterval);
-        for (int i = 0; i < numOfInterval; i++) {
-            for (String stockSymbol : historicalPrices.keySet()) {
-                double currentValueOfStock = portfolio.getShares(stockSymbol) * historicalPrices.get(stockSymbol).get(i).getSecond();
-                currentValueOfPortfolio += currentValueOfStock;
-            }
-            localObservations.add(currentValueOfPortfolio);
+        for (String stockSymbol : historicalPrices.keySet()) {
+            double currentValueOfStock = portfolio.getShares(stockSymbol) * historicalPrices.get(stockSymbol).get(i).getSecond();
+            currentValueOfPortfolio += currentValueOfStock;
         }
-        return localObservations.stream().mapToDouble(Double::doubleValue).toArray();
+        localObservations.add(currentValueOfPortfolio);
     }
+    return localObservations.stream().mapToDouble(Double::doubleValue).toArray();
+}
  
     private double getSharpeRatio() {
         return model.getSharpeRatio();
