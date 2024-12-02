@@ -2,6 +2,7 @@
 package data_access;
 
 import app.Config;
+import entities.Portfolio;
 import kotlin.Pair;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -28,7 +29,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class AlphaVantageDataAccessObject implements OnlineDataAccessInterface {
     private final String apiKey;
-    private static final String baseURL = "https://www.alphavantage.com/query?";
+    private static final String baseURL = "https://www.alphavantage.co/query?";
     private static final String INTRADAY_FUNC_NAME = "TIME_SERIES_INTRADAY";
     private static final String DAILY_FUNC_NAME = "TIME_SERIES_DAILY";
     private static final String WEEKLY_FUNC_NAME = "TIME_SERIES_WEEKLY";
@@ -104,64 +105,81 @@ public class AlphaVantageDataAccessObject implements OnlineDataAccessInterface {
 //        }
 //        return result;
 //    }
-
+    @Override
     public List<Pair<String, Double>> getSingleTimeSeriesIntraDay(String symbol, int sampleSize, int interval) {
         JSONObject dataObject = requestJSON(getQueryURL(setParamsIntraDay(symbol, interval)))
                 .getJSONObject(String.format("Time Series (%dmin)", interval));
         return getTimeSeriesFromJSONObject(dataObject, sampleSize);
     }
 
+    @Override
     public List<Pair<String, Double>> getSingleTimeSeriesDaily(String symbol, int sampleSize) {
         JSONObject dataObject = requestJSON(getQueryURL(setParameters(symbol, DAILY_FUNC_NAME)))
                 .getJSONObject("Time Series (Daily)");
         return getTimeSeriesFromJSONObject(dataObject, sampleSize);
     }
 
+    @Override
     public List<Pair<String, Double>> getSingleTimeSeriesWeekly(String symbol, int sampleSize) {
         JSONObject dataObject = requestJSON(getQueryURL(setParameters(symbol, WEEKLY_FUNC_NAME)))
                 .getJSONObject("Time Series (Weekly)");
         return getTimeSeriesFromJSONObject(dataObject, sampleSize);
     }
 
-    public Map<String, List<Pair<String, Double>>> getBulkTimeSeriesIntraDay(List<String> symbols,
+    @Override
+    public Map<String, List<Pair<String, Double>>> getBulkTimeSeriesIntraDay(Portfolio portfolio,
                                                                              int sampleSize,
                                                                              int interval) {
+        List<String> symbols = new ArrayList<>(portfolio.getStockSymbols());
         List<String> urls = new ArrayList<>();
         for (String symbol: symbols) {
             urls.add(getQueryURL(setParamsIntraDay(symbol, interval)));
         }
-        return JSONToMap(symbols, sampleSize, urls);
-    }
-
-    @NotNull
-    private Map<String, List<Pair<String, Double>>> JSONToMap(List<String> symbols, int sampleSize, List<String> urls) {
-        List<JSONObject> dataList = getBulkTimeSeriesData(urls);
+        List<JSONObject> resultList = getBulkTimeSeriesData(urls);
         Map<String, List<Pair<String, Double>>> result = new HashMap<>();
-        for (int i = 0; i < urls.size(); i++) {
-            result.put(symbols.get(i), getTimeSeriesFromJSONObject(dataList.get(i), sampleSize));
+        for (int i = 0; i < symbols.size(); i++) {
+            List<Pair<String, Double>> curTimeSeries = getTimeSeriesFromJSONObject(
+                    resultList.get(i).getJSONObject(String.format("Time Series (%dmin)", interval)),
+                    sampleSize);
+            result.put(symbols.get(i), curTimeSeries);
         }
         return result;
     }
 
-    public Map<String, List<Pair<String, Double>>> getBulkTimeSeriesDaily(List<String> symbols,
-                                                                          int sampleSize) {
-        return getBulkTimeSeries(symbols, sampleSize, DAILY_FUNC_NAME);
-    }
-
-    public Map<String, List<Pair<String, Double>>> getBulkTimeSeriesWeekly(List<String> symbols,
-                                                                           int sampleSize) {
-        return getBulkTimeSeries(symbols, sampleSize, WEEKLY_FUNC_NAME);
-    }
-
-    @NotNull
-    private Map<String, List<Pair<String, Double>>> getBulkTimeSeries(List<String> symbols,
-                                                                      int sampleSize,
-                                                                      String funcName) {
+    @Override
+    public Map<String, List<Pair<String, Double>>> getBulkTimeSeriesDaily(Portfolio portfolio, int sampleSize) {
+        List<String> symbols = new ArrayList<>(portfolio.getStockSymbols());
         List<String> urls = new ArrayList<>();
         for (String symbol: symbols) {
-            urls.add(getQueryURL(setParameters(symbol, funcName)));
+            urls.add(getQueryURL(setParameters(symbol, DAILY_FUNC_NAME)));
         }
-        return JSONToMap(symbols, sampleSize, urls);
+        List<JSONObject> resultList = getBulkTimeSeriesData(urls);
+        Map<String, List<Pair<String, Double>>> result = new HashMap<>();
+        for (int i = 0; i < symbols.size(); i++) {
+            List<Pair<String, Double>> curTimeSeries = getTimeSeriesFromJSONObject(
+                    resultList.get(i).getJSONObject("Time Series (Daily)"),
+                    sampleSize);
+            result.put(symbols.get(i), curTimeSeries);
+        }
+        return result;
+    }
+
+    @Override
+    public Map<String, List<Pair<String, Double>>> getBulkTimeSeriesWeekly(Portfolio portfolio, int sampleSize) {
+        List<String> symbols = new ArrayList<>(portfolio.getStockSymbols());
+        List<String> urls = new ArrayList<>();
+        for (String symbol: symbols) {
+            urls.add(getQueryURL(setParameters(symbol, WEEKLY_FUNC_NAME)));
+        }
+        List<JSONObject> resultList = getBulkTimeSeriesData(urls);
+        Map<String, List<Pair<String, Double>>> result = new HashMap<>();
+        for (int i = 0; i < symbols.size(); i++) {
+            List<Pair<String, Double>> curTimeSeries = getTimeSeriesFromJSONObject(
+                    resultList.get(i).getJSONObject("Weekly Time Series"),
+                    sampleSize);
+            result.put(symbols.get(i), curTimeSeries);
+        }
+        return result;
     }
 
     private List<Pair<String, String>> setParameters(String symbol, String funcName) {
@@ -185,7 +203,7 @@ public class AlphaVantageDataAccessObject implements OnlineDataAccessInterface {
         List<Pair<String, Double>> result = new ArrayList<>();
         List<String> timeStamps = new ArrayList<>(timeSeriesObject.keySet());
         Collections.sort(timeStamps);
-        for (int i = timeStamps.size() - 1; i >= timeStamps.size() - sampleSize; i--) {
+        for (int i = timeStamps.size() - sampleSize; i < timeStamps.size(); i++) {
             String timeStamp = timeStamps.get(i);
             result.add(new Pair<>(timeStamp, timeSeriesObject.getJSONObject(timeStamp).getDouble(CLOSING_PRICE_LABEL)));
         }
@@ -208,7 +226,8 @@ public class AlphaVantageDataAccessObject implements OnlineDataAccessInterface {
                 if (responseBody == null) {
                     throw new RuntimeException("The content of the requested JSON file is empty.");
                 }
-                return new JSONObject(responseBody.string());
+                String jsonString = responseBody.string();
+                return new JSONObject(jsonString);
             } else {
                 throw new RuntimeException("Response failed: " + response.code());
             }

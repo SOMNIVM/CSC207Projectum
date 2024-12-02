@@ -1,22 +1,22 @@
 package interface_adapters.reset_portfolio;
 
 import interface_adapters.ViewManagerModel;
-import interface_adapters.buy_stock.BuyStockViewModel;
+import interface_adapters.add_stock.AddStockViewModel;
 import interface_adapters.remove_stock.RemoveStockViewModel;
 import usecases.reset_portfolio.ClearAllOutputBoundary;
 
 public class ClearAllPresenter implements ClearAllOutputBoundary {
     private final ViewManagerModel viewManagerModel;
     private final ClearAllViewModel clearAllViewModel;
-    private final BuyStockViewModel buyStockViewModel;
+    private final AddStockViewModel addStockViewModel;
     private final RemoveStockViewModel removeStockViewModel;
     public ClearAllPresenter(ClearAllViewModel clearAllModel,
-                             BuyStockViewModel buyStockModel,
+                             AddStockViewModel buyStockModel,
                              RemoveStockViewModel removeStockModel,
                              ViewManagerModel managerModel) {
         this.viewManagerModel = managerModel;
         this.clearAllViewModel = clearAllModel;
-        this.buyStockViewModel = buyStockModel;
+        this.addStockViewModel = buyStockModel;
         this.removeStockViewModel = removeStockModel;
     }
 
@@ -29,8 +29,8 @@ public class ClearAllPresenter implements ClearAllOutputBoundary {
 
     @Override
     public void switchToBuyStock() {
-        if (buyStockViewModel != null) {
-            viewManagerModel.getState().setCurViewName(buyStockViewModel.getViewName());
+        if (addStockViewModel != null) {
+            viewManagerModel.getState().setCurViewName(addStockViewModel.getViewName());
             viewManagerModel.firePropertyChange();
         }
     }

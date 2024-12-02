@@ -28,11 +28,10 @@ public class ViewPortfolioDataAccessObject implements ViewPortfolioDataAccessInt
     @Override
     public Map<String, Double> getSymbolToCurrentPrice() {
         Portfolio portfolio = localDataAccessInterface.getCurrentPortfolio();
-        List<String> symbols = new ArrayList<>(portfolio.getStockSymbols());
         Map<String, List<Pair<String, Double>>> timeSeries = onlineDataAccessInterface
-                .getBulkTimeSeriesIntraDay(symbols, 1, Config.INTRADAY_PREDICT_INTERVAL);
+                .getBulkTimeSeriesIntraDay(portfolio, 1, Config.INTRADAY_PREDICT_INTERVAL);
         Map<String, Double> result = new HashMap<>();
-        for (String symbol: symbols) {
+        for (String symbol: portfolio.getStockSymbols()) {
             result.put(symbol, timeSeries.get(symbol).get(0).getSecond());
         }
         return result;

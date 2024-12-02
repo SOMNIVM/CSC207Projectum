@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 public class Config {
-    public static final String API_KEY = initializeApiKey();
+    public static final String API_KEY = initializeAPIKey();
     public static final int INTRADAY_SAMPLE_SIZE = 24;
     public static final int DAILY_SAMPLE_SIZE = 60;
     public static final int WEEKLY_SAMPLE_SIZE = 48;
@@ -18,7 +18,7 @@ public class Config {
     public static final JSONArray STOCK_LIST = initializeStockList();
     public static final double INTEREST_RATE = 0.05;
 
-    private static String initializeApiKey() {
+    private static String initializeAPIKey() {
         try {
             return Files.readString(Paths.get(Objects.requireNonNull(Config
                     .class
@@ -33,15 +33,16 @@ public class Config {
     }
     private static JSONArray initializeStockList() {
         try {
-            final String jsonString = Files.readString(Paths.get(Objects.requireNonNull(Config
+            String jsonString = Files.readString(Paths.get(Objects.requireNonNull(Config
                     .class
                     .getClassLoader()
                     .getResource("config/stock_list.json"))
-                    .toURI()));
+                    .toURI()))
+                    .trim();
             return new JSONArray(jsonString);
         }
         catch (IOException | URISyntaxException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage());
         }
     }
 }
