@@ -1,5 +1,6 @@
 package usecases.ModelEvaluation;
 
+import app.Config;
 import entities.Portfolio;
 import kotlin.Pair;
 import usecases.models.*;
@@ -46,35 +47,62 @@ public class ModelEvaluationInteractor implements ModelEvaluationInputBoundary {
     private final int numOfInterval;
     private double[] observations;
     private Model model;
+    private String frequency;
 
 
     public ModelEvaluationInteractor(
-            ModelEvaluationDataAccessInterface modelEvaluationDataAccessInterface,
+            OnlineDataAccessInterface dataAccess,   
             ModelEvaluationOutputBoundary modelEvaluationPresenter,
             LocalDataAccessInterface localDataAccessInterface,
-            int numOfInterval) {
-        this.dataAccess = modelEvaluationDataAccessInterface;
+            int numOfInterval,
+            String frequency) {
+        this.dataAccess = dataAccess;
         this.modelEvaluationPresenter = modelEvaluationPresenter;
         this.localDataAccessInterface = localDataAccessInterface;
-        this.numOfInterval = numOfInterval;
         this.portfolio = localDataAccessInterface.getCurrentPortfolio();
         this.observations = getPortfolioObservations(portfolio, dataAccess);
         this.model = Model.createModel(modelType, numOfInterval, observations);
+        this.frequency = frequency;
+        switch (frequency) {
+            case "intraday":
+                this.numOfInterval = Config.INTRADAY_SAMPLE_SIZE;
+                break;
+            case "daily":
+                this.numOfInterval = Config.DAILY_SAMPLE_SIZE;
+                break;
+            default:
+                this.numOfInterval = Config.WEEKLY_SAMPLE_SIZE;
+                break;
+        }
+
     }
     public ModelEvaluationInteractor(
-        ModelEvaluationDataAccessInterface modelEvaluationDataAccessInterface,
+        OnlineDataAccessInterface dataAccess,
         ModelEvaluationOutputBoundary modelEvaluationPresenter,
         LocalDataAccessInterface localDataAccessInterface,
         int numOfInterval,
-        String modelType) {
-    this.dataAccess = modelEvaluationDataAccessInterface;
+        String modelType,
+        String frequency) {
+    this.dataAccess = dataAccess;
     this.modelEvaluationPresenter = modelEvaluationPresenter;
     this.localDataAccessInterface = localDataAccessInterface;
-    this.numOfInterval = numOfInterval;
     this.portfolio = localDataAccessInterface.getCurrentPortfolio();
     this.observations = getPortfolioObservations(portfolio, dataAccess);
     this.modelType = modelType;
     this.model = Model.createModel(modelType, numOfInterval, observations);
+    this.frequency = frequency;
+    switch (frequency) {
+        case "intraday":
+            this.numOfInterval = Config.INTRADAY_SAMPLE_SIZE;
+            break;
+        case "daily":
+            this.numOfInterval = Config.DAILY_SAMPLE_SIZE;
+            break;
+        default:
+            this.numOfInterval = Config.WEEKLY_SAMPLE_SIZE;
+            break;
+    }
+
     }
     @Override
     public void execute(ModelEvaluationInputData modelEvaluationInputData) {
@@ -107,13 +135,27 @@ public class ModelEvaluationInteractor implements ModelEvaluationInputBoundary {
         }
     }
 
-private double[] getPortfolioObservations(Portfolio portfolio, ModelEvaluationDataAccessInterface data) {
+private double[] getPortfolioObservations(Portfolio portfolio, OnlineDataAccessInterface dataAccess) {
     List<Double> localObservations = new ArrayList<>();
-    Map<String, List<Pair<String, Double>>> historicalPrices = data.getHistoricalPrices(portfolio, numOfInterval);
+    List<String> stockSymbols = new ArrayList<>(portfolio.getStockSymbols());
+    Map<String, List<Pair<String, Double>>> historicalPrices;
+    switch (this.frequency) {
+        case "intraday":
+            historicalPrices = dataAccess.getBulkTimeSeriesIntraDay(stockSymbols, numOfInterval, Config.INTRADAY_PREDICT_INTERVAL);
+            break;
+        case "daily":
+            historicalPrices = dataAccess.getBulkTimeSeriesDaily(stockSymbols, numOfInterval);
+            break;
+        default:
+            historicalPrices = dataAccess.getBulkTimeSeriesWeekly(stockSymbols, numOfInterval);
+            break;
+    }
+
     for (int i = 0; i < numOfInterval; i++) {
         double currentValueOfPortfolio = 0;
-        for (String stockSymbol : historicalPrices.keySet()) {
-            double currentValueOfStock = portfolio.getShares(stockSymbol) * historicalPrices.get(stockSymbol).get(i).getSecond();
+        for (Map.Entry<String, List<Pair<String, Double>>> entry : historicalPrices.entrySet()) {
+            String stockSymbol = entry.getKey();
+            double currentValueOfStock = portfolio.getShares(stockSymbol) * entry.getValue().get(i).getSecond();
             currentValueOfPortfolio += currentValueOfStock;
         }
         localObservations.add(currentValueOfPortfolio);

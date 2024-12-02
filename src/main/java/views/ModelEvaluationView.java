@@ -86,11 +86,16 @@ public class ModelEvaluationView extends JPanel implements PropertyChangeListene
     private final ModelEvaluationViewModel modelEvaluationViewModel;
     private ModelEvaluationController modelEvaluationController;
     private final ViewManagerModel viewManagerModel;
-    private final JLabel errorMessageLabel;
     private final JComboBox<String> modelTypeComboBox;
     private final JComboBox<String> intervalTypeComboBox;
-    private final JTextField intervalLengthField;
-    private final JLabel resultLabel;
+    // private final JLabel meanSquaredErrorLabel;
+    // private final JLabel meanAbsoluteErrorLabel;
+    // private final JLabel sharpeRatioLabel;
+    // private final JLabel errorMessageLabel;
+    // private final JLabel predictedValuLabel;
+    // private final JLabel actualValueLabel;
+    private final JButton evaluationProceedButton;
+
 
     public ModelEvaluationView(ModelEvaluationViewModel modelEvaluationModel, ViewManagerModel managerModel) {
         super();
@@ -99,6 +104,20 @@ public class ModelEvaluationView extends JPanel implements PropertyChangeListene
         this.viewManagerModel = managerModel;
         this.viewName = this.modelEvaluationViewModel.getViewName();
         this.modelEvaluationViewModel.addPropertyChangeListener(this);
+        // this.meanSquaredErrorLabel = new JLabel();
+        // this.meanSquaredErrorLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        // this.meanAbsoluteErrorLabel = new JLabel();
+        // this.meanAbsoluteErrorLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        // this.sharpeRatioLabel = new JLabel();
+        // this.sharpeRatioLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        // this.errorMessageLabel = new JLabel();
+        // this.errorMessageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        // this.predictedValuLabel = new JLabel();
+        // this.predictedValuLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        // this.actualValueLabel = new JLabel();
+        // this.actualValueLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.evaluationProceedButton = new JButton();
+        this.evaluationProceedButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Initialize components
         JLabel title = new JLabel(ModelEvaluationViewModel.MODEL_NAME_TYPE_LABEL);
@@ -111,6 +130,10 @@ public class ModelEvaluationView extends JPanel implements PropertyChangeListene
         intervalTypePanel.add(intervalTypeComboBox);
         intervalTypePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        intervalTypeComboBox.addActionListener(actionEvent -> {
+            String intervalType = (String) intervalTypeComboBox.getSelectedItem();
+        }); 
+
         // Interval Length Input
         JPanel modelTypePanel = new JPanel();
         modelTypePanel.add(new JLabel(ModelEvaluationViewModel.MODEL_NAME_TYPE_LABEL));
@@ -118,12 +141,25 @@ public class ModelEvaluationView extends JPanel implements PropertyChangeListene
         modelTypePanel.add(modelTypeComboBox);
         modelTypePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-    }
+        modelTypeComboBox.addActionListener(actionEvent -> {
+                String modelType = (String) modelTypeComboBox.getSelectedItem();
+        });
+        evaluationProceedButton.setText("Click to proceed");
+        evaluationProceedButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (modelEvaluationController != null) {
+                    modelEvaluationController.execute((String) modelTypeComboBox.getSelectedItem(), (String) intervalTypeComboBox.getSelectedItem());
+                }
+            }
+        });
+}
 
 
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        ModelResultState modelResultState = (ModelResultState) evt.getNewValue();
+        // no action needed
     }
+    
 }

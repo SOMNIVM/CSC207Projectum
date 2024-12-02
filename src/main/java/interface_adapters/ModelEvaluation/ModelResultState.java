@@ -1,16 +1,16 @@
 package interface_adapters.ModelEvaluation;
 
 public class ModelResultState {
-    private String modelName;
-    private String frequency;
+    private String modelName = "Invalid Model";
+    private String frequency= "Invalid Frequency";
     private int length;
     private double meanSquaredError;
     private double meanAbsoluteError;
-    private double sharpRatio;
+    private double sharpeRatio;
     private double predictedPrice;
     private double actualPrice;
-    private boolean isValid;
-    private String error;
+    private boolean isValid = true;
+    private String error = "Error not found";
 
     public void setModelName(String modelName) {
         this.modelName = modelName;
@@ -32,8 +32,8 @@ public class ModelResultState {
         this.meanAbsoluteError = meanAbsoluteError;
     }
 
-    public void setSharpRatio(double sharpRatio) {
-        this.sharpRatio = sharpRatio;
+    public void setSharpeRatio(double sharpeRatio) {
+        this.sharpeRatio = sharpeRatio;
     }
 
     public void setPredictedPrice(double predictedPrice) {
@@ -42,11 +42,6 @@ public class ModelResultState {
 
     public void setActualPrice(double actualPrice) {
         this.actualPrice = actualPrice;
-    }
-
-    public void setAsValid() {
-        this.isValid = true;
-        this.error = "";
     }
 
     public void setAsInvalid(String error) {

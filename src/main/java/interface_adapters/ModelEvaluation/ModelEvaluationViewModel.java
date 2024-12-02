@@ -11,6 +11,5 @@ public class ModelEvaluationViewModel extends ViewModel<ModelResultState> {
 
     public ModelEvaluationViewModel() {
         super("model evaluation", new ModelResultState());
-
     }
 }
