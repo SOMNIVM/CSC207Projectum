@@ -24,7 +24,7 @@ public class AddStockPresenter implements AddStockOutputBoundary {
         state.setAsValid();
         state.setStockName(addStockOutputData.getStockName());
         state.setSharesChanged(addStockOutputData.getSharesPurchased());
-        state.setBuyingPrice(addStockOutputData.getBuyingPrice());
+        state.setCurrentPrice(addStockOutputData.getCurrentPrice());
         addStockViewModel.firePropertyChange();
     }
 

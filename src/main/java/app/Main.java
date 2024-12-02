@@ -9,10 +9,10 @@ public class Main {
           AppBuilder appBuilder = new AppBuilder();
           JFrame app = appBuilder
                   .addViewPortfolioView()
-                  .addBuyStockView()
+                  .addAddStockView()
                   .addRemoveStockView()
                   .addViewPortfolioUseCase()
-                  .addBuyStockUseCase()
+                  .addAddStockUseCase()
                   .addRemoveStockUseCase()
                   .addClearAllUseCase()
                   .build();

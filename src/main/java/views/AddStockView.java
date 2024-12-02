@@ -37,9 +37,9 @@ public class AddStockView extends JPanel implements PropertyChangeListener {
         sharesFieldPanel.add(new JLabel(AddStockViewModel.SHARES_FIELD_LABEL));
         sharesFieldPanel.add(this.sharesField);
         JPanel buttonPanel = new JPanel();
-        JButton buyStock = new JButton(AddStockViewModel.BUY_STOCK_BUTTON_LABEL);
+        JButton addStock = new JButton(AddStockViewModel.BUY_STOCK_BUTTON_LABEL);
         JButton cancel = new JButton(AddStockViewModel.CANCEL_BUTTON_LABEL);
-        buttonPanel.add(buyStock);
+        buttonPanel.add(addStock);
         buttonPanel.add(cancel);
         stockNamePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         sharesFieldPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -49,7 +49,7 @@ public class AddStockView extends JPanel implements PropertyChangeListener {
         this.add(sharesFieldPanel);
         this.add(this.errorMessageLabel);
         this.add(buttonPanel);
-        buyStock.addActionListener(new ActionListener() {
+        addStock.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (addStockController != null) {
@@ -60,7 +60,7 @@ public class AddStockView extends JPanel implements PropertyChangeListener {
                         addStockController.execute(stockNameInput, shares);
                     }
                     else {
-                        addStockViewModel.getState().setAsInvalid("Shares to buy should be a non-negative integer.");
+                        addStockViewModel.getState().setAsInvalid("Shares to add should be a non-negative integer.");
                         addStockViewModel.firePropertyChange();
                     }
                 }
@@ -82,10 +82,10 @@ public class AddStockView extends JPanel implements PropertyChangeListener {
         if (state.checkIfValid()) {
             errorMessageLabel.setText("");
             JOptionPane.showMessageDialog(null,
-                    String.format("You purchased %d shares of %s stocks at price $%.2f per share.",
+                    String.format("You added %d shares of %s stocks at price $%.2f per share.",
                             state.getSharesChanged(),
                             state.getStockName(),
-                            state.getBuyingPrice()));
+                            state.getCurrentPrice()));
         }
         else {
             errorMessageLabel.setText(state.getErrorMessage());

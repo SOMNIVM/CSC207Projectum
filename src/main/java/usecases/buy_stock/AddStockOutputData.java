@@ -3,12 +3,12 @@ package usecases.buy_stock;
 public class AddStockOutputData {
     private final String stockName;
     private final int sharesPurchased;
-    private final double buyingPrice;
+    private final double currentPrice;
 
-    public AddStockOutputData(String stockName, int sharesPurchased, double buyingPrice) {
+    public AddStockOutputData(String stockName, int sharesPurchased, double currentPrice) {
         this.stockName = stockName;
         this.sharesPurchased = sharesPurchased;
-        this.buyingPrice = buyingPrice;
+        this.currentPrice = currentPrice;
     }
     public String getStockName() {
         return stockName;
@@ -16,7 +16,7 @@ public class AddStockOutputData {
     public int getSharesPurchased() {
         return sharesPurchased;
     }
-    public double getBuyingPrice() {
-        return buyingPrice;
+    public double getCurrentPrice() {
+        return currentPrice;
     }
 }

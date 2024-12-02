@@ -69,7 +69,7 @@ public class AppBuilder {
         cardPanel.add(viewPortfolioView, viewPortfolioView.getViewName());
         return this;
     }
-    public AppBuilder addBuyStockView() {
+    public AppBuilder addAddStockView() {
         addStockViewModel = new AddStockViewModel();
         addStockView = new AddStockView(addStockViewModel);
         cardPanel.add(addStockView, addStockView.getViewName());
@@ -97,7 +97,7 @@ public class AppBuilder {
         viewPortfolioView.setViewPortfolioController(viewPortfolioController);
         return this;
     }
-    public AppBuilder addBuyStockUseCase() {
+    public AppBuilder addAddStockUseCase() {
         AddStockOutputBoundary buyStockPresenter = new AddStockPresenter(
                 addStockViewModel,
                 clearAllViewModel,

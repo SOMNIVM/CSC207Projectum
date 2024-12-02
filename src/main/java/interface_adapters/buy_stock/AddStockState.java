@@ -3,15 +3,15 @@ package interface_adapters.buy_stock;
 import interface_adapters.ModifyPortfolioState;
 
 public class AddStockState extends ModifyPortfolioState {
-    private double buyingPrice;
+    private double currentPrice;
     public AddStockState() {
         super();
-        this.buyingPrice = 0.0;
+        this.currentPrice = 0.0;
     }
-    public void setBuyingPrice(double price) {
-        buyingPrice = price;
+    public void setCurrentPrice(double price) {
+        currentPrice = price;
     }
-    public double getBuyingPrice() {
-        return buyingPrice;
+    public double getCurrentPrice() {
+        return currentPrice;
     }
 }
