@@ -1,5 +1,16 @@
 package usecases.model_evaluation;
 
+/**
+ * A class that represents the output data from model evaluation operations.
+ * This class encapsulates various metrics and parameters used to evaluate the performance
+ * of a financial prediction model.
+ *
+ * The class stores and provides access to:
+ * - Model identification information (name, frequency, data length)
+ * - Error metrics (mean squared error, mean absolute error)
+ * - Performance metrics (sharp ratio)
+ * - Price comparison data (predicted vs actual prices)
+ */
 public class ModelEvaluationOutputData {
     private final String modelName;
     private final String frequency;

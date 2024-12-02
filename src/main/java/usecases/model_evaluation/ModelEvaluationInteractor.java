@@ -1,16 +1,45 @@
-package usecases.model_evaluation;
+package usecases.ModelEvaluation;
 
+import app.Config;
 import entities.Portfolio;
 import kotlin.Pair;
 import usecases.models.*;
 import usecases.LocalDataAccessInterface;
+import usecases.OnlineDataAccessInterface;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONObject;
+
+/**
+ * ModelEvaluationInteractor class implements ModelEvaluationInputBoundary interface and handles the evaluation
+ * of different prediction models for portfolio performance.
+ * 
+ * This class is responsible for:
+ * - Calculating various performance metrics for the selected model
+ * - Processing portfolio observations
+ * - Managing model evaluation data and presenting results
+ *
+ *
+ * 
+ * 
+ * The class supports different types of models and can evaluate them using metrics such as:
+ * - Mean Squared Error
+ * - Mean Absolute Error
+ * - Sharpe Ratio
+ * - Predicted vs Actual Price comparison
+ *
+ * @see ModelEvaluationInputBoundary
+ * @see ModelEvaluationDataAccessInterface
+ * @see ModelEvaluationOutputBoundary
+ * @see LocalDataAccessInterface
+ * @see Portfolio
+ * @see Model
+ */
 public class ModelEvaluationInteractor implements ModelEvaluationInputBoundary {
-    private final ModelEvaluationDataAccessInterface dataAccess;
+    private final OnlineDataAccessInterface dataAccess;
     private final ModelEvaluationOutputBoundary modelEvaluationPresenter;
     private String modelType = "avgModel";
     private final LocalDataAccessInterface localDataAccessInterface;
@@ -18,35 +47,62 @@ public class ModelEvaluationInteractor implements ModelEvaluationInputBoundary {
     private final int numOfInterval;
     private double[] observations;
     private Model model;
+    private String frequency;
 
 
     public ModelEvaluationInteractor(
-            ModelEvaluationDataAccessInterface modelEvaluationDataAccessInterface,
+            OnlineDataAccessInterface dataAccess,   
             ModelEvaluationOutputBoundary modelEvaluationPresenter,
             LocalDataAccessInterface localDataAccessInterface,
-            int numOfInterval) {
-        this.dataAccess = modelEvaluationDataAccessInterface;
+            int numOfInterval,
+            String frequency) {
+        this.dataAccess = dataAccess;
         this.modelEvaluationPresenter = modelEvaluationPresenter;
         this.localDataAccessInterface = localDataAccessInterface;
-        this.numOfInterval = numOfInterval;
         this.portfolio = localDataAccessInterface.getCurrentPortfolio();
         this.observations = getPortfolioObservations(portfolio, dataAccess);
         this.model = Model.createModel(modelType, numOfInterval, observations);
+        this.frequency = frequency;
+        switch (frequency) {
+            case "intraday":
+                this.numOfInterval = Config.INTRADAY_SAMPLE_SIZE;
+                break;
+            case "daily":
+                this.numOfInterval = Config.DAILY_SAMPLE_SIZE;
+                break;
+            default:
+                this.numOfInterval = Config.WEEKLY_SAMPLE_SIZE;
+                break;
+        }
+
     }
     public ModelEvaluationInteractor(
-        ModelEvaluationDataAccessInterface modelEvaluationDataAccessInterface,
+        OnlineDataAccessInterface dataAccess,
         ModelEvaluationOutputBoundary modelEvaluationPresenter,
         LocalDataAccessInterface localDataAccessInterface,
         int numOfInterval,
-        String modelType) {
-    this.dataAccess = modelEvaluationDataAccessInterface;
+        String modelType,
+        String frequency) {
+    this.dataAccess = dataAccess;
     this.modelEvaluationPresenter = modelEvaluationPresenter;
     this.localDataAccessInterface = localDataAccessInterface;
-    this.numOfInterval = numOfInterval;
     this.portfolio = localDataAccessInterface.getCurrentPortfolio();
     this.observations = getPortfolioObservations(portfolio, dataAccess);
     this.modelType = modelType;
     this.model = Model.createModel(modelType, numOfInterval, observations);
+    this.frequency = frequency;
+    switch (frequency) {
+        case "intraday":
+            this.numOfInterval = Config.INTRADAY_SAMPLE_SIZE;
+            break;
+        case "daily":
+            this.numOfInterval = Config.DAILY_SAMPLE_SIZE;
+            break;
+        default:
+            this.numOfInterval = Config.WEEKLY_SAMPLE_SIZE;
+            break;
+    }
+
     }
     @Override
     public void execute(ModelEvaluationInputData modelEvaluationInputData) {
@@ -79,19 +135,33 @@ public class ModelEvaluationInteractor implements ModelEvaluationInputBoundary {
         }
     }
 
-    private double[] getPortfolioObservations(Portfolio portfolio, ModelEvaluationDataAccessInterface data) {
-        double currentValueOfPortfolio = 0;
-        List<Double> localObservations = new ArrayList<>();
-        Map<String,List<Pair<String,Double>>> historicalPrices = data.getHistoricalPricesInList(portfolio, numOfInterval);
-        for (int i = 1; i < numOfInterval; i++) {
-            for (String stockSymbol : historicalPrices.keySet()) {
-                double currentValueOfStock = portfolio.getShares(stockSymbol) * historicalPrices.get(stockSymbol).get(i).getSecond();
-                currentValueOfPortfolio += currentValueOfStock;
-            }
-            localObservations.add(currentValueOfPortfolio);
-        }
-        return localObservations.stream().mapToDouble(Double::doubleValue).toArray();
+private double[] getPortfolioObservations(Portfolio portfolio, OnlineDataAccessInterface dataAccess) {
+    List<Double> localObservations = new ArrayList<>();
+    List<String> stockSymbols = new ArrayList<>(portfolio.getStockSymbols());
+    Map<String, List<Pair<String, Double>>> historicalPrices;
+    switch (this.frequency) {
+        case "intraday":
+            historicalPrices = dataAccess.getBulkTimeSeriesIntraDay(stockSymbols, numOfInterval, Config.INTRADAY_PREDICT_INTERVAL);
+            break;
+        case "daily":
+            historicalPrices = dataAccess.getBulkTimeSeriesDaily(stockSymbols, numOfInterval);
+            break;
+        default:
+            historicalPrices = dataAccess.getBulkTimeSeriesWeekly(stockSymbols, numOfInterval);
+            break;
     }
+
+    for (int i = 0; i < numOfInterval; i++) {
+        double currentValueOfPortfolio = 0;
+        for (Map.Entry<String, List<Pair<String, Double>>> entry : historicalPrices.entrySet()) {
+            String stockSymbol = entry.getKey();
+            double currentValueOfStock = portfolio.getShares(stockSymbol) * entry.getValue().get(i).getSecond();
+            currentValueOfPortfolio += currentValueOfStock;
+        }
+        localObservations.add(currentValueOfPortfolio);
+    }
+    return localObservations.stream().mapToDouble(Double::doubleValue).toArray();
+}
  
     private double getSharpeRatio() {
         return model.getSharpeRatio();
@@ -111,6 +181,11 @@ public class ModelEvaluationInteractor implements ModelEvaluationInputBoundary {
     }
     private double getActualPrice() {
         return model.getActualPrice();
+
+}
+    @Override
+    public void switchBack() {
+        modelEvaluationPresenter.switchToModelResult();
 
 }
 }
