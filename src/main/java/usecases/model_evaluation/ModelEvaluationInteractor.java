@@ -44,86 +44,38 @@ import org.json.JSONObject;
 public class ModelEvaluationInteractor implements ModelEvaluationInputBoundary {
     private final OnlineDataAccessInterface dataAccess;
     private final ModelEvaluationOutputBoundary modelEvaluationPresenter;
-    private String modelType = "avgModel";
     private final LocalDataAccessInterface localDataAccessInterface;
-    private final Portfolio portfolio;
-    private final int numOfInterval;
-    private double[] observations;
-    private Model model;
-    private String frequency;
-
 
     public ModelEvaluationInteractor(
             OnlineDataAccessInterface dataAccess,   
-            ModelEvaluationOutputBoundary modelEvaluationPresenter,
             LocalDataAccessInterface localDataAccessInterface,
-            int numOfInterval,
-            String frequency) {
+            ModelEvaluationOutputBoundary modelEvaluationPresenter) {
         this.dataAccess = dataAccess;
         this.modelEvaluationPresenter = modelEvaluationPresenter;
         this.localDataAccessInterface = localDataAccessInterface;
-        this.portfolio = localDataAccessInterface.getCurrentPortfolio();
-        this.observations = getPortfolioObservations(portfolio, dataAccess);
-        this.model = Model.createModel(modelType, numOfInterval, observations);
-        this.frequency = frequency;
-        switch (frequency) {
-            case "intraday":
-                this.numOfInterval = Config.INTRADAY_SAMPLE_SIZE;
-                break;
-            case "daily":
-                this.numOfInterval = Config.DAILY_SAMPLE_SIZE;
-                break;
-            default:
-                this.numOfInterval = Config.WEEKLY_SAMPLE_SIZE;
-                break;
-        }
 
     }
-    public ModelEvaluationInteractor(
-        OnlineDataAccessInterface dataAccess,
-        ModelEvaluationOutputBoundary modelEvaluationPresenter,
-        LocalDataAccessInterface localDataAccessInterface,
-        int numOfInterval,
-        String modelType,
-        String frequency) {
-    this.dataAccess = dataAccess;
-    this.modelEvaluationPresenter = modelEvaluationPresenter;
-    this.localDataAccessInterface = localDataAccessInterface;
-    this.portfolio = localDataAccessInterface.getCurrentPortfolio();
-    this.observations = getPortfolioObservations(portfolio, dataAccess);
-    this.modelType = modelType;
-    this.model = Model.createModel(modelType, numOfInterval, observations);
-    this.frequency = frequency;
-    switch (frequency) {
-        case "intraday":
-            this.numOfInterval = Config.INTRADAY_SAMPLE_SIZE;
-            break;
-        case "daily":
-            this.numOfInterval = Config.DAILY_SAMPLE_SIZE;
-            break;
-        default:
-            this.numOfInterval = Config.WEEKLY_SAMPLE_SIZE;
-            break;
-    }
 
-    }
     @Override
     public void execute(ModelEvaluationInputData modelEvaluationInputData) {
         try {
-            double meanSquaredError = getMeanSquaredError();
-            double predictedPrice = getPredictedPrice();
-            double meanAbsoluteError = getMeanAbsoluteError();
-            double sharpeRatio = getSharpeRatio();
-            double actualPrice = getActualPrice();
-            int length = this.numOfInterval;
-            String modelName = modelType;
-            String frequency = modelEvaluationInputData.getFrequency();
+            final String frequency = modelEvaluationInputData.getFrequency().toLowerCase();
+            final int numOfInterval = setNunOfInterval(modelEvaluationInputData.getFrequency());
+            final String modelName = modelEvaluationInputData.getModelType();
+            final Portfolio portfolio = validateAndGetPortfolio(modelEvaluationInputData);
+            final double[] observations = getPortfolioObservations(portfolio, dataAccess, frequency, numOfInterval);
+            Model model = Model.createModel(modelName, numOfInterval, observations);
+            double meanSquaredError = model.getMeanSquaredError();
+            double predictedPrice = model.getPredictedPrice();
+            double meanAbsoluteError = model.getMeanAbsoluteError();
+            double sharpeRatio = model.getSharpeRatio();
+            double actualPrice = model.getActualPrice();
     
             final ModelEvaluationOutputData modelEvaluationOutputData =
                     new ModelEvaluationOutputData(
                             modelName,
                             frequency,
-                            length,
+                            numOfInterval,
                             meanSquaredError,
                             meanAbsoluteError,
                             sharpeRatio,
@@ -134,15 +86,27 @@ public class ModelEvaluationInteractor implements ModelEvaluationInputBoundary {
             modelEvaluationPresenter.prepareSuccessView(modelEvaluationOutputData);
             
         } catch (Exception e) {
-            modelEvaluationPresenter.prepareFailView(e.getMessage());
+            modelEvaluationPresenter.prepareFailView("Error occur" + e.getMessage());
         }
     }
 
-private double[] getPortfolioObservations(Portfolio portfolio, OnlineDataAccessInterface dataAccess) {
+
+
+    private int setNunOfInterval(String frequency) {
+        switch (frequency) {
+            case "intraday":
+                return Config.INTRADAY_SAMPLE_SIZE;
+            case "daily":
+                return Config.DAILY_SAMPLE_SIZE;
+            default:
+                return Config.WEEKLY_SAMPLE_SIZE;
+        }
+    }
+
+private double[] getPortfolioObservations(Portfolio portfolio, OnlineDataAccessInterface dataAccess, String frequency, int numOfInterval) {
     List<Double> localObservations = new ArrayList<>();
-    List<String> stockSymbols = new ArrayList<>(portfolio.getStockSymbols());
     Map<String, List<Pair<String, Double>>> historicalPrices;
-    switch (this.frequency) {
+    switch (frequency) {
         case "intraday":
             historicalPrices = dataAccess.getBulkTimeSeriesIntraDay(portfolio, numOfInterval, Config.INTRADAY_PREDICT_INTERVAL);
             break;
@@ -165,30 +129,30 @@ private double[] getPortfolioObservations(Portfolio portfolio, OnlineDataAccessI
     }
     return localObservations.stream().mapToDouble(Double::doubleValue).toArray();
 }
- 
-    private double getSharpeRatio() {
-        return model.getSharpeRatio();
+
+
+private Portfolio validateAndGetPortfolio(ModelEvaluationInputData inputData) {
+    Portfolio portfolio = localDataAccessInterface.getCurrentPortfolio();
+
+    if (portfolio.getStockSymbols().isEmpty()) {
+        throw new IllegalArgumentException("Portfolio is empty. Please add stocks before model evaluation.");
     }
 
-    private double getMeanAbsoluteError() {
-        return model.getMeanAbsoluteError();
+    String intervalType = inputData.getFrequency().toLowerCase();
+    if (!isValidFrequency(intervalType)) {
+        throw new IllegalArgumentException(
+                "Invalid interval type. Please use 'intraday', 'daily', or 'weekly'.");
     }
 
-    private double getMeanSquaredError() {
-        return model.getMeanSquaredError();
-    }
-
-
-    private double getPredictedPrice() {
-        return model.getPredictedPrice();
-    }
-    private double getActualPrice() {
-        return model.getActualPrice();
-
+    return portfolio; // Assuming you want to return the portfolio
 }
-    @Override
-    public void switchBack() {
-        modelEvaluationPresenter.switchToModelResult();
 
+private boolean isValidFrequency(String frequency) {
+    return frequency.equals("intraday") || frequency.equals("daily") || frequency.equals("weekly");
+}
+
+@Override
+public void switchBack() {
+    modelEvaluationPresenter.switchBack();
 }
 }

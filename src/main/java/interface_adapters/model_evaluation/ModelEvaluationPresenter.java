@@ -9,18 +9,15 @@ import usecases.model_evaluation.ModelEvaluationOutputData;
  */
 public class ModelEvaluationPresenter implements ModelEvaluationOutputBoundary {
     private final ModelEvaluationViewModel modelEvaluationViewModel;
-    private ModelResultViewModel modelResultViewModel;
     private final ViewManagerModel viewManagerModel;
     public ModelEvaluationPresenter(ModelEvaluationViewModel modelEvaluationViewModel,
-                                    ModelResultViewModel modelResultViewModel,
                                     ViewManagerModel viewManagerModel) {
         this.modelEvaluationViewModel = modelEvaluationViewModel;
-        this.modelResultViewModel = modelResultViewModel;
         this.viewManagerModel = viewManagerModel;
     }
     @Override
     public void prepareSuccessView( ModelEvaluationOutputData modelEvaluationOutputData) {
-    ModelResultState modelResultState = modelEvaluationViewModel.getState();
+    ModelEvaluationState modelResultState = modelEvaluationViewModel.getState();
     modelResultState.setModelName(modelEvaluationOutputData.getModelName());
     modelResultState.setFrequency(modelEvaluationOutputData.getFrequency());
     modelResultState.setLength(modelEvaluationOutputData.getLength());
@@ -38,15 +35,17 @@ public class ModelEvaluationPresenter implements ModelEvaluationOutputBoundary {
     }
     @Override
     public void switchToModelResult() {
-        if (modelResultViewModel != null) {
-            viewManagerModel.getState().setCurViewName(modelResultViewModel.getViewName());
+        if (modelEvaluationViewModel != null) {
+            viewManagerModel.getState().setCurViewName(modelEvaluationViewModel.getViewName());
             viewManagerModel.firePropertyChange();            
         }
     }
     @Override
     public void switchBack() {
-        viewManagerModel.getState().setCurViewName(modelEvaluationViewModel.getViewName());
+        viewManagerModel.getState().setCurViewName("homepage");
         viewManagerModel.firePropertyChange();
+        modelEvaluationViewModel.getState().reset();
+        System.out.println("Switching back to homepage");
     }
 }
 

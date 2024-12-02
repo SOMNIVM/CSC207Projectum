@@ -17,10 +17,14 @@ public class Main {
                 .addViewPortfolioView()
                 .addAddStockView()
                 .addRemoveStockView()
+                .addRevenuePredictionView()
+                .addModelEvaluationView()
                 .addViewPortfolioUseCase()
                 .addAddStockUseCase()
                 .addRemoveStockUseCase()
+                .addRevenuePredictionUseCase()
                 .addClearAllUseCase()
+                .addModelEvaluationCase()
                 .build();
         app.pack();
         app.setVisible(true);

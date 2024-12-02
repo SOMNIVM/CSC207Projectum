@@ -45,5 +45,6 @@ public class ModelEvaluationController {
      */
     public void switchBack() {
         modelEvaluationUseCaseInteractor.switchBack();
+        System.out.println("controller switch back");
     }
 }
