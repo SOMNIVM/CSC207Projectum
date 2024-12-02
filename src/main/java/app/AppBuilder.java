@@ -11,6 +11,9 @@ import interface_adapters.remove_stock.RemoveStockViewModel;
 import interface_adapters.reset_portfolio.ClearAllController;
 import interface_adapters.reset_portfolio.ClearAllPresenter;
 import interface_adapters.reset_portfolio.ClearAllViewModel;
+import interface_adapters.revenue_prediction.RevenuePredictionController;
+import interface_adapters.revenue_prediction.RevenuePredictionPresenter;
+import interface_adapters.revenue_prediction.RevenuePredictionViewModel;
 import interface_adapters.view_portfolio.ViewPortfolioController;
 import interface_adapters.view_portfolio.ViewPortfolioPresenter;
 import interface_adapters.view_portfolio.ViewPortfolioViewModel;
@@ -20,6 +23,8 @@ import usecases.LocalDataAccessInterface;
 import usecases.OnlineDataAccessInterface;
 import usecases.add_stock.AddStockDataAccessInterface;
 import usecases.add_stock.AddStockOutputBoundary;
+import usecases.predict_models.PredictAvgModel;
+import usecases.predict_models.PredictModel;
 import usecases.remove_stock.RemoveStockInputBoundary;
 import usecases.remove_stock.RemoveStockInteractor;
 import usecases.remove_stock.RemoveStockOutputBoundary;
@@ -27,6 +32,9 @@ import usecases.reset_portfolio.ClearAllDataAccessInterface;
 import usecases.reset_portfolio.ClearAllInputBoundary;
 import usecases.reset_portfolio.ClearAllInteractor;
 import usecases.reset_portfolio.ClearAllOutputBoundary;
+import usecases.revenue_prediction.RevenuePredictionInputBoundary;
+import usecases.revenue_prediction.RevenuePredictionInteractor;
+import usecases.revenue_prediction.RevenuePredictionOutputBoundary;
 import usecases.view_portfolio.ViewPortfolioDataAccessInterface;
 import usecases.view_portfolio.ViewPortfolioInputBoundary;
 import usecases.view_portfolio.ViewPortfolioInteractor;
@@ -50,6 +58,9 @@ public class AppBuilder {
     private AddStockView addStockView;
     private RemoveStockViewModel removeStockViewModel;
     private RemoveStockView removeStockView;
+    private RevenuePredictionViewModel revenuePredictionViewModel;
+    private RevenuePredictionView revenuePredictionView;
+
     public AppBuilder() {
         cardPanel = new JPanel(new CardLayout());
         viewManagerModel = new ViewManagerModel();
@@ -63,6 +74,7 @@ public class AppBuilder {
         homePageView = new HomePageView(clearAllViewModel);
         cardPanel.add(homePageView, homePageView.getViewName());
     }
+
     public AppBuilder addViewPortfolioView() {
         viewPortfolioViewModel = new ViewPortfolioViewModel();
         viewPortfolioView = new ViewPortfolioView(viewPortfolioViewModel);
@@ -76,12 +88,21 @@ public class AppBuilder {
         cardPanel.add(addStockView, addStockView.getViewName());
         return this;
     }
+
     public AppBuilder addRemoveStockView() {
         removeStockViewModel = new RemoveStockViewModel();
         removeStockView = new RemoveStockView(removeStockViewModel);
         cardPanel.add(removeStockView, removeStockView.getViewName());
         return this;
     }
+
+    public AppBuilder addRevenuePredictionView() {
+        revenuePredictionViewModel = new RevenuePredictionViewModel();
+        revenuePredictionView = new RevenuePredictionView(revenuePredictionViewModel, viewManagerModel);
+        cardPanel.add(revenuePredictionView, revenuePredictionView.getViewName());
+        return this;
+    }
+
     public AppBuilder addViewPortfolioUseCase() {
         ViewPortfolioOutputBoundary viewPortfolioPresenter = new ViewPortfolioPresenter(
                 viewPortfolioViewModel,
@@ -98,6 +119,7 @@ public class AppBuilder {
         viewPortfolioView.setViewPortfolioController(viewPortfolioController);
         return this;
     }
+
     public AppBuilder addAddStockUseCase() {
         AddStockOutputBoundary buyStockPresenter = new AddStockPresenter(
                 addStockViewModel,
@@ -113,6 +135,7 @@ public class AppBuilder {
         addStockView.setBuyStockController(addStockController);
         return this;
     }
+
     public AppBuilder addRemoveStockUseCase() {
         RemoveStockOutputBoundary removeStockPresenter = new RemoveStockPresenter(
                 removeStockViewModel,
@@ -125,6 +148,23 @@ public class AppBuilder {
         removeStockView.setRemoveStockController(removeStockController);
         return this;
     }
+
+    public AppBuilder addRevenuePredictionUseCase() {
+        RevenuePredictionOutputBoundary revenuePredictionPresenter = new RevenuePredictionPresenter(
+                revenuePredictionViewModel,
+                viewManagerModel);
+        PredictModel predictModel = new PredictAvgModel();
+        predictModel.setOnlineDataAccess(onlineDataAccessObject);
+        RevenuePredictionInputBoundary revenuePredictionInteractor = new RevenuePredictionInteractor(
+                revenuePredictionPresenter,
+                localDataAccessObject,
+                onlineDataAccessObject,
+                predictModel);
+        RevenuePredictionController revenuePredictionController = new RevenuePredictionController(revenuePredictionInteractor);
+        revenuePredictionView.setRevenuePredictionController(revenuePredictionController);
+        return this;
+    }
+
     public AppBuilder addClearAllUseCase() {
         ClearAllOutputBoundary clearAllPresenter = new ClearAllPresenter(
                 clearAllViewModel,
@@ -138,6 +178,7 @@ public class AppBuilder {
         homePageView.setClearAllController(clearAllController);
         return this;
     }
+
     public JFrame build() {
         JFrame app = new JFrame("app");
         app.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

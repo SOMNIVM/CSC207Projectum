@@ -56,16 +56,15 @@ public class PredictAvgModel implements PredictModel {
     }
 
     private double[] getHistoricalObservations(Portfolio portfolio, String intervalName, int numObservations) {
-        List<String> symbols = new ArrayList<>(portfolio.getStockSymbols());
         Map<String, List<Pair<String, Double>>> historicalData;
 
         historicalData = switch (intervalName.toLowerCase()) {
             case "intraday" -> onlineDataAccess.getBulkTimeSeriesIntraDay(
-                    symbols, numObservations, Config.INTRADAY_PREDICT_INTERVAL);
+                    portfolio, numObservations, Config.INTRADAY_PREDICT_INTERVAL);
             case "day" -> onlineDataAccess.getBulkTimeSeriesDaily(
-                    symbols, numObservations);
+                    portfolio, numObservations);
             case "week" -> onlineDataAccess.getBulkTimeSeriesWeekly(
-                    symbols, numObservations);
+                    portfolio, numObservations);
             default -> throw new IllegalArgumentException(
                     "Invalid interval type. Use 'intraday', 'day', or 'week'.");
         };
@@ -74,7 +73,7 @@ public class PredictAvgModel implements PredictModel {
 
         for (int i = 0; i < numObservations; i++) {
             double portfolioValue = 0.0;
-            for (String symbol : symbols) {
+            for (String symbol : portfolio.getStockSymbols()) {
                 List<Pair<String, Double>> priceData = historicalData.get(symbol);
                 if (priceData != null && i < priceData.size()) {
                     portfolioValue += priceData.get(i).getSecond() * portfolio.getShares(symbol);
