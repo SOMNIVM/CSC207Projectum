@@ -1,2 +1,6 @@
 target/
-.idea/misc.xml
+.idea/*
+!.idea/misc.xml
+!.idea/compiler.xml
+!.idea/encodings.xml
+!.idea/vcs.xml

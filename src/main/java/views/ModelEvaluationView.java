@@ -85,7 +85,7 @@ public class ModelEvaluationView extends JPanel implements PropertyChangeListene
     private final String viewName;
     private final ModelEvaluationViewModel modelEvaluationViewModel;
     private ModelEvaluationController modelEvaluationController;
-    private final ViewManagerModel viewManagerModel;
+//    private final ViewManagerModel viewManagerModel;
     private final JComboBox<String> modelTypeComboBox;
     private final JComboBox<String> intervalTypeComboBox;
     // private final JLabel meanSquaredErrorLabel;
@@ -96,12 +96,11 @@ public class ModelEvaluationView extends JPanel implements PropertyChangeListene
     // private final JLabel actualValueLabel;
     private final JButton evaluationProceedButton;
 
-
-    public ModelEvaluationView(ModelEvaluationViewModel modelEvaluationModel, ViewManagerModel managerModel) {
+    public ModelEvaluationView(ModelEvaluationViewModel modelEvaluationModel) {
         super();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.modelEvaluationViewModel = modelEvaluationModel;
-        this.viewManagerModel = managerModel;
+//        this.viewManagerModel = managerModel;
         this.viewName = this.modelEvaluationViewModel.getViewName();
         this.modelEvaluationViewModel.addPropertyChangeListener(this);
         // this.meanSquaredErrorLabel = new JLabel();
@@ -161,5 +160,9 @@ public class ModelEvaluationView extends JPanel implements PropertyChangeListene
     public void propertyChange(PropertyChangeEvent evt) {
         // no action needed
     }
-    
+
+    public String getViewName() {return this.viewName;}
 }
+
+
+
