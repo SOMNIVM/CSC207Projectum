@@ -1,6 +1,10 @@
 package app;
 
 import data_access.*;
+import interface_adapters.ModelEvaluation.ModelEvaluationController;
+import interface_adapters.ModelEvaluation.ModelEvaluationPresenter;
+import interface_adapters.ModelEvaluation.ModelEvaluationViewModel;
+import interface_adapters.ModelEvaluation.ModelResultViewModel;
 import interface_adapters.ViewManagerModel;
 import interface_adapters.add_stock.AddStockController;
 import interface_adapters.add_stock.AddStockPresenter;
@@ -20,6 +24,9 @@ import usecases.LocalDataAccessInterface;
 import usecases.OnlineDataAccessInterface;
 import usecases.add_stock.AddStockDataAccessInterface;
 import usecases.add_stock.AddStockOutputBoundary;
+import usecases.model_evaluation.ModelEvaluationInputBoundary;
+import usecases.model_evaluation.ModelEvaluationInteractor;
+import usecases.model_evaluation.ModelEvaluationOutputBoundary;
 import usecases.remove_stock.RemoveStockInputBoundary;
 import usecases.remove_stock.RemoveStockInteractor;
 import usecases.remove_stock.RemoveStockOutputBoundary;
@@ -50,6 +57,10 @@ public class AppBuilder {
     private AddStockView addStockView;
     private RemoveStockViewModel removeStockViewModel;
     private RemoveStockView removeStockView;
+    private ModelEvaluationView modelEvaluationView;
+    private ModelEvaluationViewModel modelEvaluationViewModel;
+    private ModelResultView modelResultView;
+    private ModelResultViewModel modelResultViewModel;
     public AppBuilder() {
         cardPanel = new JPanel(new CardLayout());
         viewManagerModel = new ViewManagerModel();
@@ -63,6 +74,7 @@ public class AppBuilder {
         homePageView = new HomePageView(clearAllViewModel);
         cardPanel.add(homePageView, homePageView.getViewName());
     }
+
     public AppBuilder addViewPortfolioView() {
         viewPortfolioViewModel = new ViewPortfolioViewModel();
         viewPortfolioView = new ViewPortfolioView(viewPortfolioViewModel);
@@ -81,6 +93,32 @@ public class AppBuilder {
         removeStockView = new RemoveStockView(removeStockViewModel);
         cardPanel.add(removeStockView, removeStockView.getViewName());
         return this;
+    }
+    public AppBuilder addModelResultView() {
+        modelResultViewModel = new ModelResultViewModel();
+        modelResultView = new ModelResultView(modelResultViewModel);
+        cardPanel.add(modelResultView, modelResultView.getViewName());
+        return this;
+    }
+    public AppBuilder addModelEvaluationView() {
+        modelEvaluationViewModel = new ModelEvaluationViewModel();
+        modelEvaluationView = new ModelEvaluationView(modelEvaluationViewModel);
+        cardPanel.add(modelEvaluationView, modelEvaluationView.getViewName());
+        return this;
+    }
+    public AppBuilder addModelEvaluationUseCase() {
+        ModelEvaluationOutputBoundary modelEvaluationPresenter = new ModelEvaluationPresenter(
+                modelEvaluationViewModel,
+                modelResultViewModel,
+                viewManagerModel);
+        ModelEvaluationInputBoundary modelEvaluationInteractor = new ModelEvaluationInteractor(
+                onlineDataAccessObject,
+                modelEvaluationPresenter,
+                localDataAccessObject,
+                10,
+                "avgModel",
+                "daily");
+        )
     }
     public AppBuilder addViewPortfolioUseCase() {
         ViewPortfolioOutputBoundary viewPortfolioPresenter = new ViewPortfolioPresenter(
