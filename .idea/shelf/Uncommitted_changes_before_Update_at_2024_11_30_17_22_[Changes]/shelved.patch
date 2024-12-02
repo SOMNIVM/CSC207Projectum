@@ -1,0 +1,209 @@
+Index: src/main/java/usecases/revenue_prediction/RevenuePredictionOutputData.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/usecases/revenue_prediction/RevenuePredictionOutputData.java b/src/main/java/usecases/revenue_prediction/RevenuePredictionOutputData.java
+new file mode 100644
+--- /dev/null	(date 1732999184110)
++++ b/src/main/java/usecases/revenue_prediction/RevenuePredictionOutputData.java	(date 1732999184110)
+@@ -0,0 +1,4 @@
++package usecases.revenue_prediction;
++
++public class RevenuePredictionOutputData {
++}
+Index: src/main/java/usecases/revenue_prediction/RevenuePredictionInteractor.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/usecases/revenue_prediction/RevenuePredictionInteractor.java b/src/main/java/usecases/revenue_prediction/RevenuePredictionInteractor.java
+new file mode 100644
+--- /dev/null	(date 1733004957243)
++++ b/src/main/java/usecases/revenue_prediction/RevenuePredictionInteractor.java	(date 1733004957243)
+@@ -0,0 +1,69 @@
++package usecases.revenue_prediction;
++
++import entities.Portfolio;
++import usecases.models.Model;
++import usecases.LocalDataAccessInterface;
++
++/**
++ * Implements the revenue prediction use case by coordinating between the data access layer,
++ * prediction model, and output boundary.
++ */
++public class RevenuePredictionInteractor implements RevenuePredictionInputBoundary {
++    private final RevenuePredictionOutputBoundary revenuePredictionPresenter;
++    private final LocalDataAccessInterface dataAccessObject;
++    private final Model predictionModel;
++
++    /**
++     * Constructs a RevenuePredictionInteractor with necessary dependencies.
++     *
++     * @param revenuePredictionPresenter the output boundary for presenting prediction results
++     * @param dataAccessObject data access interface for portfolio information
++     * @param predictionModel model used for making revenue predictions
++     */
++    public RevenuePredictionInteractor(
++            RevenuePredictionOutputBoundary revenuePredictionPresenter,
++            LocalDataAccessInterface dataAccessObject,
++            Model predictionModel) {
++        this.revenuePredictionPresenter = revenuePredictionPresenter;
++        this.dataAccessObject = dataAccessObject;
++        this.predictionModel = predictionModel;
++    }
++
++    @Override
++    public void execute(RevenuePredictionInputData revenuePredictionInputData) {
++        try {
++            Portfolio portfolio = dataAccessObject.getCurrentPortfolio();
++
++            if (portfolio.getStockSymbols().isEmpty()) {
++                revenuePredictionPresenter.prepareFailView("Portfolio is empty. Please add stocks before predicting revenue.");
++                return;
++            }
++
++            double predictedRevenue;
++            String intervalName = revenuePredictionInputData.getIntervalName().toLowerCase();
++
++            if (intervalName.equals("day")) {
++                predictedRevenue = predictionModel.nextDayPredict(portfolio);
++            } else if (intervalName.equals("intraday")) {
++                predictedRevenue = predictionModel.intraDayPredict(portfolio);
++            } else {
++                revenuePredictionPresenter.prepareFailView(
++                        "Invalid interval type. Please use 'day' or 'intraday'.");
++                return;
++            }
++
++            RevenuePredictionOutputData outputData = new RevenuePredictionOutputData(
++                    predictedRevenue,
++                    revenuePredictionInputData.getIntervalLength(),
++                    revenuePredictionInputData.getIntervalName()
++            );
++
++            revenuePredictionPresenter.prepareSuccessView(outputData);
++
++        } catch (Exception e) {
++            revenuePredictionPresenter.prepareFailView(
++                    "An error occurred while predicting revenue: " + e.getMessage());
++        }
++    }
++}
++
+Index: src/main/java/usecases/revenue_prediction/RevenuePredictionOutputBoundary.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/usecases/revenue_prediction/RevenuePredictionOutputBoundary.java b/src/main/java/usecases/revenue_prediction/RevenuePredictionOutputBoundary.java
+new file mode 100644
+--- /dev/null	(date 1732999171971)
++++ b/src/main/java/usecases/revenue_prediction/RevenuePredictionOutputBoundary.java	(date 1732999171971)
+@@ -0,0 +1,4 @@
++package usecases.revenue_prediction;
++
++public class RevenuePredictionOutputBoundary {
++}
+Index: src/main/java/usecases/models/Model.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package usecases.models;\r\n\r\nimport entities.Portfolio;\r\n\r\npublic interface Model {\r\n    /**\r\n     * @param portfolio The portfolio\r\n     * @param interval The interval at which datapoints are taken.\r\n     * @return The predicted value of the portfolio after interval.\r\n     */\r\n    double intraDayPredict(Portfolio portfolio, int interval);\r\n\r\n    /**\r\n     *\r\n     * @param portfolio The stock whose price needs to be created.\r\n     * @return The predicted value of the portfolio on the next day.\r\n     */\r\n    double nextDayPredict(Portfolio portfolio);\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/usecases/models/Model.java b/src/main/java/usecases/models/Model.java
+--- a/src/main/java/usecases/models/Model.java	(revision 66523d96b7427d44649552a0956b1c6870fedc23)
++++ b/src/main/java/usecases/models/Model.java	(date 1733004957251)
+@@ -15,5 +15,12 @@
+      * @param portfolio The stock whose price needs to be created.
+      * @return The predicted value of the portfolio on the next day.
+      */
+-    double nextDayPredict(Portfolio portfolio);
++    double nextDayPredict(Portfolio portfolio, int interval);
++
++    /**
++     *
++     * @param portfolio The stock whose price needs to be created.
++     * @return The predicted value of the portfolio on the next Week.
++     */
++    double nextWeekPredict(Portfolio portfolio, int interval);
+ }
+Index: src/main/java/usecases/revenue_prediction/RevenuePredictionInputBoundary.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/usecases/revenue_prediction/RevenuePredictionInputBoundary.java b/src/main/java/usecases/revenue_prediction/RevenuePredictionInputBoundary.java
+new file mode 100644
+--- /dev/null	(date 1733001571502)
++++ b/src/main/java/usecases/revenue_prediction/RevenuePredictionInputBoundary.java	(date 1733001571502)
+@@ -0,0 +1,17 @@
++package usecases.revenue_prediction;
++
++/**
++ * Input boundary for the revenue prediction use case.
++ * This interface defines the entry point for predicting revenue over specified time intervals.
++ * The implementation will process interval length and interval type (e.g., days, months)
++ * to generate revenue predictions.
++ */
++public interface RevenuePredictionInputBoundary {
++    /**
++     * Executes the revenue prediction calculation for a portfolio.
++     *
++     * @param revenuePredictionInputData Contains the interval length and interval name
++     *                                   (e.g., 5.0 and "days" for a 5-day prediction)
++     */
++    void execute(RevenuePredictionInputData revenuePredictionInputData);
++}
+\ No newline at end of file
+Index: src/main/java/usecases/revenue_prediction/RevenuePredictionInputData.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/usecases/revenue_prediction/RevenuePredictionInputData.java b/src/main/java/usecases/revenue_prediction/RevenuePredictionInputData.java
+new file mode 100644
+--- /dev/null	(date 1733004496943)
++++ b/src/main/java/usecases/revenue_prediction/RevenuePredictionInputData.java	(date 1733004496943)
+@@ -0,0 +1,39 @@
++package usecases.revenue_prediction;
++
++/**
++ * Data class that encapsulates the input parameters for revenue prediction.
++ * Contains the length of the prediction interval and the name/type of interval being used.
++ */
++public class RevenuePredictionInputData {
++    private final int intervalLength;
++    private final String intervalName;
++
++    /**
++     * Constructs a RevenuePredictionInputData with specified interval parameters.
++     *
++     * @param intervalLength The length of the prediction interval (e.g., 5.0 for 5 days)
++     * @param intervalName The type/name of the interval (e.g., "days", "months")
++     */
++    public RevenuePredictionInputData(int intervalLength, String intervalName) {
++        this.intervalLength = intervalLength;
++        this.intervalName = intervalName;
++    }
++
++    /**
++     * Gets the length of the prediction interval.
++     *
++     * @return the interval length as a Double
++     */
++    public int getIntervalLength() {
++        return intervalLength;
++    }
++
++    /**
++     * Gets the name/type of the prediction interval.
++     *
++     * @return the interval name as a String
++     */
++    public String getIntervalName() {
++        return intervalName;
++    }
++}
+\ No newline at end of file
