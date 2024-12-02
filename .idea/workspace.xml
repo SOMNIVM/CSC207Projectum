@@ -5,7 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e6372a4-5beb-456b-b458-fd5a4b0ca81a" name="Changes" comment="Merge attempt with main">
-      <change afterPath="$PROJECT_DIR$/src/main/java/views/ModelEvaluationView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/PortfolioTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/usecases/ModelEvaluation/ModelEvaluationUseCaseTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/app/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/data_access/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/entities/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/interface_adapters/buy_stock/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/interface_adapters/remove_stock/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/interface_adapters/reset_portfolio/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/interface_adapters/revenue_prediction/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/interface_adapters/view_portfolio/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/usecases/AddStock/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/usecases/models/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/usecases/remove_stock/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/usecases/reset_portfolio/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/usecases/revenue_prediction/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/usecases/view_portfolio/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/views/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/views/ModelEvaluationView.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/PortfolioTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/usecases/ModelEvaluation/ModelEvaluationUseCaseTest$MockDataAccess.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/usecases/ModelEvaluation/ModelEvaluationUseCaseTest$MockLocalDataAccess.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/usecases/ModelEvaluation/ModelEvaluationUseCaseTest$MockPresenter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/usecases/ModelEvaluation/ModelEvaluationUseCaseTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/usecases/ModelEvaluation/ModelEvaluationDataAccessInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/ModelEvaluation/ModelEvaluationDataAccessInterface.java" afterDir="false" />
@@ -14,6 +37,7 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/usecases/ModelEvaluation/ModelEvaluationInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/ModelEvaluation/ModelEvaluationInteractor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/usecases/ModelEvaluation/ModelEvaluationOutputBoundary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/ModelEvaluation/ModelEvaluationOutputBoundary.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/usecases/ModelEvaluation/ModelEvaluationOutputData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/ModelEvaluation/ModelEvaluationOutputData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/views/ModelEvaluationView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/ModelEvaluationView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/app/Config.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/app/Config.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/data_access/AlphaVantageDataAccessObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/AlphaVantageDataAccessObject.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/data_access/ClearAllDataAccessObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/ClearAllDataAccessObject.class" afterDir="false" />
@@ -205,7 +229,7 @@
       <workItem from="1733091491269" duration="163000" />
       <workItem from="1733092325179" duration="1375000" />
       <workItem from="1733095956651" duration="1489000" />
-      <workItem from="1733097502716" duration="865000" />
+      <workItem from="1733097502716" duration="1207000" />
     </task>
     <task id="LOCAL-00001" summary="Write template of ModelEvaluation">
       <option name="closed" value="true" />
