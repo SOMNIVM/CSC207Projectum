@@ -1,4 +1,4 @@
-package usecases.ModelEvaluation;
+package usecases.model_evaluation;
 
 import app.Config;
 import entities.Portfolio;
@@ -141,13 +141,13 @@ private double[] getPortfolioObservations(Portfolio portfolio, OnlineDataAccessI
     Map<String, List<Pair<String, Double>>> historicalPrices;
     switch (this.frequency) {
         case "intraday":
-            historicalPrices = dataAccess.getBulkTimeSeriesIntraDay(stockSymbols, numOfInterval, Config.INTRADAY_PREDICT_INTERVAL);
+            historicalPrices = dataAccess.getBulkTimeSeriesIntraDay(portfolio, numOfInterval, Config.INTRADAY_PREDICT_INTERVAL);
             break;
         case "daily":
-            historicalPrices = dataAccess.getBulkTimeSeriesDaily(stockSymbols, numOfInterval);
+            historicalPrices = dataAccess.getBulkTimeSeriesDaily(portfolio, numOfInterval);
             break;
         default:
-            historicalPrices = dataAccess.getBulkTimeSeriesWeekly(stockSymbols, numOfInterval);
+            historicalPrices = dataAccess.getBulkTimeSeriesWeekly(portfolio, numOfInterval);
             break;
     }
 
