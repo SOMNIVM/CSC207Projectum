@@ -1,9 +1,9 @@
-package interface_adapters.buy_stock;
+package interface_adapters.add_stock;
 
 import interface_adapters.ViewManagerModel;
 import interface_adapters.reset_portfolio.ClearAllViewModel;
-import usecases.buy_stock.AddStockOutputBoundary;
-import usecases.buy_stock.AddStockOutputData;
+import usecases.add_stock.AddStockOutputBoundary;
+import usecases.add_stock.AddStockOutputData;
 
 public class AddStockPresenter implements AddStockOutputBoundary {
     private final ViewManagerModel viewManagerModel;

@@ -5,7 +5,7 @@ import entities.Portfolio;
 import kotlin.Pair;
 import usecases.LocalDataAccessInterface;
 import usecases.OnlineDataAccessInterface;
-import usecases.buy_stock.AddStockDataAccessInterface;
+import usecases.add_stock.AddStockDataAccessInterface;
 
 import java.util.List;
 import java.util.Map;

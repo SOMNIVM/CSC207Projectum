@@ -1,7 +1,7 @@
 package interface_adapters.reset_portfolio;
 
 import interface_adapters.ViewManagerModel;
-import interface_adapters.buy_stock.AddStockViewModel;
+import interface_adapters.add_stock.AddStockViewModel;
 import interface_adapters.remove_stock.RemoveStockViewModel;
 import usecases.reset_portfolio.ClearAllOutputBoundary;
 

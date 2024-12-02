@@ -1,4 +1,4 @@
-package interface_adapters.buy_stock;
+package interface_adapters.add_stock;
 
 import interface_adapters.ViewModel;
 

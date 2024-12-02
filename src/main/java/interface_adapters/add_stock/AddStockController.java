@@ -1,7 +1,7 @@
-package interface_adapters.buy_stock;
+package interface_adapters.add_stock;
 
-import usecases.buy_stock.AddStockInputBoundary;
-import usecases.buy_stock.AddStockInputData;
+import usecases.add_stock.AddStockInputBoundary;
+import usecases.add_stock.AddStockInputData;
 
 public class AddStockController {
     private final AddStockInputBoundary buyStockUseCaseInteractor;

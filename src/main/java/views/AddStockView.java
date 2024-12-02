@@ -1,8 +1,8 @@
 package views;
 
-import interface_adapters.buy_stock.AddStockController;
-import interface_adapters.buy_stock.AddStockState;
-import interface_adapters.buy_stock.AddStockViewModel;
+import interface_adapters.add_stock.AddStockController;
+import interface_adapters.add_stock.AddStockState;
+import interface_adapters.add_stock.AddStockViewModel;
 
 import javax.swing.*;
 import java.awt.*;

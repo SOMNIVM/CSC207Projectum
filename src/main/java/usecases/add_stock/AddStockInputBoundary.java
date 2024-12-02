@@ -1,4 +1,4 @@
-package usecases.buy_stock;
+package usecases.add_stock;
 
 public interface AddStockInputBoundary {
     void execute(AddStockInputData addStockInputData);
