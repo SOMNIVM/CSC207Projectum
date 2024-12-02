@@ -6,6 +6,8 @@ import interface_adapters.revenue_prediction.RevenuePredictionState;
 import interface_adapters.revenue_prediction.RevenuePredictionViewModel;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,6 +29,7 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
     private final JComboBox<String> intervalTypeComboBox;
     private final JTextField intervalLengthField;
     private final JLabel resultLabel;
+    private JTable resultTable;
 
     /**
      * Constructs a new RevenuePredictionView.
@@ -156,19 +159,38 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
         RevenuePredictionState state = (RevenuePredictionState) evt.getNewValue();
         if (state.checkIfValid()) {
             errorMessageLabel.setText("");
-            resultLabel.setText(String.format(
-                    "<html>Predicted Revenue: $%.2f<br>" +
-                            "%.0f%% Confidence Interval:<br>" +
-                            "[$%.2f, $%.2f]</html>",
-                    state.getPredictedRevenue(),
-                    state.getConfidenceLevel() * 100,
-                    state.getLowerBound(),
-                    state.getUpperBound()
-            ));
+            getTable(state);
         } else {
             errorMessageLabel.setText(state.getErrorMessage());
             resultLabel.setText("");
         }
+    }
+
+    private void getTable(RevenuePredictionState state) {
+        if (resultTable == null) {
+            resultTable = new JTable();
+            JScrollPane scrollPane = new JScrollPane(resultTable);
+            scrollPane.setPreferredSize(new Dimension(400, 100));
+            this.add(scrollPane);
+        }
+
+        // Create table model and add columns
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.addColumn("Metric");
+        tableModel.addColumn("Value");
+
+        // Add data rows
+        tableModel.addRow(new Object[]{"Predicted Revenue", String.format("$%.2f", state.getPredictedRevenue())});
+        tableModel.addRow(new Object[]{"Confidence Level", String.format("%.0f%%", state.getConfidenceLevel() * 100)});
+        tableModel.addRow(new Object[]{"Confidence Interval", String.format("[$%.2f, $%.2f]", state.getLowerBound(), state.getUpperBound())});
+
+        // Set the model to the table
+        resultTable.setModel(tableModel);
+        resultTable.setEnabled(false); // Make table non-editable
+        resultTable.setShowGrid(true);
+        resultTable.setIntercellSpacing(new Dimension(10, 1));
+        this.revalidate();
+        this.repaint();
     }
 
     /**

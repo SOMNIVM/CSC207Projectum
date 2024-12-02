@@ -4,78 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="21bd282b-02a1-41dd-879d-e75b71e0bc9b" name="Changes" comment="Ready for test">
+    <list default="true" id="21bd282b-02a1-41dd-879d-e75b71e0bc9b" name="Changes" comment="Commit before merge">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapters/ModelEvaluation/ModelEvaluationController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapters/ModelEvaluation/ModelEvaluationPresenter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapters/ModelEvaluation/ModelEvaluationViewModel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapters/ModelEvaluation/ModelResultState.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapters/ModelEvaluation/ModelResultViewModel.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/app/AppBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/app/AppBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/app/Config.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/app/Config.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/app/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/app/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/AddStockDataAccessObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/AddStockDataAccessObject.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/AlphaVantageDataAccessObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/AlphaVantageDataAccessObject.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/ClearAllDataAccessObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/ClearAllDataAccessObject.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/LocalDataAccessObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/LocalDataAccessObject.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/ViewPortfolioDataAccessObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data_access/ViewPortfolioDataAccessObject.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/entities/Asset.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/entities/Asset.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/entities/Portfolio.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/entities/Portfolio.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/entities/Stock.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/entities/Stock.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/entities/StockInPortfolio.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/entities/StockInPortfolio.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/ModelEvaluation/ModelEvaluationController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/ModelEvaluation/ModelEvaluationPresenter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/ModelEvaluation/ModelEvaluationViewModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/ModelEvaluation/ModelResultState.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/ModelEvaluation/ModelResultViewModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/ModifyPortfolioState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/ModifyPortfolioState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/ViewManagerModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/ViewManagerModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/ViewManagerState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/ViewManagerState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/ViewModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/ViewModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/modify_portfolio/ModifyPortfolioState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/modify_portfolio/ModifyPortfolioState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/remove_stock/RemoveStockController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/remove_stock/RemoveStockController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/remove_stock/RemoveStockViewModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/remove_stock/RemoveStockViewModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/reset_portfolio/ClearAllController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/reset_portfolio/ClearAllController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/reset_portfolio/ClearAllPresenter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/reset_portfolio/ClearAllPresenter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/reset_portfolio/ClearAllState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/reset_portfolio/ClearAllState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/reset_portfolio/ClearAllViewModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/reset_portfolio/ClearAllViewModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/view_portfolio/ViewPortfolioController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/view_portfolio/ViewPortfolioController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/view_portfolio/ViewPortfolioPresenter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/view_portfolio/ViewPortfolioPresenter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/view_portfolio/ViewPortfolioState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/view_portfolio/ViewPortfolioState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/view_portfolio/ViewPortfolioViewModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/view_portfolio/ViewPortfolioViewModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/usecases/add_stock/AddStockInputData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/usecases/add_stock/AddStockInputData.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/usecases/add_stock/AddStockInteractor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/usecases/add_stock/AddStockInteractor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/usecases/add_stock/AddStockOutputData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/usecases/add_stock/AddStockOutputData.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/usecases/model_evaluation/ModelEvaluationInputData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/usecases/model_evaluation/ModelEvaluationInputData.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/usecases/model_evaluation/ModelEvaluationInteractor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/usecases/model_evaluation/ModelEvaluationInteractor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/usecases/model_evaluation/ModelEvaluationOutputData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/usecases/model_evaluation/ModelEvaluationOutputData.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/usecases/remove_stock/RemoveStockInputData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/usecases/remove_stock/RemoveStockInputData.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/usecases/remove_stock/RemoveStockOutputData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/usecases/remove_stock/RemoveStockOutputData.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/usecases/reset_portfolio/ClearAllInteractor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/usecases/reset_portfolio/ClearAllInteractor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/usecases/view_portfolio/ViewPortfolioInteractor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/usecases/view_portfolio/ViewPortfolioInteractor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/usecases/view_portfolio/ViewPortfolioOutputData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/usecases/view_portfolio/ViewPortfolioOutputData.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/AddStockView$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/AddStockView$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/AddStockView$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/AddStockView$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/AddStockView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/AddStockView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/BackTestView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/BackTestView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/HomePageView$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/HomePageView$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/HomePageView$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/HomePageView$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/HomePageView$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/HomePageView$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/HomePageView$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/HomePageView$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/HomePageView$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/HomePageView$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/HomePageView$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/HomePageView$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/HomePageView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/HomePageView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/ModelEvaluationView$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/usecases/models/Model.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/usecases/models/Model.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/views/ModelEvaluationView$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/ModelEvaluationView$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/views/ModelEvaluationView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/ModelEvaluationView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/ModelResultView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/ModelResultView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/RemoveStockView$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/RemoveStockView$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/RemoveStockView$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/RemoveStockView$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/RemoveStockView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/RemoveStockView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/ViewManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/ViewManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/ViewPortfolioView$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/ViewPortfolioView$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/ViewPortfolioView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/ViewPortfolioView.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,12 +40,12 @@
     &quot;assignee&quot;: &quot;SOMNIVM&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/SOMNIVM/CSC207Projectum.git",
-    "accountId": "398a498b-2913-4ebf-b1be-51dffdf248b6"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/SOMNIVM/CSC207Projectum.git&quot;,
+    &quot;accountId&quot;: &quot;398a498b-2913-4ebf-b1be-51dffdf248b6&quot;
   }
-}]]></component>
+}</component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -122,24 +59,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "git-widget-placeholder": "shane.dong",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/17764/Desktop/CSC207/HomeWork",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;shane.dong&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/17764/Desktop/CSC207/HomeWork&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="W:\Java\Newversion Proj\src\main\resources\config" />
@@ -328,6 +265,7 @@
     <MESSAGE value="Commit All the changes before checkout the main" />
     <MESSAGE value="Finish the model and the model selection option without testing" />
     <MESSAGE value="Ready for test" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ready for test" />
+    <MESSAGE value="Commit before merge" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit before merge" />
   </component>
 </project>
