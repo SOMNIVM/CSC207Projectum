@@ -43,6 +43,11 @@ public class ModelEvaluationPresenter implements ModelEvaluationOutputBoundary{
             viewManagerModel.getState().setCurViewName(modelResultViewModel.getViewName());
             viewManagerModel.firePropertyChange();            
         }
-
-}}
+    }
+    @Override
+    public void switchBack() {
+        viewManagerModel.getState().setCurViewName(modelEvaluationViewModel.getViewName());
+        viewManagerModel.firePropertyChange();
+    }
+}
 

@@ -48,6 +48,46 @@ public class ModelResultState {
         this.isValid = false;
         this.error = error;
     }
+    public String getModelName() {
+        return modelName;
+    }
+
+    public String getFrequency() {
+        return frequency;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public double getMeanSquaredError() {
+        return meanSquaredError;
+    }
+
+    public double getMeanAbsoluteError() {
+        return meanAbsoluteError;
+    }
+
+    public double getSharpeRatio() {
+        return sharpeRatio;
+    }
+
+    public double getPredictedPrice() {
+        return predictedPrice;
+    }
+
+    public double getActualPrice() {
+        return actualPrice;
+    }
+
+    public boolean isValid() {
+        return isValid;
+    }
+
+    public String getError() {
+        return error;
+    }
+
 }
 
     

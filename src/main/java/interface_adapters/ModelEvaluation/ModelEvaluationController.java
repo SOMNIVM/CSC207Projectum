@@ -28,4 +28,7 @@ public class ModelEvaluationController {
                 throw new IllegalArgumentException("Invalid frequency");
         }
 }
+    public void switchBack() {
+        modelEvaluationUseCaseInteractor.switchBack();
+    }
 }

@@ -183,4 +183,9 @@ private double[] getPortfolioObservations(Portfolio portfolio, OnlineDataAccessI
         return model.getActualPrice();
 
 }
+    @Override
+    public void switchBack() {
+        modelEvaluationPresenter.switchToModelResult();
+
+}
 }
