@@ -38,21 +38,32 @@ import javax.swing.*;
 import java.awt.*;
 
 public class AppBuilder {
-    private final JPanel cardPanel = new JPanel(new CardLayout());
-    private final ViewManagerModel viewManagerModel = new ViewManagerModel();
-    private final ViewManager viewManager = new ViewManager(cardPanel,
-            (CardLayout) cardPanel.getLayout(),
-            viewManagerModel);
-    private final LocalDataAccessInterface localDataAccessObject = new LocalDataAccessObject();
-    private final OnlineDataAccessInterface onlineDataAccessObject = new AlphaVantageDataAccessObject(Config.API_KEY);
-    private final ClearAllViewModel clearAllViewModel = new ClearAllViewModel();
-    private final HomePageView homePageView = new HomePageView(clearAllViewModel);
+    private final JPanel cardPanel;
+    private final ViewManagerModel viewManagerModel;
+    private final ViewManager viewManager;
+    private final LocalDataAccessInterface localDataAccessObject;
+    private final OnlineDataAccessInterface onlineDataAccessObject;
+    private final ClearAllViewModel clearAllViewModel;
+    private final HomePageView homePageView;
     private ViewPortfolioViewModel viewPortfolioViewModel;
     private ViewPortfolioView viewPortfolioView;
     private BuyStockViewModel buyStockViewModel;
     private BuyStockView buyStockView;
     private RemoveStockViewModel removeStockViewModel;
     private RemoveStockView removeStockView;
+    public AppBuilder() {
+        cardPanel = new JPanel(new CardLayout());
+        viewManagerModel = new ViewManagerModel();
+        viewManager = new ViewManager(
+                cardPanel,
+                (CardLayout) cardPanel.getLayout(),
+                viewManagerModel);
+        localDataAccessObject = new LocalDataAccessObject();
+        onlineDataAccessObject = new AlphaVantageDataAccessObject(Config.API_KEY);
+        clearAllViewModel = new ClearAllViewModel();
+        homePageView = new HomePageView(clearAllViewModel);
+        cardPanel.add(homePageView, homePageView.getViewName());
+    }
     public AppBuilder addViewPortfolioView() {
         viewPortfolioViewModel = new ViewPortfolioViewModel();
         viewPortfolioView = new ViewPortfolioView(viewPortfolioViewModel);

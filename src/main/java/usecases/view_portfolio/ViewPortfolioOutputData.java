@@ -6,15 +6,12 @@ import java.util.List;
 public class ViewPortfolioOutputData {
     private final List<String> stocks;
     private final List<Integer> shares;
-    private final List<Double> averagePrices;
     private final List<Double> valuesPerShare;
     public ViewPortfolioOutputData(List<String> stocks,
                                    List<Integer> shares,
-                                   List<Double> averagePrices,
                                    List<Double> valuesPerShare) {
         this.stocks = stocks;
         this.shares = shares;
-        this.averagePrices = averagePrices;
         this.valuesPerShare = valuesPerShare;
     }
     public List<String> getStocks() {
@@ -22,9 +19,6 @@ public class ViewPortfolioOutputData {
     }
     public List<Integer> getShares() {
         return shares;
-    }
-    public List<Double> getAveragePrices() {
-        return averagePrices;
     }
     public List<Double> getValuesPerShare() {
         return valuesPerShare;

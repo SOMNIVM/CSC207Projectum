@@ -9,7 +9,7 @@ public class ClearAllViewModel extends ViewModel<ClearAllState> {
     public static final String REMOVE_STOCK_BUTTON_LABEL = "remove stock";
     public static final String CLEAR_ALL_BUTTON_LABEL  = "clear all";
     public static final String PREDICT_REVENUE_BUTTON_LABEL = "predict revenue";
-    public static final String BACKTEST_BUTTON_LABEL = "backtest";
+    public static final String BACKTEST_BUTTON_LABEL = "evaluate model";
     public ClearAllViewModel() {
         super("homepage", new ClearAllState());
     }

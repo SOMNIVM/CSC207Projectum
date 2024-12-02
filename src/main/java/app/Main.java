@@ -21,6 +21,17 @@ import java.awt.*;
 public class Main {
     public static void main(String[] args) {
           AppBuilder appBuilder = new AppBuilder();
+          JFrame app = appBuilder
+                  .addViewPortfolioView()
+                  .addBuyStockView()
+                  .addRemoveStockView()
+                  .addViewPortfolioUseCase()
+                  .addBuyStockUseCase()
+                  .addRemoveStockUseCase()
+                  .addClearAllUseCase()
+                  .build();
+          app.pack();
+          app.setVisible(true);
     }
 
 //    @NotNull
