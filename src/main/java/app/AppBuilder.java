@@ -14,11 +14,11 @@ import interface_adapters.reset_portfolio.ClearAllViewModel;
 import interface_adapters.view_portfolio.ViewPortfolioController;
 import interface_adapters.view_portfolio.ViewPortfolioPresenter;
 import interface_adapters.view_portfolio.ViewPortfolioViewModel;
+import usecases.add_stock.AddStockInputBoundary;
+import usecases.add_stock.AddStockInteractor;
 import usecases.LocalDataAccessInterface;
 import usecases.OnlineDataAccessInterface;
 import usecases.add_stock.AddStockDataAccessInterface;
-import usecases.add_stock.AddStockInputBoundary;
-import usecases.add_stock.AddStockInteractor;
 import usecases.add_stock.AddStockOutputBoundary;
 import usecases.remove_stock.RemoveStockInputBoundary;
 import usecases.remove_stock.RemoveStockInteractor;
@@ -69,6 +69,7 @@ public class AppBuilder {
         cardPanel.add(viewPortfolioView, viewPortfolioView.getViewName());
         return this;
     }
+
     public AppBuilder addAddStockView() {
         addStockViewModel = new AddStockViewModel();
         addStockView = new AddStockView(addStockViewModel);

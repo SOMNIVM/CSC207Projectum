@@ -16,6 +16,8 @@ public class Config {
     public static final int INTRADAY_PREDICT_INTERVAL = 5;
     public static final int CONCURRENCY_THREAD_COUNT = Runtime.getRuntime().availableProcessors();
     public static final JSONArray STOCK_LIST = initializeStockList();
+    public static final double INTEREST_RATE = 0.05;
+
     private static String initializeAPIKey() {
         try {
             return Files.readString(Paths.get(Objects.requireNonNull(Config
