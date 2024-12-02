@@ -2,38 +2,51 @@ package usecases.revenue_prediction;
 
 import entities.Portfolio;
 import usecases.LocalDataAccessInterface;
+import usecases.OnlineDataAccessInterface;
 import usecases.predict_models.PredictModel;
-import java.util.Map;
 
 /**
  * Implements the revenue prediction use case by coordinating between the data access layer,
- * prediction models, and output boundary. Supports multiple prediction models for different intervals.
+ * prediction models, and output boundary.
  */
 public class RevenuePredictionInteractor implements RevenuePredictionInputBoundary {
     private final RevenuePredictionOutputBoundary revenuePredictionPresenter;
-    private final LocalDataAccessInterface dataAccessObject;
-    private final Map<String, PredictModel> predictionModels;
+    private final LocalDataAccessInterface localDataAccessObject;
+    private final OnlineDataAccessInterface onlineDataAccessObject;
+    private PredictModel predictModel;
 
     /**
      * Constructs a RevenuePredictionInteractor with necessary dependencies.
      *
-     * @param presenter the output boundary for presenting prediction results
-     * @param dataAccessObject data access interface for portfolio information
-     * @param predictionModels map of model names to their implementations
+     * @param presenter The output boundary for presenting prediction results
+     * @param localDataAccess Data access interface for portfolio information
+     * @param onlineDataAccess Online data access interface for market data
+     * @param predictModel The model to use for predictions
      */
     public RevenuePredictionInteractor(
             RevenuePredictionOutputBoundary presenter,
-            LocalDataAccessInterface dataAccessObject,
-            Map<String, PredictModel> predictionModels) {
+            LocalDataAccessInterface localDataAccess,
+            OnlineDataAccessInterface onlineDataAccess,
+            PredictModel predictModel) {
         this.revenuePredictionPresenter = presenter;
-        this.dataAccessObject = dataAccessObject;
-        this.predictionModels = predictionModels;
+        this.localDataAccessObject = localDataAccess;
+        this.onlineDataAccessObject = onlineDataAccess;
+        this.predictModel = predictModel;
+    }
+
+    /**
+     * Sets the prediction model to be used.
+     *
+     * @param model The prediction model to use
+     */
+    public void setPredictModel(PredictModel model) {
+        this.predictModel = model;
     }
 
     @Override
     public void execute(RevenuePredictionInputData revenuePredictionInputData) {
         try {
-            Portfolio portfolio = dataAccessObject.getCurrentPortfolio();
+            Portfolio portfolio = localDataAccessObject.getCurrentPortfolio();
 
             if (portfolio.getStockSymbols().isEmpty()) {
                 revenuePredictionPresenter.prepareFailView("Portfolio is empty. Please add stocks before predicting revenue.");
@@ -45,23 +58,20 @@ public class RevenuePredictionInteractor implements RevenuePredictionInputBounda
                 return;
             }
 
-            PredictModel selectedPredictModel = getAppropriateModel(revenuePredictionInputData.getIntervalName());
-
-            if (selectedPredictModel == null) {
+            // Validate interval type
+            String intervalType = revenuePredictionInputData.getIntervalName().toLowerCase();
+            if (!isValidIntervalType(intervalType)) {
                 revenuePredictionPresenter.prepareFailView(
-                        "No prediction model available for interval type: " + revenuePredictionInputData.getIntervalName());
+                        "Invalid interval type. Please use 'intraday', 'day', or 'week'.");
                 return;
             }
 
-            double predictedRevenue = makePrediction(
-                    selectedPredictModel,
+            // Get prediction using the provided model
+            double predictedRevenue = predictModel.predict(
                     portfolio,
                     revenuePredictionInputData.getIntervalLength(),
-                    revenuePredictionInputData.getIntervalName()
+                    intervalType
             );
-
-            // Format with two decimal places
-            String formattedRevenue = String.format("%.2f", predictedRevenue);
 
             RevenuePredictionOutputData outputData = new RevenuePredictionOutputData(
                     predictedRevenue,
@@ -80,34 +90,14 @@ public class RevenuePredictionInteractor implements RevenuePredictionInputBounda
     }
 
     /**
-     * Selects the appropriate prediction model based on the interval type.
+     * Validates if the given interval type is supported.
      *
-     * @param intervalName the type of interval for prediction
-     * @return the appropriate Model implementation, or null if none available
+     * @param intervalType the interval type to validate
+     * @return true if the interval type is valid, false otherwise
      */
-    private PredictModel getAppropriateModel(String intervalName) {
-        return predictionModels.get(intervalName.toLowerCase());
-    }
-
-    /**
-     * Makes a revenue prediction using the selected model and parameters.
-     *
-     * @param predictModel the prediction model to use
-     * @param portfolio the portfolio to predict revenue for
-     * @param intervalLength the length of the prediction interval
-     * @param intervalName the type of interval
-     * @return predicted revenue value
-     * @throws IllegalArgumentException if interval type is invalid
-     */
-    private double makePrediction(PredictModel predictModel, Portfolio portfolio, int intervalLength, String intervalName) {
-        // Check if intervalName is valid
-        switch (intervalName.toLowerCase()) {
-            case "day", "week", "intraday" -> {
-                // Proceed with prediction logic
-                return predictModel.predict(portfolio, intervalLength, intervalName.toLowerCase());
-            }
-            default -> throw new IllegalArgumentException(
-                    "Unsupported interval type: " + intervalName + ". Use 'day', 'week', or 'intraday'.");
-        }
+    private boolean isValidIntervalType(String intervalType) {
+        return intervalType.equals("intraday") ||
+                intervalType.equals("day") ||
+                intervalType.equals("week");
     }
 }

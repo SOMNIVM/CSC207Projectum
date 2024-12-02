@@ -2,15 +2,15 @@ package usecases.models;
 
 import app.Config;
 
-public class AvgModel extends Model {
-    private final int numOfInterval;
-    private final double[] observations;
+    public class AvgModel extends Model {
+        private final int numOfInterval;
+        private final double[] observations;
 
-    public AvgModel(int numOfInterval, double[] observations) {
-        super(numOfInterval, observations, "avgModel");
-        this.numOfInterval = numOfInterval;
-        this.observations = observations;
-    }
+        public AvgModel(int numOfInterval, double[] observations) {
+            super(numOfInterval, observations, "avgModel");
+            this.numOfInterval = numOfInterval;
+            this.observations = observations;
+        }
 
 
     public double getPredictedPrice() {

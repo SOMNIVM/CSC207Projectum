@@ -12,16 +12,28 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * The view component for revenue prediction.
+ * Provides a user interface for selecting prediction models and parameters,
+ * and displays prediction results.
+ */
 public class RevenuePredictionView extends JPanel implements PropertyChangeListener {
     private final String viewName;
     private final RevenuePredictionViewModel revenuePredictionViewModel;
     private RevenuePredictionController revenuePredictionController;
     private final ViewManagerModel viewManagerModel;
     private final JLabel errorMessageLabel;
+    private final JComboBox<String> modelTypeComboBox;
     private final JComboBox<String> intervalTypeComboBox;
     private final JTextField intervalLengthField;
     private final JLabel resultLabel;
 
+    /**
+     * Constructs a new RevenuePredictionView.
+     *
+     * @param viewModel The view model containing the state and display logic
+     * @param managerModel The view manager model for handling view transitions
+     */
     public RevenuePredictionView(RevenuePredictionViewModel viewModel, ViewManagerModel managerModel) {
         super();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -33,6 +45,13 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
         // Initialize components
         JLabel title = new JLabel(RevenuePredictionViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        // Model Type Selection
+        JPanel modelTypePanel = new JPanel();
+        modelTypePanel.add(new JLabel(RevenuePredictionViewModel.MODEL_TYPE_LABEL));
+        this.modelTypeComboBox = new JComboBox<>(RevenuePredictionViewModel.MODEL_OPTIONS);
+        modelTypePanel.add(modelTypeComboBox);
+        modelTypePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Interval Type Selection
         JPanel intervalTypePanel = new JPanel();
@@ -69,6 +88,8 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
         this.add(Box.createVerticalStrut(10));
         this.add(title);
         this.add(Box.createVerticalStrut(20));
+        this.add(modelTypePanel);
+        this.add(Box.createVerticalStrut(10));
         this.add(intervalTypePanel);
         this.add(Box.createVerticalStrut(10));
         this.add(intervalLengthPanel);
@@ -85,7 +106,10 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
             public void actionPerformed(ActionEvent e) {
                 if (revenuePredictionController != null) {
                     try {
+                        String modelType = (String) modelTypeComboBox.getSelectedItem();
+                        String intervalType = (String) intervalTypeComboBox.getSelectedItem();
                         String intervalLengthText = intervalLengthField.getText().trim();
+
                         if (!intervalLengthText.matches("^[0-9]+$")) {
                             revenuePredictionViewModel.getState().setAsInvalid(
                                     "Interval length must be a positive integer.");
@@ -94,7 +118,6 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
                         }
 
                         int intervalLength = Integer.parseInt(intervalLengthText);
-                        String intervalType = (String) intervalTypeComboBox.getSelectedItem();
 
                         if (intervalLength <= 0) {
                             revenuePredictionViewModel.getState().setAsInvalid(
@@ -103,7 +126,7 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
                             return;
                         }
 
-                        revenuePredictionController.execute(intervalLength, intervalType);
+                        revenuePredictionController.execute(modelType, intervalLength, intervalType);
                     } catch (NumberFormatException ex) {
                         revenuePredictionViewModel.getState().setAsInvalid(
                                 "Invalid interval length format.");
@@ -122,6 +145,12 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
         });
     }
 
+    /**
+     * Handles property change events from the view model.
+     * Updates the UI based on changes to the model state.
+     *
+     * @param evt The property change event containing the updated state
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         RevenuePredictionState state = (RevenuePredictionState) evt.getNewValue();
@@ -141,6 +170,11 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
         return viewName;
     }
 
+    /**
+     * Sets the controller for this view.
+     *
+     * @param controller The controller to handle user interactions
+     */
     public void setRevenuePredictionController(RevenuePredictionController controller) {
         this.revenuePredictionController = controller;
     }
