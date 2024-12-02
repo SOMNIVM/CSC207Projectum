@@ -96,7 +96,7 @@ public class ModelEvaluationView extends JPanel implements PropertyChangeListene
     // private final JLabel actualValueLabel;
     private final JButton evaluationProceedButton;
 
-    pubglic ModelEvaluationView(ModelEvaluationViewModel modelEvaluationModel) {
+    public ModelEvaluationView(ModelEvaluationViewModel modelEvaluationModel) {
         super();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.modelEvaluationViewModel = modelEvaluationModel;
