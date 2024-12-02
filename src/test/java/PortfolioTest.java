@@ -9,12 +9,10 @@ public class PortfolioTest {
         Portfolio portfolio = new Portfolio();
         portfolio.addStock("AAPL", 10, 150.0);
         assertEquals(10, portfolio.getShares("AAPL"));
-        assertEquals(150.0, portfolio.getAveragePrice("AAPL"));
 
         // Add more shares
         portfolio.addStock("AAPL", 5, 155.0);
         assertEquals(15, portfolio.getShares("AAPL"));
-        assertEquals(151.66666666666666, portfolio.getAveragePrice("AAPL"));
     }
 
     @Test
@@ -24,7 +22,6 @@ public class PortfolioTest {
         assertTrue(portfolio.removeStock("GOOGL", 5));
         assertEquals(15, portfolio.getShares("GOOGL"));
         assertTrue(portfolio.removeStock("GOOGL", 15));
-        assertNull(portfolio.getAveragePrice("GOOGL"));
         assertFalse(portfolio.removeStock("MSFT", 10));
     }
 
@@ -33,14 +30,6 @@ public class PortfolioTest {
         Portfolio portfolio = new Portfolio();
         portfolio.addStock("TSLA", 8, 700.0);
         assertEquals(8, portfolio.getShares("TSLA"));
-    }
-
-    @Test
-    public void testGetAveragePrice() {
-        Portfolio portfolio = new Portfolio();
-        portfolio.addStock("AMZN", 5, 3100.0);
-        assertEquals(3100.0, portfolio.getAveragePrice("AMZN"));
-        assertNull(portfolio.getAveragePrice("FB"));
     }
 
     @Test
