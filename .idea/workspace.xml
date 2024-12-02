@@ -4,28 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="21bd282b-02a1-41dd-879d-e75b71e0bc9b" name="Changes" comment="Ready for test">
+    <list default="true" id="bdc1af01-ae4f-45b7-954b-d30d8941682d" name="Changes" comment="Added data access objects.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/AppBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapters/reset_portfolio/ClearAllPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapters/reset_portfolio/ClearAllPresenter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapters/revenue_prediction/RevenuePredictionPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapters/revenue_prediction/RevenuePredictionPresenter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapters/revenue_prediction/RevenuePredictionState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapters/revenue_prediction/RevenuePredictionState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/predict_models/PredictAvgModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/predict_models/PredictAvgModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/revenue_prediction/RevenuePredictionInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/revenue_prediction/RevenuePredictionInteractor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/revenue_prediction/RevenuePredictionOutputData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/revenue_prediction/RevenuePredictionOutputData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/views/HomePageView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/HomePageView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/views/RevenuePredictionView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/RevenuePredictionView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/app/AppBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/app/AppBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/app/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/app/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/reset_portfolio/ClearAllPresenter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/reset_portfolio/ClearAllPresenter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/revenue_prediction/RevenuePredictionPresenter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/revenue_prediction/RevenuePredictionPresenter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adapters/revenue_prediction/RevenuePredictionState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interface_adapters/revenue_prediction/RevenuePredictionState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/usecases/predict_models/PredictAvgModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/usecases/predict_models/PredictAvgModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/usecases/revenue_prediction/RevenuePredictionInteractor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/usecases/revenue_prediction/RevenuePredictionInteractor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/usecases/revenue_prediction/RevenuePredictionOutputData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/usecases/revenue_prediction/RevenuePredictionOutputData.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/HomePageView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/HomePageView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/views/RevenuePredictionView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/views/RevenuePredictionView.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,22 +52,47 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;DinghuiChen&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/17764/Desktop/CSC207/HomeWork&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/17764/Desktop/CSC207/HomeWork",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="app.Main" />
+      <module name="CSC207CourseProject" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="app.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -252,6 +257,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="cleanAll -&gt; clearALL" />
