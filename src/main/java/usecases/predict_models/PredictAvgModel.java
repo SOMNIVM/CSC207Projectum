@@ -5,7 +5,6 @@ import entities.Portfolio;
 import kotlin.Pair;
 import usecases.OnlineDataAccessInterface;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +44,7 @@ public class PredictAvgModel implements PredictModel {
      * @throws IllegalStateException if onlineDataAccess is not set
      */
     @Override
-    public double predict(Portfolio portfolio, int intervalLength, String intervalName) {
+    public double predictValue(Portfolio portfolio, int intervalLength, String intervalName) {
         validatePredictionInputs(portfolio, intervalLength);
 
         // Get historical observations
@@ -53,6 +52,21 @@ public class PredictAvgModel implements PredictModel {
 
         // Calculate prediction (simple average in this implementation)
         return calculateAverage(observations);
+    }
+
+    @Override
+    public double predictRevenue(Portfolio portfolio, int intervalLength, String intervalName) {
+        validatePredictionInputs(portfolio, intervalLength);
+
+        // Get historical observations
+        double[] observations = getHistoricalObservations(portfolio, intervalName);
+        double curValue = observations[getNumObservations(intervalName) - 1];
+        if (!intervalName.equals("intraday")) {
+            curValue = getCurValue(portfolio);
+        }
+
+        // Calculate prediction (simple average in this implementation)
+        return calculateAverage(observations) - curValue;
     }
 
     /**
@@ -64,7 +78,7 @@ public class PredictAvgModel implements PredictModel {
      * @param intervalName the type of interval
      * @return array containing [pointEstimate, lowerBound, upperBound]
      */
-    public double[] predictWithInterval(Portfolio portfolio, int intervalLength, String intervalName) {
+    public double[] predictValueWithInterval(Portfolio portfolio, int intervalLength, String intervalName) {
         validatePredictionInputs(portfolio, intervalLength);
 
         double[] observations = getHistoricalObservations(portfolio, intervalName);
@@ -78,6 +92,36 @@ public class PredictAvgModel implements PredictModel {
                 mean,                   // Point estimate
                 mean - marginOfError,   // Lower bound
                 mean + marginOfError    // Upper bound
+        };
+    }
+
+    /**
+     * Calculates predicted revenue with confidence intervals.
+     * Uses historical data to compute point estimate and confidence bounds.
+     *
+     * @param portfolio the portfolio to analyze
+     * @param intervalLength the prediction interval length
+     * @param intervalName the type of interval
+     * @return array containing [pointEstimate, lowerBound, upperBound]
+     */
+    public double[] predictRevenueWithInterval(Portfolio portfolio, int intervalLength, String intervalName) {
+        validatePredictionInputs(portfolio, intervalLength);
+
+        double[] observations = getHistoricalObservations(portfolio, intervalName);
+        double curValue = observations[getNumObservations(intervalName) - 1];
+        if (!intervalName.equals("intraday")) {
+            curValue = getCurValue(portfolio);
+        }
+        double mean = calculateAverage(observations);
+        double stdDev = calculateStandardDeviation(observations, mean);
+
+        // Calculate confidence interval
+        double marginOfError = calculateMarginOfError(stdDev, observations.length);
+
+        return new double[] {
+                mean - curValue,                   // Point estimate
+                mean - marginOfError - curValue,   // Lower bound
+                mean + marginOfError - curValue    // Upper bound
         };
     }
 
@@ -220,5 +264,17 @@ public class PredictAvgModel implements PredictModel {
         // Using 1.96 for 95% confidence level (assumes large sample size)
         double tValue = 1.96;
         return tValue * (stdDev / Math.sqrt(n));
+    }
+
+    private double getCurValue(Portfolio portfolio) {
+        double curValue = 0;
+        Map<String, List<Pair<String, Double>>> timeSeries = onlineDataAccess.getBulkTimeSeriesIntraDay(
+                portfolio,
+                1,
+                Config.INTRADAY_PREDICT_INTERVAL);
+        for (String symbol: timeSeries.keySet()) {
+            curValue += portfolio.getShares(symbol) * timeSeries.get(symbol).get(0).getSecond();
+        }
+        return curValue;
     }
 }

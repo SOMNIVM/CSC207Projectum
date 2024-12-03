@@ -1,14 +1,13 @@
 package interface_adapters.model_evaluation;
 
+import interface_adapters.ViewManagerModel;
 import usecases.model_evaluation.ModelEvaluationOutputBoundary;
 import usecases.model_evaluation.ModelEvaluationOutputData;
 
-import interface_adapters.ViewManagerModel;
-
-
-
-
-public class ModelEvaluationPresenter implements ModelEvaluationOutputBoundary{
+/**
+ * The presenter for the model evaluation use case.
+ */
+public class ModelEvaluationPresenter implements ModelEvaluationOutputBoundary {
     private final ModelEvaluationViewModel modelEvaluationViewModel;
     private final ViewManagerModel viewManagerModel;
     public ModelEvaluationPresenter(ModelEvaluationViewModel modelEvaluationViewModel,

@@ -1,8 +1,10 @@
 package views;
 
-import interface_adapters.ViewManagerModel;
-import interface_adapters.model_evaluation.*;
 
+import interface_adapters.model_evaluation.ModelEvaluationController;
+import interface_adapters.model_evaluation.ModelEvaluationState;
+import interface_adapters.model_evaluation.ModelEvaluationViewModel;
+import interface_adapters.ViewManagerModel;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 

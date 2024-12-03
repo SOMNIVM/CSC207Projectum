@@ -14,7 +14,6 @@ import usecases.predict_models.PredictModel;
 public class RevenuePredictionInteractor implements RevenuePredictionInputBoundary {
     private final RevenuePredictionOutputBoundary revenuePredictionPresenter;
     private final LocalDataAccessInterface localDataAccessObject;
-    private final OnlineDataAccessInterface onlineDataAccessObject;
     private PredictModel predictModel;
     private static final double DEFAULT_CONFIDENCE_LEVEL = 0.95;
 
@@ -29,11 +28,9 @@ public class RevenuePredictionInteractor implements RevenuePredictionInputBounda
     public RevenuePredictionInteractor(
             RevenuePredictionOutputBoundary presenter,
             LocalDataAccessInterface localDataAccess,
-            OnlineDataAccessInterface onlineDataAccess,
             PredictModel predictModel) {
         this.revenuePredictionPresenter = presenter;
         this.localDataAccessObject = localDataAccess;
-        this.onlineDataAccessObject = onlineDataAccess;
         this.predictModel = predictModel;
     }
 
@@ -110,7 +107,7 @@ public class RevenuePredictionInteractor implements RevenuePredictionInputBounda
      * @return PredictionResult containing point estimate and confidence bounds
      */
     private PredictionResult getPredictionWithInterval(Portfolio portfolio, RevenuePredictionInputData inputData) {
-        double pointEstimate = predictModel.predict(
+        double pointEstimate = predictModel.predictRevenue(
                 portfolio,
                 inputData.getIntervalLength(),
                 inputData.getIntervalName().toLowerCase()
@@ -118,7 +115,7 @@ public class RevenuePredictionInteractor implements RevenuePredictionInputBounda
 
         // If using PredictAvgModel, get confidence interval
         if (predictModel instanceof PredictAvgModel avgModel) {
-            double[] intervalResults = avgModel.predictWithInterval(
+            double[] intervalResults = avgModel.predictRevenueWithInterval(
                     portfolio,
                     inputData.getIntervalLength(),
                     inputData.getIntervalName().toLowerCase()

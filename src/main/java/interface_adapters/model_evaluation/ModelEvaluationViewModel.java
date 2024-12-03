@@ -1,8 +1,5 @@
 package interface_adapters.model_evaluation;
 
-import java.util.Arrays;
-import java.util.List;
-
 import interface_adapters.ViewModel;
 
 public class ModelEvaluationViewModel extends ViewModel<ModelEvaluationState> {

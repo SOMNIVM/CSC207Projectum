@@ -1,10 +1,5 @@
 package data_access;
 
-import app.Config;
-import entities.Portfolio;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import usecases.LocalDataAccessInterface;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,37 +7,48 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import app.Config;
+import entities.Portfolio;
+import usecases.LocalDataAccessInterface;
+
+/**
+ * The data access object that uses local files only.
+ */
 public class LocalDataAccessObject implements LocalDataAccessInterface {
-    private static final Path portfolioDataFilePath = Paths.get("app_data/portfolio_data.json");
-    private static final String symbolLabel = "symbol";
-    private static final String sharesLabel = "shares";
-    private static final String averagePriceLabel = "average_price";
+    private static final Path PORTFOLIO_DATA_FILE_PATH = Paths.get("app_data/portfolio_data.json");
+    private static final String SYMBOL_LABEL = "symbol";
+    private static final String SHARES_LABEL = "shares";
+    private static final int JSON_INDENTATION = 4;
     private final Portfolio portfolio;
     private final Map<String, String> nameToSymbolMap;
     private final Map<String, String> symbolToNameMap;
+
     public LocalDataAccessObject() {
         this.portfolio = new Portfolio();
         this.nameToSymbolMap = new HashMap<>();
         this.symbolToNameMap = new HashMap<>();
         for (Object obj: Config.STOCK_LIST) {
-            JSONObject jsonObject = (JSONObject) obj;
-            String curName = jsonObject.getString("name");
-            String curSymbol = jsonObject.getString("symbol");
+            final JSONObject jsonObject = (JSONObject) obj;
+            final String curName = jsonObject.getString("name");
+            final String curSymbol = jsonObject.getString("symbol");
             this.nameToSymbolMap.put(curName, curSymbol);
             this.symbolToNameMap.put(curSymbol, curName);
         }
         try {
-            if (Files.exists(portfolioDataFilePath)) {
-                JSONArray portfolioData = new JSONArray(Files.readString(portfolioDataFilePath));
+            if (Files.exists(PORTFOLIO_DATA_FILE_PATH)) {
+                final JSONArray portfolioData = new JSONArray(Files.readString(PORTFOLIO_DATA_FILE_PATH));
                 for (Object obj: portfolioData) {
-                    JSONObject portfolioDataObj = (JSONObject) obj;
-                    this.portfolio.addStock(portfolioDataObj.getString(symbolLabel),
-                            portfolioDataObj.getInt(sharesLabel), 0.0);
+                    final JSONObject portfolioDataObj = (JSONObject) obj;
+                    this.portfolio.addStock(portfolioDataObj.getString(SYMBOL_LABEL),
+                            portfolioDataObj.getInt(SHARES_LABEL), 0.0);
                 }
             }
         }
-        catch (IOException e) {
-            throw new RuntimeException(e);
+        catch (IOException ex) {
+            throw new RuntimeException(ex);
         }
     }
 
@@ -53,18 +59,18 @@ public class LocalDataAccessObject implements LocalDataAccessInterface {
 
     @Override
     public void writeCurrentPortfolio() {
-        JSONArray curPortfolioData = new JSONArray();
+        final JSONArray curPortfolioData = new JSONArray();
         for (String symbol: portfolio.getStockSymbols()) {
-            JSONObject portfolioDataObj = new JSONObject();
-            portfolioDataObj.put(symbolLabel, symbol);
-            portfolioDataObj.put(sharesLabel, portfolio.getShares(symbol));
+            final JSONObject portfolioDataObj = new JSONObject();
+            portfolioDataObj.put(SYMBOL_LABEL, symbol);
+            portfolioDataObj.put(SHARES_LABEL, portfolio.getShares(symbol));
             curPortfolioData.put(portfolioDataObj);
         }
         try {
-            Files.writeString(portfolioDataFilePath, curPortfolioData.toString(4));
+            Files.writeString(PORTFOLIO_DATA_FILE_PATH, curPortfolioData.toString(JSON_INDENTATION));
         }
-        catch (IOException e) {
-            throw new RuntimeException(e);
+        catch (IOException ex) {
+            throw new RuntimeException(ex);
         }
     }
 

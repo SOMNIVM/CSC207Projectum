@@ -3,7 +3,7 @@ package entities;
 /**
  * Represents a stock, which is a type of asset, with a stock symbol.
  */
-public class Stock extends Asset{
+public class Stock extends Asset {
     private final String stockSymbol;
 
     /**
