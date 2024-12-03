@@ -1,10 +1,20 @@
+
 package app;
+
+import java.awt.CardLayout;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
 import data_access.*;
 import interface_adapters.ViewManagerModel;
 import interface_adapters.add_stock.AddStockController;
 import interface_adapters.add_stock.AddStockPresenter;
 import interface_adapters.add_stock.AddStockViewModel;
+import interface_adapters.model_evaluation.ModelEvaluationController;
+import interface_adapters.model_evaluation.ModelEvaluationPresenter;
+import interface_adapters.model_evaluation.ModelEvaluationViewModel;
 import interface_adapters.remove_stock.RemoveStockController;
 import interface_adapters.remove_stock.RemoveStockPresenter;
 import interface_adapters.remove_stock.RemoveStockViewModel;
@@ -17,23 +27,38 @@ import interface_adapters.revenue_prediction.RevenuePredictionViewModel;
 import interface_adapters.view_portfolio.ViewPortfolioController;
 import interface_adapters.view_portfolio.ViewPortfolioPresenter;
 import interface_adapters.view_portfolio.ViewPortfolioViewModel;
-import interface_adapters.model_evaluation.ModelEvaluationController;
-import interface_adapters.model_evaluation.ModelEvaluationPresenter;
-import interface_adapters.model_evaluation.ModelEvaluationViewModel;
-import usecases.add_stock.*;
 import usecases.LocalDataAccessInterface;
 import usecases.OnlineDataAccessInterface;
+import usecases.add_stock.AddStockDataAccessInterface;
+import usecases.add_stock.AddStockInputBoundary;
+import usecases.add_stock.AddStockInteractor;
+import usecases.add_stock.AddStockOutputBoundary;
+import usecases.model_evaluation.ModelEvaluationInputBoundary;
+import usecases.model_evaluation.ModelEvaluationInteractor;
+import usecases.model_evaluation.ModelEvaluationOutputBoundary;
 import usecases.predict_models.PredictAvgModel;
 import usecases.predict_models.PredictModel;
-import usecases.remove_stock.*;
-import usecases.reset_portfolio.*;
-import usecases.revenue_prediction.*;
-import usecases.view_portfolio.*;
-import usecases.model_evaluation.*;
-import views.*;
-
-import javax.swing.*;
-import java.awt.*;
+import usecases.remove_stock.RemoveStockInputBoundary;
+import usecases.remove_stock.RemoveStockInteractor;
+import usecases.remove_stock.RemoveStockOutputBoundary;
+import usecases.reset_portfolio.ClearAllDataAccessInterface;
+import usecases.reset_portfolio.ClearAllInputBoundary;
+import usecases.reset_portfolio.ClearAllInteractor;
+import usecases.reset_portfolio.ClearAllOutputBoundary;
+import usecases.revenue_prediction.RevenuePredictionInputBoundary;
+import usecases.revenue_prediction.RevenuePredictionInteractor;
+import usecases.revenue_prediction.RevenuePredictionOutputBoundary;
+import usecases.view_portfolio.ViewPortfolioDataAccessInterface;
+import usecases.view_portfolio.ViewPortfolioInputBoundary;
+import usecases.view_portfolio.ViewPortfolioInteractor;
+import usecases.view_portfolio.ViewPortfolioOutputBoundary;
+import views.AddStockView;
+import views.HomePageView;
+import views.ModelEvaluationView;
+import views.RemoveStockView;
+import views.RevenuePredictionView;
+import views.ViewManager;
+import views.ViewPortfolioView;
 
 /**
  * Builder class for constructing the application's UI and wiring together its components.
@@ -57,6 +82,7 @@ public class AppBuilder {
     private RevenuePredictionView revenuePredictionView;
     private ModelEvaluationViewModel modelEvaluationViewModel;
     private ModelEvaluationView modelEvaluationView;
+
     /**
      * Constructs a new AppBuilder and initializes the core components.
      */
@@ -130,25 +156,23 @@ public class AppBuilder {
     }
 
 
-
-
     /**
      * Wires up the portfolio viewing use case.
      *
      * @return this builder instance for method chaining
      */
     public AppBuilder addViewPortfolioUseCase() {
-        ViewPortfolioOutputBoundary viewPortfolioPresenter = new ViewPortfolioPresenter(
+        final ViewPortfolioOutputBoundary viewPortfolioPresenter = new ViewPortfolioPresenter(
                 viewPortfolioViewModel,
                 clearAllViewModel,
                 viewManagerModel);
-        ViewPortfolioDataAccessInterface viewPortfolioDataAccessObject = new ViewPortfolioDataAccessObject(
+        final ViewPortfolioDataAccessInterface viewPortfolioDataAccessObject = new ViewPortfolioDataAccessObject(
                 localDataAccessObject,
                 onlineDataAccessObject);
-        ViewPortfolioInputBoundary viewPortfolioInteractor = new ViewPortfolioInteractor(
+        final ViewPortfolioInputBoundary viewPortfolioInteractor = new ViewPortfolioInteractor(
                 viewPortfolioPresenter,
                 viewPortfolioDataAccessObject);
-        ViewPortfolioController viewPortfolioController = new ViewPortfolioController(viewPortfolioInteractor);
+        final ViewPortfolioController viewPortfolioController = new ViewPortfolioController(viewPortfolioInteractor);
         homePageView.setViewPortfolioController(viewPortfolioController);
         viewPortfolioView.setViewPortfolioController(viewPortfolioController);
         return this;
@@ -160,17 +184,17 @@ public class AppBuilder {
      * @return this builder instance for method chaining
      */
     public AppBuilder addAddStockUseCase() {
-        AddStockOutputBoundary buyStockPresenter = new AddStockPresenter(
+        final AddStockOutputBoundary buyStockPresenter = new AddStockPresenter(
                 addStockViewModel,
                 clearAllViewModel,
                 viewManagerModel);
-        AddStockDataAccessInterface buyStockDataAccessObject = new AddStockDataAccessObject(
+        final AddStockDataAccessInterface buyStockDataAccessObject = new AddStockDataAccessObject(
                 localDataAccessObject,
                 onlineDataAccessObject);
-        AddStockInputBoundary buyStockInteractor = new AddStockInteractor(
+        final AddStockInputBoundary buyStockInteractor = new AddStockInteractor(
                 buyStockPresenter,
                 buyStockDataAccessObject);
-        AddStockController addStockController = new AddStockController(buyStockInteractor);
+        final AddStockController addStockController = new AddStockController(buyStockInteractor);
         addStockView.setBuyStockController(addStockController);
         return this;
     }
@@ -181,14 +205,14 @@ public class AppBuilder {
      * @return this builder instance for method chaining
      */
     public AppBuilder addRemoveStockUseCase() {
-        RemoveStockOutputBoundary removeStockPresenter = new RemoveStockPresenter(
+        final RemoveStockOutputBoundary removeStockPresenter = new RemoveStockPresenter(
                 removeStockViewModel,
                 clearAllViewModel,
                 viewManagerModel);
-        RemoveStockInputBoundary removeStockInteractor = new RemoveStockInteractor(
+        final RemoveStockInputBoundary removeStockInteractor = new RemoveStockInteractor(
                 removeStockPresenter,
                 localDataAccessObject);
-        RemoveStockController removeStockController = new RemoveStockController(removeStockInteractor);
+        final RemoveStockController removeStockController = new RemoveStockController(removeStockInteractor);
         removeStockView.setRemoveStockController(removeStockController);
         return this;
     }
@@ -199,22 +223,20 @@ public class AppBuilder {
      * @return this builder instance for method chaining
      */
     public AppBuilder addRevenuePredictionUseCase() {
-        RevenuePredictionOutputBoundary revenuePredictionPresenter = new RevenuePredictionPresenter(
+        final RevenuePredictionOutputBoundary revenuePredictionPresenter = new RevenuePredictionPresenter(
                 revenuePredictionViewModel,
                 viewManagerModel);
-        PredictModel predictModel = new PredictAvgModel();
+        final PredictModel predictModel = new PredictAvgModel();
         predictModel.setOnlineDataAccess(onlineDataAccessObject);
-        RevenuePredictionInputBoundary revenuePredictionInteractor = new RevenuePredictionInteractor(
+        final RevenuePredictionInputBoundary revenuePredictionInteractor = new RevenuePredictionInteractor(
                 revenuePredictionPresenter,
                 localDataAccessObject,
-                onlineDataAccessObject,
                 predictModel);
-        RevenuePredictionController revenuePredictionController = new RevenuePredictionController(revenuePredictionInteractor);
+        final RevenuePredictionController revenuePredictionController =
+                new RevenuePredictionController(revenuePredictionInteractor);
         revenuePredictionView.setRevenuePredictionController(revenuePredictionController);
         return this;
     }
-
-
 
     /**
      * Adds a model evaluation case to the application.
@@ -225,19 +247,19 @@ public class AppBuilder {
      * @return the current instance of AppBuilder for method chaining
      */
     public AppBuilder addModelEvaluationCase() {
-        ModelEvaluationOutputBoundary modelEvaluationPresenter = new ModelEvaluationPresenter(
+        final ModelEvaluationOutputBoundary modelEvaluationPresenter = new ModelEvaluationPresenter(
                 modelEvaluationViewModel,
                 viewManagerModel);
-        ModelEvaluationInputBoundary modelEvaluationInteractor = new ModelEvaluationInteractor(
+        final ModelEvaluationInputBoundary modelEvaluationInteractor = new ModelEvaluationInteractor(
                 onlineDataAccessObject,
                 localDataAccessObject,
                 modelEvaluationPresenter);
 
-        ModelEvaluationController modelEvaluationController = new ModelEvaluationController(modelEvaluationInteractor);
+        final ModelEvaluationController modelEvaluationController =
+                new ModelEvaluationController(modelEvaluationInteractor);
         modelEvaluationView.setModelEvaluationController(modelEvaluationController);
         return this;
     }
-
 
     /**
      * Wires up the portfolio clearing use case.
@@ -245,17 +267,18 @@ public class AppBuilder {
      * @return this builder instance for method chaining
      */
     public AppBuilder addClearAllUseCase() {
-        ClearAllOutputBoundary clearAllPresenter = new ClearAllPresenter(
+        final ClearAllOutputBoundary clearAllPresenter = new ClearAllPresenter(
                 clearAllViewModel,
                 addStockViewModel,
                 removeStockViewModel,
-                revenuePredictionViewModel,  // Added RevenuePredictionViewModel
-                modelEvaluationViewModel,    // Added ModelEvaluationViewModel
+                revenuePredictionViewModel,
+                modelEvaluationViewModel,
                 viewManagerModel);
-        ClearAllDataAccessInterface clearAllDataAccessObject = new ClearAllDataAccessObject(localDataAccessObject);
-        ClearAllInputBoundary clearAllInteractor = new ClearAllInteractor(clearAllPresenter,
+        final ClearAllDataAccessInterface clearAllDataAccessObject =
+                new ClearAllDataAccessObject(localDataAccessObject);
+        final ClearAllInputBoundary clearAllInteractor = new ClearAllInteractor(clearAllPresenter,
                 clearAllDataAccessObject);
-        ClearAllController clearAllController = new ClearAllController(clearAllInteractor);
+        final ClearAllController clearAllController = new ClearAllController(clearAllInteractor);
         homePageView.setClearAllController(clearAllController);
         return this;
     }
@@ -266,13 +289,11 @@ public class AppBuilder {
      * @return the configured JFrame containing the application
      */
     public JFrame build() {
-        JFrame app = new JFrame("Portfolio Management System");
+        final JFrame app = new JFrame("Portfolio Management System");
         app.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         app.add(cardPanel);
         viewManagerModel.getState().setCurViewName(homePageView.getViewName());
         viewManagerModel.firePropertyChange();
         return app;
     }
-
-
 }
