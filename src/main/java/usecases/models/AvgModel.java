@@ -87,7 +87,6 @@ import app.Config;
         }
         return (getReturn() - Config.INTEREST_RATE) / stdDev;
     }
-    @Override
     private double getReturn() {
         return (observations[numOfInterval - 1] - observations[0]) / observations[0];
     }

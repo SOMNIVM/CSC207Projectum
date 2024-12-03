@@ -33,13 +33,13 @@ public class ModelEvaluationPresenter implements ModelEvaluationOutputBoundary {
     modelEvaluationViewModel.getState().setAsInvalid(errorDescription);
     modelEvaluationViewModel.firePropertyChange();
     }
-    // @Override
-    // public void switchToModelResult() {
-    //     if (modelEvaluationViewModel != null) {
-    //         viewManagerModel.getState().setCurViewName(modelEvaluationViewModel.getViewName());
-    //         viewManagerModel.firePropertyChange();            
-    //     }
-    // }
+    @Override
+    public void switchToModelResult() {
+        if (modelEvaluationViewModel != null) {
+            viewManagerModel.getState().setCurViewName(modelEvaluationViewModel.getViewName());
+            viewManagerModel.firePropertyChange();            
+        }
+    }
     @Override
     public void switchBack() {
         viewManagerModel.getState().setCurViewName("homepage");
