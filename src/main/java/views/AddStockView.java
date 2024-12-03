@@ -15,7 +15,7 @@ public class AddStockView extends JPanel implements PropertyChangeListener {
     private final String viewName;
     private final AddStockViewModel addStockViewModel;
     private AddStockController addStockController;
-    private final JTextField stockNameField;
+    private final StockInputPanel stockInputPanel;
     private final JTextField sharesField;
     private final JLabel errorMessageLabel;
     public AddStockView(AddStockViewModel buyStockModel) {
@@ -26,13 +26,13 @@ public class AddStockView extends JPanel implements PropertyChangeListener {
         this.addStockViewModel.addPropertyChangeListener(this);
         this.errorMessageLabel = new JLabel();
         this.errorMessageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        this.stockNameField = new JTextField(20);
-        this.sharesField = new JTextField(20);
+        this.stockInputPanel = new StockInputPanel();
+        this.sharesField = new JTextField(30);
         JLabel title = new JLabel(this.viewName);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         JPanel stockNamePanel = new JPanel();
         stockNamePanel.add(new JLabel(AddStockViewModel.STOCK_NAME_FIELD_LABEL));
-        stockNamePanel.add(this.stockNameField);
+        stockNamePanel.add(this.stockInputPanel);
         JPanel sharesFieldPanel = new JPanel();
         sharesFieldPanel.add(new JLabel(AddStockViewModel.SHARES_FIELD_LABEL));
         sharesFieldPanel.add(this.sharesField);
@@ -53,7 +53,7 @@ public class AddStockView extends JPanel implements PropertyChangeListener {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (addStockController != null) {
-                    String stockNameInput = stockNameField.getText();
+                    String stockNameInput = stockInputPanel.getText();
                     String sharesInput = sharesField.getText();
                     if (sharesInput.matches("^[0-9]+$")) {
                         int shares = Integer.parseInt(sharesInput);

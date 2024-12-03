@@ -7,11 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import data_access.AddStockDataAccessObject;
-import data_access.ClearAllDataAccessObject;
-import data_access.LocalDataAccessObject;
-import data_access.MockOnlineDataAccessObject;
-import data_access.ViewPortfolioDataAccessObject;
+import data_access.*;
 import interface_adapters.ViewManagerModel;
 import interface_adapters.add_stock.AddStockController;
 import interface_adapters.add_stock.AddStockPresenter;
@@ -235,7 +231,6 @@ public class AppBuilder {
         final RevenuePredictionInputBoundary revenuePredictionInteractor = new RevenuePredictionInteractor(
                 revenuePredictionPresenter,
                 localDataAccessObject,
-                onlineDataAccessObject,
                 predictModel);
         final RevenuePredictionController revenuePredictionController =
                 new RevenuePredictionController(revenuePredictionInteractor);

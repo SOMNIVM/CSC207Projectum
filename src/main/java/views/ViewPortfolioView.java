@@ -37,6 +37,7 @@ public class ViewPortfolioView extends JPanel implements PropertyChangeListener 
         });
         totalValueSummary.setAlignmentX(Component.CENTER_ALIGNMENT);
         dataScrollPane.setAlignmentX(Component.CENTER_ALIGNMENT);
+        dataScrollPane.setPreferredSize(new Dimension(1200, 300));
         back.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(title);
         this.add(this.totalValueSummary);

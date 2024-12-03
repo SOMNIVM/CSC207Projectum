@@ -6,91 +6,102 @@ import org.json.JSONObject;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.Timer;
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
-public class StockInputComboBox extends JComboBox<String> {
+public class StockInputPanel extends JPanel {
+    private final JTextField prefixField;
+    private final JComboBox<String> stockInputBox;
+    private final DefaultComboBoxModel<String> model;
     private final Map<String, String> nameToOption;
     private final Map<String, String> symbolToOption;
-    private final DefaultComboBoxModel<String> model;
-    private final JTextField editor;
-    private final Timer debounceTimer;
-    private boolean suppressUpdate;
-
-    public StockInputComboBox() {
-        this.suppressUpdate = false;
+    public StockInputPanel() {
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.prefixField = new JTextField(30);
+        this.prefixField.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.nameToOption = new HashMap<>();
         this.symbolToOption = new HashMap<>();
-        this.debounceTimer = new Timer(200, null)
-        for (Object obj : Config.STOCK_LIST) {
-            JSONObject dataObject = (JSONObject) obj;
-            String name = dataObject.getString("name");
-            String symbol = dataObject.getString("symbol");
+        for (Object obj: Config.STOCK_LIST) {
+            JSONObject dataObj = (JSONObject) obj;
+            String name = dataObj.getString("name");
+            String symbol = dataObj.getString("symbol");
             String option = String.format("%s (%s)", name, symbol);
             this.nameToOption.put(name.toLowerCase(), option);
             this.symbolToOption.put(symbol.toLowerCase(), option);
         }
         String[] options = this.symbolToOption.values().toArray(new String[0]);
         Arrays.sort(options);
-        this.model = new DefaultComboBoxModel(options);
-        this.setModel(this.model);
-        this.editor = (JTextField) this.getEditor().getEditorComponent();
-        this.editor.setColumns(30);
-        editor.getDocument().addDocumentListener(new DocumentListener() {
+        this.model = new DefaultComboBoxModel<>(options);
+        this.stockInputBox = new JComboBox<>(this.model);
+        this.stockInputBox.setMaximumRowCount(6);
+        this.stockInputBox.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.prefixField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
-            public void insertUpdate(DocumentEvent evt) {
-                SwingUtilities.invokeLater(() -> handleOptionChange());
+            public void insertUpdate(DocumentEvent documentEvent) {
+                model.removeAllElements();
+                model.addAll(getNewOptions(prefixField.getText()));
+                if (stockInputBox.isShowing()) {
+                    stockInputBox.showPopup();
+                }
             }
 
             @Override
             public void removeUpdate(DocumentEvent documentEvent) {
-                SwingUtilities.invokeLater(() -> handleOptionChange());
+                model.removeAllElements();
+                model.addAll(getNewOptions(prefixField.getText()));
+                if (stockInputBox.isShowing()) {
+                    stockInputBox.showPopup();
+                }
             }
 
             @Override
             public void changedUpdate(DocumentEvent documentEvent) {
-                SwingUtilities.invokeLater(() -> handleOptionChange());
-            }
-        });
-        this.setMaximumRowCount(6);
-        this.setEditable(true);
-    }
-
-    private void handleOptionChange() {
-        if (!suppressUpdate) {
-            suppressUpdate = true;
-            try {
-                String prefix = editor.getText();
-                modifyAvailableOptions(prefix);
-                editor.setText(prefix);
-                if (StockInputComboBox.this.isShowing()) {
-                    StockInputComboBox.this.showPopup();
+                model.removeAllElements();
+                model.addAll(getNewOptions(prefixField.getText()));
+                if (stockInputBox.isShowing()) {
+                    stockInputBox.showPopup();
                 }
             }
-            finally {
-                suppressUpdate = false;
-            }
-        }
+        });
+        this.add(this.prefixField);
+        this.add(this.stockInputBox);
     }
 
-    private void modifyAvailableOptions(String prefix) {
+    public String getText() {
+        String option = (String) stockInputBox.getSelectedItem();
+        int idx = option.length() - 1;
+        int unmatched = 0;
+        while (idx >= 0) {
+            if (option.charAt(idx) == ')') {
+                unmatched += 1;
+            }
+            else if (option.charAt(idx) == '(') {
+                unmatched -= 1;
+            }
+            if (unmatched == 0) {
+                break;
+            }
+            idx -= 1;
+        }
+        return option.substring(0, idx - 1);
+    }
+
+    private List<String> getNewOptions(String prefix) {
         String lowerCasePrefix = prefix.toLowerCase();
-        model.removeAllElements();
-        Set<String> newOptionSet = new HashSet<>();
-        for (String name : nameToOption.keySet()) {
+        Set<String> optionSet = new HashSet<>();
+        for (String name: nameToOption.keySet()) {
             if (name.startsWith(lowerCasePrefix)) {
-                newOptionSet.add(nameToOption.get(name));
+                optionSet.add(nameToOption.get(name));
             }
         }
-        for (String symbol : symbolToOption.keySet()) {
+        for (String symbol: symbolToOption.keySet()) {
             if (symbol.startsWith(lowerCasePrefix)) {
-                newOptionSet.add(symbolToOption.get(symbol));
+                optionSet.add(symbolToOption.get(symbol));
             }
         }
-        List<String> newOptions = new ArrayList<>(newOptionSet);
-        Collections.sort(newOptions);
-        for (String newOption: newOptions) {
-            model.addElement(newOption);
-        }
+        List<String> optionList = new ArrayList<>(optionSet);
+        Collections.sort(optionList);
+        return optionList;
     }
 }

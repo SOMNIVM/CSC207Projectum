@@ -103,6 +103,7 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
         this.add(Box.createVerticalStrut(20));
         this.add(buttonPanel);
         this.scrollPane = new JScrollPane();
+        this.scrollPane.setPreferredSize(new Dimension(200, 200));
         this.add(this.scrollPane);
         // Add button listeners
         predictButton.addActionListener(new ActionListener() {

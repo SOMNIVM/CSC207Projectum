@@ -1,7 +1,6 @@
 package views;
 
 import interface_adapters.ModifyPortfolioState;
-import interface_adapters.ViewManagerModel;
 import interface_adapters.remove_stock.RemoveStockController;
 import interface_adapters.remove_stock.RemoveStockViewModel;
 
@@ -17,7 +16,7 @@ public class RemoveStockView extends JPanel implements PropertyChangeListener {
     private final RemoveStockViewModel removeStockViewModel;
     private RemoveStockController removeStockController;
     private final JLabel errorMessageLabel;
-    private final JTextField stockNameField;
+    private final StockInputPanel stockInputBox;
     private final JTextField sharesField;
     public RemoveStockView(RemoveStockViewModel removeStockModel) {
         super();
@@ -25,9 +24,8 @@ public class RemoveStockView extends JPanel implements PropertyChangeListener {
         this.removeStockViewModel = removeStockModel;
         this.viewName = this.removeStockViewModel.getViewName();
         this.removeStockViewModel.addPropertyChangeListener(this);
-        this.stockNameField = new JTextField(20);
-        this.stockNameField.setAlignmentX(Component.CENTER_ALIGNMENT);
-        this.sharesField = new JTextField(20);
+        this.stockInputBox = new StockInputPanel();
+        this.sharesField = new JTextField(30);
         this.sharesField.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.errorMessageLabel = new JLabel();
         this.errorMessageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -35,7 +33,7 @@ public class RemoveStockView extends JPanel implements PropertyChangeListener {
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         JPanel stockNamePanel = new JPanel();
         stockNamePanel.add(new JLabel(RemoveStockViewModel.STOCK_NAME_FIELD_LABEL));
-        stockNamePanel.add(this.stockNameField);
+        stockNamePanel.add(this.stockInputBox);
         stockNamePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         JPanel sharesFieldPanel = new JPanel();
         sharesFieldPanel.add(new JLabel(RemoveStockViewModel.SHARES_FIELD_LABEL));
@@ -56,7 +54,7 @@ public class RemoveStockView extends JPanel implements PropertyChangeListener {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (removeStockController != null) {
-                    String stockNameInput = stockNameField.getText();
+                    String stockNameInput = stockInputBox.getText();
                     String sharesInput = sharesField.getText();
                     if (sharesInput.matches("^[0-9]+$")) {
                         int shares = Integer.parseInt(sharesInput);
