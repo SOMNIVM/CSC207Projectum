@@ -12,17 +12,16 @@ import usecases.predict_models.PredictModel;
  * for revenue predictions.
  */
 public class RevenuePredictionInteractor implements RevenuePredictionInputBoundary {
+    private static final double DEFAULT_CONFIDENCE_LEVEL = 0.95;
     private final RevenuePredictionOutputBoundary revenuePredictionPresenter;
     private final LocalDataAccessInterface localDataAccessObject;
     private PredictModel predictModel;
-    private static final double DEFAULT_CONFIDENCE_LEVEL = 0.95;
 
     /**
      * Constructs a RevenuePredictionInteractor with necessary dependencies.
      *
      * @param presenter The output boundary for presenting prediction results
      * @param localDataAccess Data access interface for portfolio information
-     * @param onlineDataAccess Online data access interface for market data
      * @param predictModel The model to use for predictions
      */
     public RevenuePredictionInteractor(
