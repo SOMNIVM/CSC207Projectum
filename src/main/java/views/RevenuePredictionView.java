@@ -29,7 +29,7 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
     private final JComboBox<String> intervalTypeComboBox;
     private final JTextField intervalLengthField;
     private final JLabel resultLabel;
-    private JTable resultTable;
+    private final JScrollPane scrollPane;
 
     /**
      * Constructs a new RevenuePredictionView.
@@ -102,7 +102,8 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
         this.add(resultLabel);
         this.add(Box.createVerticalStrut(20));
         this.add(buttonPanel);
-
+        this.scrollPane = new JScrollPane();
+        this.add(this.scrollPane);
         // Add button listeners
         predictButton.addActionListener(new ActionListener() {
             @Override
@@ -167,13 +168,6 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
     }
 
     private void getTable(RevenuePredictionState state) {
-        if (resultTable == null) {
-            resultTable = new JTable();
-            JScrollPane scrollPane = new JScrollPane(resultTable);
-            scrollPane.setPreferredSize(new Dimension(400, 100));
-            this.add(scrollPane);
-        }
-
         // Create table model and add columns
         DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.addColumn("Metric");
@@ -182,15 +176,14 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
         // Add data rows
         tableModel.addRow(new Object[]{"Predicted Revenue", String.format("$%.2f", state.getPredictedRevenue())});
         tableModel.addRow(new Object[]{"Confidence Level", String.format("%.0f%%", state.getConfidenceLevel() * 100)});
-        tableModel.addRow(new Object[]{"Confidence Interval", String.format("[$%.2f, $%.2f]", state.getLowerBound(), state.getUpperBound())});
+        tableModel.addRow(new Object[]{"Confidence Interval", String.format(
+                "[$%.2f, $%.2f]",
+                state.getLowerBound(),
+                state.getUpperBound())});
 
         // Set the model to the table
-        resultTable.setModel(tableModel);
-        resultTable.setEnabled(false); // Make table non-editable
-        resultTable.setShowGrid(true);
-        resultTable.setIntercellSpacing(new Dimension(10, 1));
-        this.revalidate();
-        this.repaint();
+        JTable resultTable = new JTable(tableModel);
+        this.scrollPane.setViewportView(resultTable);
     }
 
     /**
