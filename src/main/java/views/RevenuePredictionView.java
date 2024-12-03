@@ -41,6 +41,7 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
     private final JTextField intervalLengthField;
     private final JLabel resultLabel;
     private final JScrollPane scrollPane;
+    private JTable resultTable;
 
     /**
      * Constructs a new RevenuePredictionView.
@@ -206,11 +207,11 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
     public void setRevenuePredictionController(RevenuePredictionController controller) {
         this.revenuePredictionController = controller;
     }
+    
     public void removeTable() {
         if (resultTable != null) {
-            JScrollPane scrollPane = (JScrollPane) SwingUtilities.getAncestorOfClass(JScrollPane.class, resultTable);
             if (scrollPane != null) {
-                this.remove(scrollPane);
+                scrollPane.setViewportView(null);
             }
             resultTable = null;
             this.revalidate();

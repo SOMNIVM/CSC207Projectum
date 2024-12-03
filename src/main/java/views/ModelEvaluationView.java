@@ -153,7 +153,7 @@ public class ModelEvaluationView extends JPanel implements PropertyChangeListene
             resultLabel.setText("");
             intervalTypeComboBox.setVisible(false);
             modelTypeComboBox.setVisible(false);
-            errorMessageLabel.setVisible(false);
+            errorMessageLabel.setVisible(true);
         }
     }
 

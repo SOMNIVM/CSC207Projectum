@@ -83,9 +83,13 @@ import app.Config;
     public double getSharpeRatio() {
         double stdDev = getStandardDeviation();
         if (stdDev == 0) {
-            throw new ArithmeticException("Standard deviation is zero, cannot compute Sharpe Ratio.");
+            return 0.0;
         }
-        return (getAvg() - Config.INTEREST_RATE) / stdDev;
+        return (getReturn() - Config.INTEREST_RATE) / stdDev;
+    }
+    @Override
+    private double getReturn() {
+        return (observations[numOfInterval - 1] - observations[0]) / observations[0];
     }
     @Override
     public double[] getObservations() {
