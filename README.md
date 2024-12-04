@@ -85,6 +85,9 @@ We encourage contributions from the community to enhance the functionality and p
 - Improved data visualization tools.
 - Performance optimizations.
 
+However, please fork to your own repo.
+
+And use your own branch.
 ## Tutorial Usage
 
 ### Home Page of the App
