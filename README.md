@@ -53,22 +53,23 @@ Created by a team passionate about finance and economics, this tool showcases ou
 This project is a Maven-based application developed with Java JDK 22. Follow the steps below to set up the project:
 
 1. **Prerequisites:**
+   - Assume idea. properly installed.
    - Ensure you have Java JDK 22 installed. You can download it from [Oracle](https://www.oracle.com/java/technologies/javase/jdk22-archive-downloads.html) or [OpenJDK](https://openjdk.java.net/).
 
-2. **Clone the Repository:**
+3. **Clone the Repository:**
    ```bash
    git clone https://github.com/your-username/CSC207Projectum.git
    cd CSC207Projectum
    ```
 
-3. **Build the Project:**
+4. **Build the Project:**
    - The Maven project will be built automatically using IntelliJ IDEA or Visual Studio Code.
    - **IntelliJ IDEA:** [Download Here](https://www.jetbrains.com/idea/)
    - **Visual Studio Code:** [Download Here](https://code.visualstudio.com/)
 
    > **Note:** Ensure that Maven is properly configured in your IDE.
 
-4. **Run the Application:**
+5. **Run the Application:**
    - Use your IDE's run configuration to start the application.
    - The project is compatible with any operating system that supports a Java environment.
 
