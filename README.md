@@ -15,7 +15,7 @@
 
 ## Project Purpose
 
-This project is designed for individuals with a basic understanding of various statistical models used in the stock market who wish to track and evaluate the performance of these models. It serves as a practical template for users to test and assess their own models in a real-world context.
+This project is designed for individuals with a basic understanding of various statistical models used in the stock market who wish to track and evaluate the performance of these models. It serves as a practical template for users to test and assess their own models and and portfolios in a real-world context.
 
 Created by a team passionate about finance and economics, this tool showcases our skills and contributes a valuable resource to others with similar interests. By developing this platform, we aim to address the need for a user-friendly system to test and monitor statistical models in the stock market, making it a useful asset for anyone looking to enhance their financial analytics capabilities.
 
@@ -23,12 +23,12 @@ Created by a team passionate about finance and economics, this tool showcases ou
 
 1. **Stock Management System**
    - **View Portfolio:** Display all stocks in your portfolio.
-   - **Add Stocks:** Add stocks by specifying the quantity.
+   - **Add Stocks:** Add stocks to your portfolio by specifying the company and the quantity.
    - **Remove Stocks:** Remove stocks with validation checks.
    - **Remove All Stocks:** Quickly remove all stocks from the portfolio.
 
 2. **Revenue Prediction**
-   - Utilize predefined models to predict future stock prices within a specified time slot.
+   - Utilize predefined statistical models to predict future stock prices within a specified time slot.
 
 3. **Model Evaluation**
    - Assess model performance using metrics such as:
@@ -44,7 +44,7 @@ Created by a team passionate about finance and economics, this tool showcases ou
 - **Remove Stocks:**
   - Remove 5 shares of 3M Co.
 - **Predict Revenue:**
-  - Predict portfolio revenue with a time slot of 3 units.
+  - Predict portfolio revenue with a time slot of 3 days.
 - **Evaluate Model:**
   - Evaluate the average model and review the output metrics.
 
@@ -53,22 +53,23 @@ Created by a team passionate about finance and economics, this tool showcases ou
 This project is a Maven-based application developed with Java JDK 22. Follow the steps below to set up the project:
 
 1. **Prerequisites:**
+   - Assume idea. properly installed.
    - Ensure you have Java JDK 22 installed. You can download it from [Oracle](https://www.oracle.com/java/technologies/javase/jdk22-archive-downloads.html) or [OpenJDK](https://openjdk.java.net/).
 
-2. **Clone the Repository:**
+3. **Clone the Repository:**
    ```bash
    git clone https://github.com/your-username/CSC207Projectum.git
    cd CSC207Projectum
    ```
 
-3. **Build the Project:**
+4. **Build the Project:**
    - The Maven project will be built automatically using IntelliJ IDEA or Visual Studio Code.
    - **IntelliJ IDEA:** [Download Here](https://www.jetbrains.com/idea/)
    - **Visual Studio Code:** [Download Here](https://code.visualstudio.com/)
 
    > **Note:** Ensure that Maven is properly configured in your IDE.
 
-4. **Run the Application:**
+5. **Run the Application:**
    - Use your IDE's run configuration to start the application.
    - The project is compatible with any operating system that supports a Java environment.
 
@@ -81,6 +82,7 @@ We welcome your feedback! Please leave comments on [GitHub](https://github.com/S
 We encourage contributions from the community to enhance the functionality and performance of the system. Future contributions may include:
 
 - Integration of additional statistical models.
+- Extension of more assets and functionalities.
 - Enhanced user interface features.
 - Improved data visualization tools.
 - Performance optimizations.
