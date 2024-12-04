@@ -133,6 +133,9 @@ public class RevenuePredictionInteractor implements RevenuePredictionInputBounda
      * @return true if the interval type is valid, false otherwise
      */
     private boolean isValidIntervalType(String intervalType) {
+        if (intervalType == null) {
+            return false;
+        }
         return intervalType.equals("intraday") ||
                 intervalType.equals("day") ||
                 intervalType.equals("week");
