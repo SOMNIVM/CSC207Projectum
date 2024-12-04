@@ -83,7 +83,7 @@ public class Portfolio {
             final String symbol = entry.getKey();
             final int shares = entry.getValue();
 
-            portfolioSummary.append(String.format("%d shares of %s", shares, symbol));
+            portfolioSummary.append(String.format("%d shares of %s\n", shares, symbol));
         }
 
         return portfolioSummary.toString();
