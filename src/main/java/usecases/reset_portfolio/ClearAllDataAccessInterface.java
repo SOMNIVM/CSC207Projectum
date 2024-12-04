@@ -1,7 +1,11 @@
 package usecases.reset_portfolio;
 
-import entities.Portfolio;
-
+/**
+ * The data access interface for clearing portfolio.
+ */
 public interface ClearAllDataAccessInterface {
-    void ClearPortfolioData();
+    /**
+     * Carry out the clearance of the user's portfolio.
+     */
+    void clearPortfolioData();
 }

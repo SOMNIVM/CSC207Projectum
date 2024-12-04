@@ -17,7 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 import interface_adapters.ViewManagerModel;
@@ -50,100 +49,119 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
      * @param managerModel The view manager model for handling view transitions
      */
     public RevenuePredictionView(RevenuePredictionViewModel viewModel, ViewManagerModel managerModel) {
-        super();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.revenuePredictionViewModel = viewModel;
         this.viewManagerModel = managerModel;
         this.viewName = viewModel.getViewName();
         this.revenuePredictionViewModel.addPropertyChangeListener(this);
+        this.modelTypeComboBox = new JComboBox<>(RevenuePredictionViewModel.MODEL_OPTIONS);
+        this.intervalTypeComboBox = new JComboBox<>(RevenuePredictionViewModel.INTERVAL_OPTIONS);
+        this.intervalLengthField = new JTextField(RevenuePredictionViewModel.TEXTFIELD_COL);
+        this.errorMessageLabel = new JLabel();
+        this.resultLabel = new JLabel();
+        this.scrollPane = new JScrollPane();
 
         // Initialize components
-        JLabel title = new JLabel(RevenuePredictionViewModel.TITLE_LABEL);
+        final JLabel title = new JLabel(RevenuePredictionViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Model Type Selection
-        JPanel modelTypePanel = new JPanel();
-        modelTypePanel.add(new JLabel(RevenuePredictionViewModel.MODEL_TYPE_LABEL));
-        this.modelTypeComboBox = new JComboBox<>(RevenuePredictionViewModel.MODEL_OPTIONS);
-        modelTypePanel.add(modelTypeComboBox);
-        modelTypePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        final JPanel modelTypePanel = new JPanel();
+        configureModelTypePanel(modelTypePanel);
 
         // Interval Type Selection
-        JPanel intervalTypePanel = new JPanel();
-        intervalTypePanel.add(new JLabel(RevenuePredictionViewModel.INTERVAL_TYPE_LABEL));
-        this.intervalTypeComboBox = new JComboBox<>(RevenuePredictionViewModel.INTERVAL_OPTIONS);
-        intervalTypePanel.add(intervalTypeComboBox);
-        intervalTypePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        final JPanel intervalTypePanel = new JPanel();
+        configureIntervalTypePanel(intervalTypePanel);
 
         // Interval Length Input
-        JPanel intervalLengthPanel = new JPanel();
-        intervalLengthPanel.add(new JLabel(RevenuePredictionViewModel.INTERVAL_LENGTH_LABEL));
-        this.intervalLengthField = new JTextField(10);
-        intervalLengthPanel.add(intervalLengthField);
-        intervalLengthPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        // Error Message Label
-        this.errorMessageLabel = new JLabel();
-        this.errorMessageLabel.setForeground(Color.RED);
-        this.errorMessageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        // Result Label
-        this.resultLabel = new JLabel();
-        this.resultLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        final JPanel intervalLengthPanel = new JPanel();
+        configureIntervalLengthPanel(intervalLengthPanel);
 
         // Button Panel
-        JPanel buttonPanel = new JPanel();
-        JButton predictButton = new JButton(RevenuePredictionViewModel.PREDICT_BUTTON_LABEL);
-        JButton backButton = new JButton(RevenuePredictionViewModel.BACK_BUTTON_LABEL);
+        final JPanel buttonPanel = new JPanel();
+        final JButton predictButton = new JButton(RevenuePredictionViewModel.PREDICT_BUTTON_LABEL);
+        final JButton backButton = new JButton(RevenuePredictionViewModel.BACK_BUTTON_LABEL);
+        configureButtonPanel(buttonPanel, predictButton, backButton);
+
+        // Set the appearance of components
+        setAppearance();
+
+        // Add components to panel
+        addComponentsToView(title, modelTypePanel, intervalTypePanel, intervalLengthPanel, buttonPanel);
+        addActionListenersToButtons(predictButton, backButton);
+    }
+
+    private void configureModelTypePanel(JPanel modelTypePanel) {
+        modelTypePanel.add(new JLabel(RevenuePredictionViewModel.MODEL_TYPE_LABEL));
+        modelTypePanel.add(modelTypeComboBox);
+        modelTypePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    }
+
+    private void configureIntervalTypePanel(JPanel intervalTypePanel) {
+        intervalTypePanel.add(new JLabel(RevenuePredictionViewModel.INTERVAL_TYPE_LABEL));
+        intervalTypePanel.add(intervalTypeComboBox);
+        intervalTypePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    }
+
+    private void configureIntervalLengthPanel(JPanel intervalLengthPanel) {
+        intervalLengthPanel.add(new JLabel(RevenuePredictionViewModel.INTERVAL_LENGTH_LABEL));
+        intervalLengthPanel.add(intervalLengthField);
+        intervalLengthPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    }
+
+    private void configureButtonPanel(JPanel buttonPanel, JButton predictButton, JButton backButton) {
         buttonPanel.add(predictButton);
         buttonPanel.add(backButton);
         buttonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    }
 
-        // Add components to panel
-        this.add(Box.createVerticalStrut(10));
+    private void setAppearance() {
+        // Error Message Label
+        this.errorMessageLabel.setForeground(Color.RED);
+        this.errorMessageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        // Result Label
+        this.resultLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        // Scroll Pane
+        this.scrollPane.setPreferredSize(new Dimension(
+                RevenuePredictionViewModel.SCROLLPANE_WIDTH,
+                RevenuePredictionViewModel.SCROLLPANE_HEIGHT));
+    }
+
+    private void addComponentsToView(JLabel title,
+                                     JPanel modelTypePanel,
+                                     JPanel intervalTypePanel,
+                                     JPanel intervalLengthPanel,
+                                     JPanel buttonPanel) {
+        this.add(Box.createVerticalStrut(RevenuePredictionViewModel.SEPARATION_NARROW));
         this.add(title);
-        this.add(Box.createVerticalStrut(20));
+        this.add(Box.createVerticalStrut(RevenuePredictionViewModel.SEPARATION_WIDE));
         this.add(modelTypePanel);
-        this.add(Box.createVerticalStrut(10));
+        this.add(Box.createVerticalStrut(RevenuePredictionViewModel.SEPARATION_NARROW));
         this.add(intervalTypePanel);
-        this.add(Box.createVerticalStrut(10));
+        this.add(Box.createVerticalStrut(RevenuePredictionViewModel.SEPARATION_NARROW));
         this.add(intervalLengthPanel);
-        this.add(Box.createVerticalStrut(10));
+        this.add(Box.createVerticalStrut(RevenuePredictionViewModel.SEPARATION_NARROW));
         this.add(errorMessageLabel);
-        this.add(Box.createVerticalStrut(10));
+        this.add(Box.createVerticalStrut(RevenuePredictionViewModel.SEPARATION_NARROW));
         this.add(resultLabel);
-        this.add(Box.createVerticalStrut(20));
+        this.add(Box.createVerticalStrut(RevenuePredictionViewModel.SEPARATION_WIDE));
         this.add(buttonPanel);
-        this.scrollPane = new JScrollPane();
-        this.scrollPane.setPreferredSize(new Dimension(200, 200));
         this.add(this.scrollPane);
+    }
+
+    private void addActionListenersToButtons(JButton predictButton, JButton backButton) {
         // Add button listeners
         predictButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (revenuePredictionController != null) {
                     try {
-                        String modelType = (String) modelTypeComboBox.getSelectedItem();
-                        String intervalType = (String) intervalTypeComboBox.getSelectedItem();
-                        String intervalLengthText = intervalLengthField.getText().trim();
-
-                        if (!intervalLengthText.matches("^[0-9]+$")) {
-                            revenuePredictionViewModel.getState().setAsInvalid(
-                                    "Interval length must be a positive integer.");
-                            revenuePredictionViewModel.firePropertyChange();
-                            return;
-                        }
-
-                        int intervalLength = Integer.parseInt(intervalLengthText);
-
-                        if (intervalLength <= 0) {
-                            revenuePredictionViewModel.getState().setAsInvalid(
-                                    "Interval length must be greater than 0.");
-                            revenuePredictionViewModel.firePropertyChange();
-                            return;
-                        }
-                        revenuePredictionController.execute(modelType, intervalLength, intervalType);
-                    } catch (NumberFormatException ex) {
+                        final String modelType = (String) modelTypeComboBox.getSelectedItem();
+                        final String intervalType = (String) intervalTypeComboBox.getSelectedItem();
+                        final String intervalLengthText = intervalLengthField.getText().trim();
+                        handleInput(intervalLengthText, modelType, intervalType);
+                    }
+                    catch (NumberFormatException ex) {
                         revenuePredictionViewModel.getState().setAsInvalid(
                                 "Invalid interval length format.");
                         revenuePredictionViewModel.firePropertyChange();
@@ -161,6 +179,26 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
         });
     }
 
+    private void handleInput(String intervalLengthText, String modelType, String intervalType) {
+        if (!intervalLengthText.matches("^[0-9]+$")) {
+            revenuePredictionViewModel.getState().setAsInvalid(
+                    "Interval length must be a positive integer.");
+            revenuePredictionViewModel.firePropertyChange();
+        }
+        else {
+            final int intervalLength = Integer.parseInt(intervalLengthText);
+
+            if (intervalLength <= 0) {
+                revenuePredictionViewModel.getState().setAsInvalid(
+                        "Interval length must be greater than 0.");
+                revenuePredictionViewModel.firePropertyChange();
+            }
+            else {
+                revenuePredictionController.execute(modelType, intervalLength, intervalType);
+            }
+        }
+    }
+
     /**
      * Handles property change events from the view model.
      * Updates the UI based on changes to the model state.
@@ -169,12 +207,12 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        RevenuePredictionState state = (RevenuePredictionState) evt.getNewValue();
+        final RevenuePredictionState state = (RevenuePredictionState) evt.getNewValue();
         if (state.checkIfValid()) {
             errorMessageLabel.setText("");
             getTable(state);
-        } else {
-            removeTable();
+        }
+        else {
             errorMessageLabel.setText(state.getErrorMessage());
             resultLabel.setText("");        
         }
@@ -182,20 +220,21 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
 
     private void getTable(RevenuePredictionState state) {
         // Create table model and add columns
-        DefaultTableModel tableModel = new DefaultTableModel();
+        final DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.addColumn("Metric");
         tableModel.addColumn("Value");
 
         // Add data rows
         tableModel.addRow(new Object[]{"Predicted Revenue", String.format("$%.2f", state.getPredictedRevenue())});
-        tableModel.addRow(new Object[]{"Confidence Level", String.format("%.0f%%", state.getConfidenceLevel() * 100)});
+        tableModel.addRow(new Object[]{"Confidence Level", String.format(
+                "%.0f%%", state.getConfidenceLevel() * RevenuePredictionViewModel.REVERSE_PERCENT_MULTIPLIER)});
         tableModel.addRow(new Object[]{"Confidence Interval", String.format(
                 "[$%.2f, $%.2f]",
                 state.getLowerBound(),
                 state.getUpperBound())});
 
         // Set the model to the table
-        JTable resultTable = new JTable(tableModel);
+        resultTable = new JTable(tableModel);
         this.scrollPane.setViewportView(resultTable);
     }
 
@@ -207,7 +246,10 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
     public void setRevenuePredictionController(RevenuePredictionController controller) {
         this.revenuePredictionController = controller;
     }
-    
+
+    /**
+     * Remove the table that shows the data.
+     */
     public void removeTable() {
         if (resultTable != null) {
             if (scrollPane != null) {
@@ -218,8 +260,6 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
             this.repaint();
         }
     }
-
-
 
     /**
      * Gets the name of this view.

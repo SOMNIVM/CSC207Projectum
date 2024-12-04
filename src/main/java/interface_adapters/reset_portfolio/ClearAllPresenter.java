@@ -18,13 +18,14 @@ public class ClearAllPresenter implements ClearAllOutputBoundary {
     private final RemoveStockViewModel removeStockViewModel;
     private final RevenuePredictionViewModel revenuePredictionViewModel;
     private final ModelEvaluationViewModel modelEvaluationViewModel;
+
     /**
      * Constructs a ClearAllPresenter with required view models.
-     *
      * @param clearAllModel The view model for the clear all feature
      * @param buyStockModel The view model for adding stocks
      * @param removeStockModel The view model for removing stocks
      * @param revenuePredictionModel The view model for revenue prediction
+     * @param modelEvaluationViewModel The view model to evaluating model.
      * @param managerModel The view manager model
      */
     public ClearAllPresenter(ClearAllViewModel clearAllModel,
@@ -84,8 +85,7 @@ public class ClearAllPresenter implements ClearAllOutputBoundary {
     }
 
     /**
-     * Switches to the backtest view.
-     * Currently not implemented.
+     * Switches to the model evaluation view.
      */
     @Override
     public void switchToBacktest() {

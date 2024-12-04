@@ -19,5 +19,8 @@ public interface RevenuePredictionOutputBoundary {
      */
     void prepareFailView(String error);
 
+    /**
+     * Switch back to the homepage.
+     */
     void switchBack();
 }

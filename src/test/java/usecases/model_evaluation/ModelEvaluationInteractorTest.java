@@ -4,12 +4,17 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import usecases.LocalDataAccessInterface;
 import usecases.OnlineDataAccessInterface;
 import entities.Portfolio;
+import usecases.view_portfolio.ViewPortfolioOutputData;
+
+import java.util.List;
 
 /**
  * Unit tests for the ModelEvaluationInteractor class.
@@ -86,5 +91,44 @@ public class ModelEvaluationInteractorTest {
 
         // Assert
         verify(mockOutputBoundary, times(1)).prepareFailView("Error occurInvalid model type: Wrong model");
+    }
+    @Test
+    void getValuesShouldReturnCorrectValues() {
+        ViewPortfolioOutputData data = new ViewPortfolioOutputData(
+                List.of("AAPL", "GOOGL"),
+                List.of(10, 5),
+                List.of(150.0, 2000.0)
+        );
+        assertEquals(List.of(1500.0, 10000.0), data.getValues());
+    }
+
+    @Test
+    void getTotalValueShouldReturnCorrectTotalValue() {
+        ViewPortfolioOutputData data = new ViewPortfolioOutputData(
+                List.of("AAPL", "GOOGL"),
+                List.of(10, 5),
+                List.of(150.0, 2000.0)
+        );
+        assertEquals(11500.0, data.getTotalValue());
+    }
+
+    @Test
+    void getValuesShouldHandleEmptyLists() {
+        ViewPortfolioOutputData data = new ViewPortfolioOutputData(
+                List.of(),
+                List.of(),
+                List.of()
+        );
+        assertEquals(List.of(), data.getValues());
+    }
+
+    @Test
+    void getTotalValueShouldHandleEmptyLists() {
+        ViewPortfolioOutputData data = new ViewPortfolioOutputData(
+                List.of(),
+                List.of(),
+                List.of()
+        );
+        assertEquals(0.0, data.getTotalValue());
     }
 }

@@ -15,5 +15,8 @@ public interface RevenuePredictionInputBoundary {
      */
     void execute(RevenuePredictionInputData revenuePredictionInputData);
 
+    /**
+     * Switch back to the homepage.
+     */
     void switchBack();
 }

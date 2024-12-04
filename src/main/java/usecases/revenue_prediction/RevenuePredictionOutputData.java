@@ -6,6 +6,7 @@ package usecases.revenue_prediction;
  * confidence intervals, and interval metadata.
  */
 public class RevenuePredictionOutputData {
+    private static final double REVERSE_PERCENT_MULTIPLIER = 100;
     private final double predictedRevenue;
     private final double lowerBound;
     private final double upperBound;
@@ -94,13 +95,13 @@ public class RevenuePredictionOutputData {
      * @return a formatted string containing prediction details
      */
     public String getFormattedMessage() {
-        return String.format("Predicted revenue after %d %s(s):%n" +
-                        "Point estimate: $%.2f%n" +
-                        "%.0f%% Confidence Interval: [$%.2f, $%.2f]",
+        return String.format("Predicted revenue after %d %s(s):%n"
+                       + "Point estimate: $%.2f%n"
+                       + "%.0f%% Confidence Interval: [$%.2f, $%.2f]",
                 intervalLength,
                 intervalName,
                 predictedRevenue,
-                confidenceLevel * 100,
+                confidenceLevel * REVERSE_PERCENT_MULTIPLIER,
                 lowerBound,
                 upperBound);
     }
