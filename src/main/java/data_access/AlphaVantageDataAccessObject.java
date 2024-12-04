@@ -218,12 +218,12 @@ public class AlphaVantageDataAccessObject implements OnlineDataAccessInterface {
                 }
             }
             if (exceptionOccurred) {
-                throw new RuntimeException(message);
+                throw new IllegalStateException(message);
             }
             return new ArrayList<>(bulkResult);
         }
         catch (ExecutionException | InterruptedException ex) {
-            throw new RuntimeException(ex);
+            throw new IllegalStateException(ex);
         }
     }
 }

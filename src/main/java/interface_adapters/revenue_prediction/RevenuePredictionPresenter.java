@@ -34,7 +34,7 @@ public class RevenuePredictionPresenter implements RevenuePredictionOutputBounda
      */
     @Override
     public void prepareSuccessView(RevenuePredictionOutputData outputData) {
-        RevenuePredictionState state = revenuePredictionViewModel.getState();
+        final RevenuePredictionState state = revenuePredictionViewModel.getState();
         state.setAsValid();
         state.setPredictedRevenue(outputData.getPredictedRevenue());
         state.setLowerBound(outputData.getLowerBound());
@@ -59,7 +59,7 @@ public class RevenuePredictionPresenter implements RevenuePredictionOutputBounda
      */
     @Override
     public void prepareFailView(String error) {
-        RevenuePredictionState state = revenuePredictionViewModel.getState();
+        final RevenuePredictionState state = revenuePredictionViewModel.getState();
         state.setAsInvalid(error);
 
         // Show the revenue prediction view even in case of error

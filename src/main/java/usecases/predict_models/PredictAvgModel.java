@@ -1,12 +1,12 @@
 package usecases.predict_models;
 
+import java.util.List;
+import java.util.Map;
+
 import app.Config;
 import entities.Portfolio;
 import kotlin.Pair;
 import usecases.OnlineDataAccessInterface;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Implementation of the PredictModel interface using an average-based prediction approach.
@@ -15,8 +15,13 @@ import java.util.Map;
  * for confidence interval calculations.
  */
 public class PredictAvgModel implements PredictModel {
+    private static final double CONFIDENCE_LEVEL = 0.95;
+    // 95% confidence level
+    private static final double TSCORE_BOUND = 1.96;
+    private static final String INTRADAY_LABEL = "intraday";
+    private static final String DAILY_LABEL = "day";
+    private static final String WEEKLY_LABEL = "week";
     private OnlineDataAccessInterface onlineDataAccess;
-    private static final double CONFIDENCE_LEVEL = 0.95; // 95% confidence level
 
     /**
      * Sets the online data access interface for retrieving market data.
@@ -48,7 +53,7 @@ public class PredictAvgModel implements PredictModel {
         validatePredictionInputs(portfolio, intervalLength);
 
         // Get historical observations
-        double[] observations = getHistoricalObservations(portfolio, intervalName);
+        final double[] observations = getHistoricalObservations(portfolio, intervalName);
 
         // Calculate prediction (simple average in this implementation)
         return calculateAverage(observations);
@@ -59,9 +64,9 @@ public class PredictAvgModel implements PredictModel {
         validatePredictionInputs(portfolio, intervalLength);
 
         // Get historical observations
-        double[] observations = getHistoricalObservations(portfolio, intervalName);
+        final double[] observations = getHistoricalObservations(portfolio, intervalName);
         double curValue = observations[getNumObservations(intervalName) - 1];
-        if (!intervalName.equals("intraday")) {
+        if (!intervalName.equals(INTRADAY_LABEL)) {
             curValue = getCurValue(portfolio);
         }
 
@@ -81,18 +86,18 @@ public class PredictAvgModel implements PredictModel {
     public double[] predictValueWithInterval(Portfolio portfolio, int intervalLength, String intervalName) {
         validatePredictionInputs(portfolio, intervalLength);
 
-        double[] observations = getHistoricalObservations(portfolio, intervalName);
-        double mean = calculateAverage(observations);
-        double stdDev = calculateStandardDeviation(observations, mean);
+        final double[] observations = getHistoricalObservations(portfolio, intervalName);
+        final double mean = calculateAverage(observations);
+        final double stdDev = calculateStandardDeviation(observations, mean);
 
         // Calculate confidence interval
-        double marginOfError = calculateMarginOfError(stdDev, observations.length);
+        final double marginOfError = calculateMarginOfError(stdDev, observations.length);
 
         return new double[] {
-                mean,                   // Point estimate
-                mean - marginOfError,   // Lower bound
-                mean + marginOfError    // Upper bound
-        };
+            mean,
+            mean - marginOfError,
+            mean + marginOfError};
+        // Point estimate, Lower bound, Upper bound
     }
 
     /**
@@ -107,22 +112,22 @@ public class PredictAvgModel implements PredictModel {
     public double[] predictRevenueWithInterval(Portfolio portfolio, int intervalLength, String intervalName) {
         validatePredictionInputs(portfolio, intervalLength);
 
-        double[] observations = getHistoricalObservations(portfolio, intervalName);
+        final double[] observations = getHistoricalObservations(portfolio, intervalName);
         double curValue = observations[getNumObservations(intervalName) - 1];
-        if (!intervalName.equals("intraday")) {
+        if (!intervalName.equals(INTRADAY_LABEL)) {
             curValue = getCurValue(portfolio);
         }
-        double mean = calculateAverage(observations);
-        double stdDev = calculateStandardDeviation(observations, mean);
+        final double mean = calculateAverage(observations);
+        final double stdDev = calculateStandardDeviation(observations, mean);
 
         // Calculate confidence interval
-        double marginOfError = calculateMarginOfError(stdDev, observations.length);
+        final double marginOfError = calculateMarginOfError(stdDev, observations.length);
 
         return new double[] {
-                mean - curValue,                   // Point estimate
-                mean - marginOfError - curValue,   // Lower bound
-                mean + marginOfError - curValue    // Upper bound
-        };
+            mean - curValue,
+            mean - marginOfError - curValue,
+            mean + marginOfError - curValue};
+        // Point estimate, Lower bound, Upper bound
     }
 
     /**
@@ -153,10 +158,13 @@ public class PredictAvgModel implements PredictModel {
      * @return array of historical portfolio values
      */
     private double[] getHistoricalObservations(Portfolio portfolio, String intervalName) {
-        int numObservations = getNumObservations(intervalName);
-        Map<String, List<Pair<String, Double>>> historicalData = getHistoricalData(portfolio, intervalName, numObservations);
+        final int numObservations = getNumObservations(intervalName);
+        final Map<String, List<Pair<String, Double>>> historicalData = getHistoricalData(
+                portfolio,
+                intervalName,
+                numObservations);
 
-        double[] observations = new double[numObservations];
+        final double[] observations = new double[numObservations];
         for (int i = 0; i < numObservations; i++) {
             observations[i] = calculatePortfolioValue(portfolio, historicalData, i);
         }
@@ -165,17 +173,21 @@ public class PredictAvgModel implements PredictModel {
 
     /**
      * Determines the number of observations based on interval type.
-     *
      * @param intervalName the type of interval
      * @return number of observations to use
+     * @throws IllegalArgumentException if the type input is not one of "intraday", "day", or "week".
      */
     private int getNumObservations(String intervalName) {
         return switch (intervalName.toLowerCase()) {
-            case "intraday" -> Config.INTRADAY_SAMPLE_SIZE;
-            case "day" -> Config.DAILY_SAMPLE_SIZE;
-            case "week" -> Config.WEEKLY_SAMPLE_SIZE;
+            case INTRADAY_LABEL -> Config.INTRADAY_SAMPLE_SIZE;
+            case DAILY_LABEL -> Config.DAILY_SAMPLE_SIZE;
+            case WEEKLY_LABEL -> Config.WEEKLY_SAMPLE_SIZE;
             default -> throw new IllegalArgumentException(
-                    "Invalid interval type. Use 'intraday', 'day', or 'week'.");
+                    String.format(
+                            "Invalid interval type. Use '%s', '%s', or '%s'.",
+                            INTRADAY_LABEL,
+                            DAILY_LABEL,
+                            WEEKLY_LABEL));
         };
     }
 
@@ -186,19 +198,24 @@ public class PredictAvgModel implements PredictModel {
      * @param intervalName the type of interval
      * @param numObservations number of observations to retrieve
      * @return map of historical data by symbol
+     * @throws IllegalArgumentException if the interval type is not one of "intraday", "day", or "week".
      */
     private Map<String, List<Pair<String, Double>>> getHistoricalData(Portfolio portfolio,
                                                                       String intervalName,
                                                                       int numObservations) {
         return switch (intervalName.toLowerCase()) {
-            case "intraday" -> onlineDataAccess.getBulkTimeSeriesIntraDay(
+            case INTRADAY_LABEL -> onlineDataAccess.getBulkTimeSeriesIntraDay(
                     portfolio, numObservations, Config.INTRADAY_PREDICT_INTERVAL);
-            case "day" -> onlineDataAccess.getBulkTimeSeriesDaily(
+            case DAILY_LABEL -> onlineDataAccess.getBulkTimeSeriesDaily(
                     portfolio, numObservations);
-            case "week" -> onlineDataAccess.getBulkTimeSeriesWeekly(
+            case WEEKLY_LABEL -> onlineDataAccess.getBulkTimeSeriesWeekly(
                     portfolio, numObservations);
             default -> throw new IllegalArgumentException(
-                    "Invalid interval type. Use 'intraday', 'day', or 'week'.");
+                    String.format(
+                            "Invalid interval type. Use '%s', '%s', or '%s'.",
+                            INTRADAY_LABEL,
+                            DAILY_LABEL,
+                            WEEKLY_LABEL));
         };
     }
 
@@ -215,7 +232,7 @@ public class PredictAvgModel implements PredictModel {
                                            int timeIndex) {
         double portfolioValue = 0.0;
         for (String symbol : portfolio.getStockSymbols()) {
-            List<Pair<String, Double>> priceData = historicalData.get(symbol);
+            final List<Pair<String, Double>> priceData = historicalData.get(symbol);
             if (priceData != null && timeIndex < priceData.size()) {
                 portfolioValue += priceData.get(timeIndex).getSecond() * portfolio.getShares(symbol);
             }
@@ -247,7 +264,7 @@ public class PredictAvgModel implements PredictModel {
     private double calculateStandardDeviation(double[] values, double mean) {
         double sumSquaredDiff = 0.0;
         for (double value : values) {
-            double diff = value - mean;
+            final double diff = value - mean;
             sumSquaredDiff += diff * diff;
         }
         return Math.sqrt(sumSquaredDiff / (values.length - 1));
@@ -257,18 +274,17 @@ public class PredictAvgModel implements PredictModel {
      * Calculates the margin of error for confidence interval.
      *
      * @param stdDev standard deviation of the sample
-     * @param n sample size
+     * @param sampleSize sample size
      * @return margin of error
      */
-    private double calculateMarginOfError(double stdDev, int n) {
+    private double calculateMarginOfError(double stdDev, int sampleSize) {
         // Using 1.96 for 95% confidence level (assumes large sample size)
-        double tValue = 1.96;
-        return tValue * (stdDev / Math.sqrt(n));
+        return TSCORE_BOUND * (stdDev / Math.sqrt(sampleSize));
     }
 
     private double getCurValue(Portfolio portfolio) {
         double curValue = 0;
-        Map<String, List<Pair<String, Double>>> timeSeries = onlineDataAccess.getBulkTimeSeriesIntraDay(
+        final Map<String, List<Pair<String, Double>>> timeSeries = onlineDataAccess.getBulkTimeSeriesIntraDay(
                 portfolio,
                 1,
                 Config.INTRADAY_PREDICT_INTERVAL);

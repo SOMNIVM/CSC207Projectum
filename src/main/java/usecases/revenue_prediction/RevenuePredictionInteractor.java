@@ -2,7 +2,6 @@ package usecases.revenue_prediction;
 
 import entities.Portfolio;
 import usecases.LocalDataAccessInterface;
-import usecases.OnlineDataAccessInterface;
 import usecases.predict_models.PredictAvgModel;
 import usecases.predict_models.PredictModel;
 
@@ -46,13 +45,13 @@ public class RevenuePredictionInteractor implements RevenuePredictionInputBounda
     public void execute(RevenuePredictionInputData revenuePredictionInputData) {
         try {
             // Validate inputs and get portfolio
-            Portfolio portfolio = validateAndGetPortfolio(revenuePredictionInputData);
+            final Portfolio portfolio = validateAndGetPortfolio(revenuePredictionInputData);
 
             // Get prediction and confidence interval
-            PredictionResult result = getPredictionWithInterval(portfolio, revenuePredictionInputData);
+            final PredictionResult result = getPredictionWithInterval(portfolio, revenuePredictionInputData);
 
             // Create output data with prediction results
-            RevenuePredictionOutputData outputData = new RevenuePredictionOutputData(
+            final RevenuePredictionOutputData outputData = new RevenuePredictionOutputData(
                     result.pointEstimate,
                     result.lowerBound,
                     result.upperBound,
@@ -63,11 +62,13 @@ public class RevenuePredictionInteractor implements RevenuePredictionInputBounda
 
             revenuePredictionPresenter.prepareSuccessView(outputData);
 
-        } catch (IllegalArgumentException e) {
-            revenuePredictionPresenter.prepareFailView("Invalid prediction parameters: " + e.getMessage());
-        } catch (Exception e) {
+        }
+        catch (IllegalArgumentException ex) {
+            revenuePredictionPresenter.prepareFailView("Invalid prediction parameters: " + ex.getMessage());
+        }
+        catch (IllegalStateException ex) {
             revenuePredictionPresenter.prepareFailView(
-                    "An error occurred while predicting revenue: " + e.getMessage());
+                    "An error occurred while predicting revenue: " + ex.getMessage());
         }
     }
 
@@ -79,7 +80,7 @@ public class RevenuePredictionInteractor implements RevenuePredictionInputBounda
      * @throws IllegalArgumentException if validation fails
      */
     private Portfolio validateAndGetPortfolio(RevenuePredictionInputData inputData) {
-        Portfolio portfolio = localDataAccessObject.getCurrentPortfolio();
+        final Portfolio portfolio = localDataAccessObject.getCurrentPortfolio();
 
         if (portfolio.getStockSymbols().isEmpty()) {
             throw new IllegalArgumentException("Portfolio is empty. Please add stocks before predicting revenue.");
@@ -89,7 +90,7 @@ public class RevenuePredictionInteractor implements RevenuePredictionInputBounda
             throw new IllegalArgumentException("Interval length must be positive.");
         }
 
-        String intervalType = inputData.getIntervalName().toLowerCase();
+        final String intervalType = inputData.getIntervalName().toLowerCase();
         if (!isValidIntervalType(intervalType)) {
             throw new IllegalArgumentException(
                     "Invalid interval type. Please use 'intraday', 'day', or 'week'.");
@@ -106,7 +107,8 @@ public class RevenuePredictionInteractor implements RevenuePredictionInputBounda
      * @return PredictionResult containing point estimate and confidence bounds
      */
     private PredictionResult getPredictionWithInterval(Portfolio portfolio, RevenuePredictionInputData inputData) {
-        double pointEstimate = predictModel.predictRevenue(
+        final PredictionResult result;
+        final double pointEstimate = predictModel.predictRevenue(
                 portfolio,
                 inputData.getIntervalLength(),
                 inputData.getIntervalName().toLowerCase()
@@ -114,16 +116,18 @@ public class RevenuePredictionInteractor implements RevenuePredictionInputBounda
 
         // If using PredictAvgModel, get confidence interval
         if (predictModel instanceof PredictAvgModel avgModel) {
-            double[] intervalResults = avgModel.predictRevenueWithInterval(
+            final double[] intervalResults = avgModel.predictRevenueWithInterval(
                     portfolio,
                     inputData.getIntervalLength(),
                     inputData.getIntervalName().toLowerCase()
             );
-            return new PredictionResult(intervalResults[0], intervalResults[1], intervalResults[2]);
+            result = new PredictionResult(intervalResults[0], intervalResults[1], intervalResults[2]);
         }
-
-        // For other models, use point estimate with no interval
-        return new PredictionResult(pointEstimate, pointEstimate, pointEstimate);
+        else {
+            result = new PredictionResult(pointEstimate, pointEstimate, pointEstimate);
+            // For other models, use point estimate with no interval
+        }
+        return result;
     }
 
     /**
@@ -133,18 +137,18 @@ public class RevenuePredictionInteractor implements RevenuePredictionInputBounda
      * @return true if the interval type is valid, false otherwise
      */
     private boolean isValidIntervalType(String intervalType) {
-        return intervalType.equals("intraday") ||
-                intervalType.equals("day") ||
-                intervalType.equals("week");
+        return "intraday".equals(intervalType)
+                || "day".equals(intervalType)
+                || "week".equals(intervalType);
     }
 
     /**
      * Record class to hold prediction results including confidence interval.
+     * @param pointEstimate the pointEstimate of the predicted value.
+     * @param lowerBound the lower bound of the 95% confidence interval.
+     * @param upperBound the upper bound of the 95% confidence interval.
      */
-    private record PredictionResult(double pointEstimate, double lowerBound, double upperBound) {}
+    private record PredictionResult(double pointEstimate, double lowerBound, double upperBound) {
 
-    @Override
-    public void switchBack() {
-        revenuePredictionPresenter.switchBack();
     }
 }

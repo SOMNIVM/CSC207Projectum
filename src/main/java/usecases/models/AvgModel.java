@@ -2,20 +2,23 @@ package usecases.models;
 
 import app.Config;
 
-    public class AvgModel extends Model {
-        private final int numOfInterval;
-        private final double[] observations;
+/**
+ * The model that predicts the next value as the arithmetic mean of the previous N values.
+ */
+public class AvgModel extends AbstractModel {
+    private final int numOfInterval;
+    private final double[] observations;
 
-        public AvgModel(int numOfInterval, double[] observations) {
-            super(numOfInterval, observations, "avgModel");
-            this.numOfInterval = numOfInterval;
-            this.observations = observations;
-        }
-
+    public AvgModel(int numOfInterval, double[] observations) {
+        super(numOfInterval, observations, "avgModel");
+        this.numOfInterval = super.getNumOfInterval();
+        this.observations = super.getObservations();
+    }
 
     public double getPredictedPrice() {
         return getAvg();
     }
+
     public double getActualPrice() {
         return observations[numOfInterval - 1];
     }
@@ -28,15 +31,15 @@ import app.Config;
         return sum / numOfInterval;
     }
 
-    private double getAvgForFirstN(int n) {
-        if (n <= 0) {
+    private double getAvgForFirstN(int subSampleSize) {
+        if (subSampleSize <= 0) {
             throw new IllegalArgumentException("n must be greater than 0.");
         }
         double sum = 0;
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < subSampleSize; i++) {
             sum += observations[i];
         }
-        return sum / n;
+        return sum / subSampleSize;
     }
 
     @Override
@@ -44,44 +47,60 @@ import app.Config;
         double sum = 0;
         int validIntervals = 0;
         for (int i = 1; i < numOfInterval; i++) {
-            double predicted = getAvgForFirstN(i);
-            double actual = observations[i];
-            double difference = predicted - actual;
+            final double predicted = getAvgForFirstN(i);
+            final double actual = observations[i];
+            final double difference = predicted - actual;
             sum += difference * difference;
             validIntervals++;
         }
-        return validIntervals > 0 ? sum / validIntervals : 0;
+        double mse = 0;
+        if (validIntervals > 0) {
+            mse = sum / validIntervals;
+        }
+        return mse;
     }
+
     @Override
     public double getMeanAbsoluteError() {
         double sum = 0;
         int validIntervals = 0;
         for (int i = 1; i < numOfInterval; i++) {
-            double predicted = getAvgForFirstN(i);
-            double actual = observations[i];
-            double difference = predicted - actual;
+            final double predicted = getAvgForFirstN(i);
+            final double actual = observations[i];
+            final double difference = predicted - actual;
             sum += Math.abs(difference);
             validIntervals++;
         }
-        return validIntervals > 0 ? sum / validIntervals : 0;
+        double mae = 0;
+        if (validIntervals > 0) {
+            mae = sum / validIntervals;
+        }
+        return mae;
     }
+
     @Override
     public double getVariance() {
         double sum = 0;
-        double avg = getAvg();
+        final double avg = getAvg();
         for (int i = 0; i < numOfInterval; i++) {
-            double difference = observations[i] - avg;
+            final double difference = observations[i] - avg;
             sum += difference * difference;
         }
-        return numOfInterval > 0 ? sum / numOfInterval : 0;
+        double variance = 0;
+        if (numOfInterval > 0) {
+            variance = sum / numOfInterval;
+        }
+        return variance;
     }
+
     @Override
     public double getStandardDeviation() {
         return Math.sqrt(getVariance());
     }
+
     @Override
     public double getSharpeRatio() {
-        double stdDev = getStandardDeviation();
+        final double stdDev = getStandardDeviation();
         if (stdDev == 0) {
             return 0.0;
         }
@@ -90,9 +109,4 @@ import app.Config;
     private double getReturn() {
         return (observations[numOfInterval - 1] - observations[0]) / observations[0];
     }
-    @Override
-    public double[] getObservations() {
-        return observations.clone();
-    }
-
 }

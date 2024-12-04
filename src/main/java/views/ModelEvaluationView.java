@@ -1,19 +1,29 @@
 package views;
 
-
-import interface_adapters.model_evaluation.ModelEvaluationController;
-import interface_adapters.model_evaluation.ModelEvaluationState;
-import interface_adapters.model_evaluation.ModelEvaluationViewModel;
-import interface_adapters.ViewManagerModel;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.DecimalFormat;
+
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
+
+import interface_adapters.ViewManagerModel;
+import interface_adapters.model_evaluation.ModelEvaluationController;
+import interface_adapters.model_evaluation.ModelEvaluationState;
+import interface_adapters.model_evaluation.ModelEvaluationViewModel;
 
 /**
  * The view component for revenue prediction.
@@ -29,7 +39,8 @@ public class ModelEvaluationView extends JPanel implements PropertyChangeListene
     private final JComboBox<String> modelTypeComboBox;
     private final JComboBox<String> intervalTypeComboBox;
     private final JLabel resultLabel;
-    private JTable resultTable; // Instance variable for the table
+    private JTable resultTable;
+    // Instance variable for the table
 
     /**
      * Constructs a new RevenuePredictionView.
@@ -38,30 +49,29 @@ public class ModelEvaluationView extends JPanel implements PropertyChangeListene
      * @param managerModel The view manager model for handling view transitions
      */
     public ModelEvaluationView(ModelEvaluationViewModel viewModel, ViewManagerModel managerModel) {
-        super();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.modelEvaluationViewModel = viewModel;
         this.viewManagerModel = managerModel;
         this.viewName = viewModel.getViewName();
-        this.modelEvaluationViewModel.
-        addPropertyChangeListener(this);
+        this.modelEvaluationViewModel.addPropertyChangeListener(this);
 
         // Initialize components
-        JLabel title = new JLabel(ModelEvaluationViewModel.TITLE_LABEL);
+        final JLabel title = new JLabel(ModelEvaluationViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Model Type Selection
-        JPanel modelTypePanel = new JPanel();
+        final JPanel modelTypePanel = new JPanel();
         modelTypePanel.add(new JLabel(ModelEvaluationViewModel.MODEL_NAME_TYPE_LABEL));
         this.modelTypeComboBox = new JComboBox<>(ModelEvaluationViewModel.MODEL_NAME_OPTIONS);
         modelTypePanel.add(modelTypeComboBox);
         modelTypePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Interval Type Selection
-        JPanel intervalTypePanel = new JPanel();
+        final JPanel intervalTypePanel = new JPanel();
         intervalTypePanel.add(new JLabel(ModelEvaluationViewModel.FREQUENCY_LABEL));
         this.intervalTypeComboBox = new JComboBox<>(ModelEvaluationViewModel.FREQUENCY_OPTIONS);
-        intervalTypePanel.add(this.intervalTypeComboBox); // Add this line
+        intervalTypePanel.add(this.intervalTypeComboBox);
+        // Add this line
         intervalTypePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Error Message Label
@@ -74,38 +84,28 @@ public class ModelEvaluationView extends JPanel implements PropertyChangeListene
         this.resultLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Button Panel
-        JPanel buttonPanel = new JPanel();
-        JButton evaluationButton = new JButton(ModelEvaluationViewModel.PROCEED_EVALUATION_BUTTON_LABEL);
-        JButton backButton = new JButton(ModelEvaluationViewModel.BACK_BUTTON_LABEL);
+        final JPanel buttonPanel = new JPanel();
+        final JButton evaluationButton = new JButton(ModelEvaluationViewModel.PROCEED_EVALUATION_BUTTON_LABEL);
+        final JButton backButton = new JButton(ModelEvaluationViewModel.BACK_BUTTON_LABEL);
         buttonPanel.add(evaluationButton);
         buttonPanel.add(backButton);
         buttonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Add components to panel
-        this.add(Box.createVerticalStrut(10));
-        this.add(title);
-        this.add(Box.createVerticalStrut(20));
-        this.add(modelTypePanel);
-        this.add(Box.createVerticalStrut(10));
-        this.add(intervalTypePanel);
-        this.add(Box.createVerticalStrut(10));
-        this.add(errorMessageLabel);
-        this.add(Box.createVerticalStrut(10));
-        this.add(resultLabel);
-        this.add(Box.createVerticalStrut(20));
-        this.add(buttonPanel);
-        intervalTypeComboBox.setVisible(true);
-        modelTypeComboBox.setVisible(true);
-        errorMessageLabel.setVisible(true);
-        modelTypePanel.setVisible(true);
-        intervalTypePanel.setVisible(true);
-        evaluationButton.setVisible(true);
+        addComponentsToPanel(title, modelTypePanel, intervalTypePanel, buttonPanel);
         // Add button listeners
+        addActionListenersToButtons(evaluationButton, modelTypePanel, intervalTypePanel, backButton);
+    }
+
+    private void addActionListenersToButtons(JButton evaluationButton,
+                                             JPanel modelTypePanel,
+                                             JPanel intervalTypePanel,
+                                             JButton backButton) {
         evaluationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String modelType = (String) modelTypeComboBox.getSelectedItem();
-                String intervalType = (String) intervalTypeComboBox.getSelectedItem();
+                final String modelType = (String) modelTypeComboBox.getSelectedItem();
+                final String intervalType = (String) intervalTypeComboBox.getSelectedItem();
                 modelEvaluationController.execute(modelType, intervalType);
                 System.out.println("Evaluation button clicked");
                 modelTypePanel.setVisible(false);
@@ -119,7 +119,8 @@ public class ModelEvaluationView extends JPanel implements PropertyChangeListene
             public void actionPerformed(ActionEvent e) {
                 modelEvaluationController.switchBack();
                 System.out.println("Back button clicked");
-                removeResultTable(); // Ensure no table is displayed when navigating back
+                removeResultTable();
+                // Ensure no table is displayed when navigating back
                 modelTypePanel.setVisible(true);
                 intervalTypePanel.setVisible(true);
                 evaluationButton.setVisible(true);
@@ -130,6 +131,24 @@ public class ModelEvaluationView extends JPanel implements PropertyChangeListene
         });
     }
 
+    private void addComponentsToPanel(JLabel title,
+                                      JPanel modelTypePanel,
+                                      JPanel intervalTypePanel,
+                                      JPanel buttonPanel) {
+        this.add(Box.createVerticalStrut(ModelEvaluationViewModel.SEPARATION_NARROW));
+        this.add(title);
+        this.add(Box.createVerticalStrut(ModelEvaluationViewModel.SEPARATION_WIDE));
+        this.add(modelTypePanel);
+        this.add(Box.createVerticalStrut(ModelEvaluationViewModel.SEPARATION_NARROW));
+        this.add(intervalTypePanel);
+        this.add(Box.createVerticalStrut(ModelEvaluationViewModel.SEPARATION_NARROW));
+        this.add(errorMessageLabel);
+        this.add(Box.createVerticalStrut(ModelEvaluationViewModel.SEPARATION_NARROW));
+        this.add(resultLabel);
+        this.add(Box.createVerticalStrut(ModelEvaluationViewModel.SEPARATION_WIDE));
+        this.add(buttonPanel);
+    }
+
     /**
      * Handles property change events from the view model.
      * Updates the UI based on changes to the model state.
@@ -138,17 +157,20 @@ public class ModelEvaluationView extends JPanel implements PropertyChangeListene
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        ModelEvaluationState state = (ModelEvaluationState) evt.getNewValue();
+        final ModelEvaluationState state = (ModelEvaluationState) evt.getNewValue();
         if (state.isValid()) {
-            removeResultTable(); // Remove existing table before adding a new one
+            removeResultTable();
+            // Remove existing table before adding a new one
             getTable(state);
             errorMessageLabel.setText(state.getError());
             resultLabel.setText("");
             intervalTypeComboBox.setVisible(false);
             modelTypeComboBox.setVisible(false);
             errorMessageLabel.setVisible(false);
-        } else {
-            removeResultTable(); // Ensure no table is displayed on error
+        }
+        else {
+            removeResultTable();
+            // Ensure no table is displayed on error
             errorMessageLabel.setText(state.getError());
             resultLabel.setText("");
             intervalTypeComboBox.setVisible(false);
@@ -166,17 +188,19 @@ public class ModelEvaluationView extends JPanel implements PropertyChangeListene
         // Initialize the table if it's not already created
         if (resultTable == null) {
             resultTable = new JTable();
-            JScrollPane scrollPane = new JScrollPane(resultTable);
-            scrollPane.setPreferredSize(new Dimension(400, 200));
+            final JScrollPane scrollPane = new JScrollPane(resultTable);
+            scrollPane.setPreferredSize(new Dimension(
+                    ModelEvaluationViewModel.SCROLL_PANE_WIDTH,
+                    ModelEvaluationViewModel.SCROLL_PANE_HEIGHT));
             this.add(scrollPane);
         }
 
-        DefaultTableModel tableModel = new DefaultTableModel();
+        final DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.addColumn("Metric");
         tableModel.addColumn("Value");
 
         // Format numbers to 4 decimal places
-        DecimalFormat df = new DecimalFormat("#.####");
+        final DecimalFormat df = new DecimalFormat("#.####");
 
         // Add rows with metrics
         tableModel.addRow(new Object[]{"Predicted portfolio value", df.format(state.getPredictedPrice())});
@@ -187,9 +211,12 @@ public class ModelEvaluationView extends JPanel implements PropertyChangeListene
 
         // Set model and styling
         resultTable.setModel(tableModel);
-        resultTable.setEnabled(false); // Make table non-editable
+        resultTable.setEnabled(false);
+        // Make table non-editable
         resultTable.setShowGrid(true);
-        resultTable.setIntercellSpacing(new Dimension(10, 1));
+        resultTable.setIntercellSpacing(new Dimension(
+                ModelEvaluationViewModel.INTERCELL_WIDTH,
+                ModelEvaluationViewModel.INTERCELL_HEIGHT));
 
         // Refresh the UI
         this.revalidate();
@@ -203,7 +230,9 @@ public class ModelEvaluationView extends JPanel implements PropertyChangeListene
     public void removeResultTable() {
         if (resultTable != null) {
             // Remove the table's parent scroll pane
-            JScrollPane scrollPane = (JScrollPane) SwingUtilities.getAncestorOfClass(JScrollPane.class, resultTable);
+            final JScrollPane scrollPane = (JScrollPane) SwingUtilities.getAncestorOfClass(
+                    JScrollPane.class,
+                    resultTable);
             if (scrollPane != null) {
                 this.remove(scrollPane);
             }
@@ -222,6 +251,7 @@ public class ModelEvaluationView extends JPanel implements PropertyChangeListene
     public void setModelEvaluationController(ModelEvaluationController controller) {
         this.modelEvaluationController = controller;
     }
+
     /**
      * Gets the name of this view.
      *

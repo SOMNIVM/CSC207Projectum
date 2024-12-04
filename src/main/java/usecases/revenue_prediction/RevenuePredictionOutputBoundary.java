@@ -18,6 +18,4 @@ public interface RevenuePredictionOutputBoundary {
      * @param error description of what went wrong
      */
     void prepareFailView(String error);
-
-    void switchBack();
 }
