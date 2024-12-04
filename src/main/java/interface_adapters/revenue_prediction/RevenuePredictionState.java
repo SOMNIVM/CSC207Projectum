@@ -6,6 +6,7 @@ package interface_adapters.revenue_prediction;
  * predicted values, confidence intervals, and validation status.
  */
 public class RevenuePredictionState {
+    private static final double DEFAULT_CONFIDENCE_LEVEL = 0.95;
     private String selectedModel;
     private double predictedRevenue;
     private double lowerBound;
@@ -25,7 +26,8 @@ public class RevenuePredictionState {
         this.predictedRevenue = 0.0;
         this.lowerBound = 0.0;
         this.upperBound = 0.0;
-        this.confidenceLevel = 0.95; // Default 95% confidence level
+        this.confidenceLevel = DEFAULT_CONFIDENCE_LEVEL;
+        // Default 95% confidence level
         this.predictionInterval = "";
         this.intervalLength = 0;
         this.isValidInput = true;
@@ -193,12 +195,14 @@ public class RevenuePredictionState {
     public String getErrorMessage() {
         return errorMessage;
     }
+
     private void reset() {
         this.selectedModel = "";
         this.predictedRevenue = 0.0;
         this.lowerBound = 0.0;
         this.upperBound = 0.0;
-        this.confidenceLevel = 0.95; // Default 95% confidence level
+        this.confidenceLevel = DEFAULT_CONFIDENCE_LEVEL;
+        // Default 95% confidence level
         this.predictionInterval = "";
         this.intervalLength = 0;
         this.isValidInput = true;

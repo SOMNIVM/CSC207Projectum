@@ -7,7 +7,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import data_access.*;
+import data_access.AddStockDataAccessObject;
+import data_access.ClearAllDataAccessObject;
+import data_access.LocalDataAccessObject;
+import data_access.MockOnlineDataAccessObject;
+import data_access.ViewPortfolioDataAccessObject;
 import interface_adapters.ViewManagerModel;
 import interface_adapters.add_stock.AddStockController;
 import interface_adapters.add_stock.AddStockPresenter;
@@ -148,13 +152,16 @@ public class AppBuilder {
         return this;
     }
 
+    /**
+     * Adds the model evaluation view.
+     * @return this builder with the newly added model evaluation view.
+     */
     public AppBuilder addModelEvaluationView() {
         modelEvaluationViewModel = new ModelEvaluationViewModel();
         modelEvaluationView = new ModelEvaluationView(modelEvaluationViewModel, viewManagerModel);
         cardPanel.add(modelEvaluationView, modelEvaluationView.getViewName());
         return this;
     }
-
 
     /**
      * Wires up the portfolio viewing use case.

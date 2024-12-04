@@ -5,7 +5,6 @@ import usecases.LocalDataAccessInterface;
 /**
  * Interface for adding stock data access.
  *
- * @null
  */
 public interface AddStockDataAccessInterface extends LocalDataAccessInterface {
     /**

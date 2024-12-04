@@ -1,10 +1,10 @@
 package usecases.revenue_prediction;
 
-import usecases.LocalDataAccessInterface;
-
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.SortedMap;
+
+import usecases.LocalDataAccessInterface;
 
 /**
  * Interface for accessing data required for revenue prediction.
@@ -20,10 +20,12 @@ public interface RevenuePredictionDataAccessInterface extends LocalDataAccessInt
      * @param intervalLength The length of the interval (e.g., number of hours for intraday)
      * @param intervalName The type of interval ("day", "week", or "intraday")
      * @return The map between stock symbols and a sorted map whose keys are the historical time and values are the
-     * corresponding prices.
+     *     corresponding prices.
      * @throws IllegalArgumentException if intervalName is not "day", "week", or "intraday"
      */
-    Map<String, SortedMap<LocalDateTime, Double>> getHistoricalPrices(String symbol, int intervalLength, String intervalName);
+    Map<String, SortedMap<LocalDateTime, Double>> getHistoricalPrices(String symbol,
+                                                                      int intervalLength,
+                                                                      String intervalName);
 
     /**
      * Get the current market price for a stock.

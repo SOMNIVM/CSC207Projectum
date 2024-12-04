@@ -18,7 +18,7 @@ public class ClearAllDataAccessObject implements ClearAllDataAccessInterface {
     }
 
     @Override
-    public void ClearPortfolioData() {
+    public void clearPortfolioData() {
         final Portfolio portfolio = localDataAccessObject.getCurrentPortfolio();
         final Set<String> symbols = new HashSet<>(portfolio.getStockSymbols());
         for (String symbol: symbols) {

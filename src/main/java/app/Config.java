@@ -45,8 +45,8 @@ public class Config {
                     .trim();
             return new JSONArray(jsonString);
         }
-        catch (IOException | URISyntaxException e) {
-            throw new RuntimeException(e.getMessage());
+        catch (IOException | URISyntaxException ex) {
+            throw new RuntimeException(ex.getMessage());
         }
     }
 }

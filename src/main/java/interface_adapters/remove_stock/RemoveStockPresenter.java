@@ -6,10 +6,14 @@ import interface_adapters.reset_portfolio.ClearAllViewModel;
 import usecases.remove_stock.RemoveStockOutputBoundary;
 import usecases.remove_stock.RemoveStockOutputData;
 
+/**
+ * The presenter for the remove stock use case.
+ */
 public class RemoveStockPresenter implements RemoveStockOutputBoundary {
     private final RemoveStockViewModel removeStockViewModel;
     private final ClearAllViewModel clearAllViewModel;
     private final ViewManagerModel viewManagerModel;
+
     public RemoveStockPresenter(RemoveStockViewModel removeStockModel,
                                 ClearAllViewModel clearAllModel,
                                 ViewManagerModel managerModel) {
@@ -23,7 +27,7 @@ public class RemoveStockPresenter implements RemoveStockOutputBoundary {
         if (removeStockOutputData.checkIfCleared()) {
             clearAllViewModel.getState().clear();
         }
-        ModifyPortfolioState state = removeStockViewModel.getState();
+        final ModifyPortfolioState state = removeStockViewModel.getState();
         state.setAsValid();
         state.setStockName(removeStockOutputData.getStockName());
         state.setSharesChanged(-removeStockOutputData.getSharesRemoved());

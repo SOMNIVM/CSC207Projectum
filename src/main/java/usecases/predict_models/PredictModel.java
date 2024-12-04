@@ -4,18 +4,18 @@ import entities.Portfolio;
 import usecases.OnlineDataAccessInterface;
 
 /**
- * Interface for prediction models that forecast portfolio values
+ * Interface for prediction models that forecast portfolio values.
  */
 public interface PredictModel {
     /**
-     * Sets the online data access interface for the model
+     * Sets the online data access interface for the model.
      *
-     * @param onlineDataAccess The interface to use for market data
+     * @param onlineDataAccess The interface to use for market data.
      */
     void setOnlineDataAccess(OnlineDataAccessInterface onlineDataAccess);
 
     /**
-     * Predicts the portfolio's value based on the given interval parameters
+     * Predicts the portfolio's value based on the given interval parameters.
      *
      * @param portfolio The portfolio to predict for
      * @param intervalLength The interval length (e.g., number of hours for "intraday")
@@ -25,7 +25,7 @@ public interface PredictModel {
     double predictValue(Portfolio portfolio, int intervalLength, String intervalName);
 
     /**
-     * Predict the portfolio's revenue based on the given interval parameters
+     * Predict the portfolio's revenue based on the given interval parameters.
      * @param portfolio The portfolio to predict for
      * @param intervaLength The interval length (e.g., number of hours for "intraday")
      * @param intervalName The type of interval: "day", "week", or "intraday"

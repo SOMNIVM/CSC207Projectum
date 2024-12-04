@@ -1,16 +1,25 @@
 package views;
 
-import interface_adapters.add_stock.AddStockController;
-import interface_adapters.add_stock.AddStockState;
-import interface_adapters.add_stock.AddStockViewModel;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import interface_adapters.add_stock.AddStockController;
+import interface_adapters.add_stock.AddStockState;
+import interface_adapters.add_stock.AddStockViewModel;
+
+/**
+ * The view for the add stock use case.
+ */
 public class AddStockView extends JPanel implements PropertyChangeListener {
     private final String viewName;
     private final AddStockViewModel addStockViewModel;
@@ -18,6 +27,7 @@ public class AddStockView extends JPanel implements PropertyChangeListener {
     private final StockInputPanel stockInputPanel;
     private final JTextField sharesField;
     private final JLabel errorMessageLabel;
+
     public AddStockView(AddStockViewModel buyStockModel) {
         super();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

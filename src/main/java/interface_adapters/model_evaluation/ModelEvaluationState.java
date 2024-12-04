@@ -1,5 +1,8 @@
 package interface_adapters.model_evaluation;
 
+/**
+ * The object characterizing the state of model evaluation.
+ */
 public class ModelEvaluationState {
     private String modelName;
     private String frequency;
@@ -44,11 +47,18 @@ public class ModelEvaluationState {
         this.actualPrice = actualPrice;
     }
 
+    /**
+     * Set the state as handling an invalid input.
+     * @param error The description of the error.
+     */
     public void setAsInvalid(String error) {
         this.isValid = false;
         this.errorMessage = error;
     }
 
+    /**
+     * Set the state as handling a valid input.
+     */
     public void setAsValid() {
         this.isValid = true;
     }
@@ -92,6 +102,10 @@ public class ModelEvaluationState {
     public String getError() {
         return errorMessage;
     }
+
+    /**
+     * Reinitialize all parameters and metrics.
+     */
     public void reset() {
         this.modelName = null;
         this.frequency = null;
@@ -102,9 +116,6 @@ public class ModelEvaluationState {
         this.predictedPrice = 0.0;
         this.actualPrice = 0.0;
         this.isValid = true;
-        this.errorMessage ="";
+        this.errorMessage = "";
     }
-
 }
-
-    

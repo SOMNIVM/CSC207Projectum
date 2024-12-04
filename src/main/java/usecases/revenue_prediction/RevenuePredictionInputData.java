@@ -21,6 +21,7 @@ public class RevenuePredictionInputData {
         this.intervalName = intervalName;
         this.modelName = model;
     }
+
     /**
      * Gets the name/type of the prediction interval.
      *
