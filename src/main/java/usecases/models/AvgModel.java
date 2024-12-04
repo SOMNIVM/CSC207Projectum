@@ -101,11 +101,13 @@ public class AvgModel extends AbstractModel {
     @Override
     public double getSharpeRatio() {
         final double stdDev = getStandardDeviation();
-        if (stdDev == 0) {
-            return 0.0;
+        double result = 0;
+        if (stdDev != 0) {
+            result = (getReturn() - Config.INTEREST_RATE) / stdDev;
         }
-        return (getReturn() - Config.INTEREST_RATE) / stdDev;
+        return result;
     }
+
     private double getReturn() {
         return (observations[numOfInterval - 1] - observations[0]) / observations[0];
     }

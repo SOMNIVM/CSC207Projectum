@@ -27,6 +27,9 @@ public class RevenuePredictionController {
         revenuePredictionInteractor.execute(inputData);
     }
 
+    /**
+     * Switch back to the homepage.
+     */
     public void switchBack() {
         revenuePredictionInteractor.switchBack();
     }

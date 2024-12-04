@@ -234,7 +234,7 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
                 state.getUpperBound())});
 
         // Set the model to the table
-        final JTable resultTable = new JTable(tableModel);
+        resultTable = new JTable(tableModel);
         this.scrollPane.setViewportView(resultTable);
     }
 
@@ -246,7 +246,10 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
     public void setRevenuePredictionController(RevenuePredictionController controller) {
         this.revenuePredictionController = controller;
     }
-    
+
+    /**
+     * Remove the table that shows the data.
+     */
     public void removeTable() {
         if (resultTable != null) {
             if (scrollPane != null) {

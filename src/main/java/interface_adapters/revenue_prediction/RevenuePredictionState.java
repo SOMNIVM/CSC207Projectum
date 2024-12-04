@@ -196,7 +196,10 @@ public class RevenuePredictionState {
         return errorMessage;
     }
 
-    private void reset() {
+    /**
+     * Reset all data.
+     */
+    public void reset() {
         this.selectedModel = "";
         this.predictedRevenue = 0.0;
         this.lowerBound = 0.0;

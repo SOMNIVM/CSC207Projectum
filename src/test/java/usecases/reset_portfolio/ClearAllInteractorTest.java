@@ -15,7 +15,7 @@ class ClearAllInteractorTest {
         ClearAllInteractor interactor = new ClearAllInteractor(mockPresenter, mockDataAccess);
         interactor.execute();
 
-        verify(mockDataAccess).ClearPortfolioData();
+        verify(mockDataAccess).clearPortfolioData();
         verify(mockPresenter).prepareClearedView();
     }
 

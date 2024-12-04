@@ -72,6 +72,11 @@ public class RevenuePredictionInteractor implements RevenuePredictionInputBounda
         }
     }
 
+    @Override
+    public void switchBack() {
+        revenuePredictionPresenter.switchBack();
+    }
+
     /**
      * Validates input parameters and retrieves the portfolio.
      *
