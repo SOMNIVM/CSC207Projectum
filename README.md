@@ -134,8 +134,8 @@ All contributors are listed in alphabetical order.
 
 ---
 ## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is free to use, modify, and distribute.
+Licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 
 Thank you for using CSC207 Projectum! We hope this tool helps you effectively manage your financial assets and enhance your revenue prediction models.
