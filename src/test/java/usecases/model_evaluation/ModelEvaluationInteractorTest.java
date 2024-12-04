@@ -1,4 +1,4 @@
-package ModelEvaluationUsecase;
+package usecases.model_evaluation;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,9 +9,6 @@ import static org.mockito.Mockito.*;
 
 import usecases.LocalDataAccessInterface;
 import usecases.OnlineDataAccessInterface;
-import usecases.model_evaluation.ModelEvaluationInteractor;
-import usecases.model_evaluation.ModelEvaluationInputData;
-import usecases.model_evaluation.ModelEvaluationOutputBoundary;
 import entities.Portfolio;
 
 /**
