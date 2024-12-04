@@ -193,7 +193,8 @@ public class RevenuePredictionState {
     public String getErrorMessage() {
         return errorMessage;
     }
-    private void reset() {
+
+    public void reset() {
         this.selectedModel = "";
         this.predictedRevenue = 0.0;
         this.lowerBound = 0.0;
@@ -203,5 +204,6 @@ public class RevenuePredictionState {
         this.intervalLength = 0;
         this.isValidInput = true;
         this.errorMessage = "";
+        System.out.println("State reset");
     }
 }

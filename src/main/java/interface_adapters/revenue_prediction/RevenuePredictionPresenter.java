@@ -68,4 +68,11 @@ public class RevenuePredictionPresenter implements RevenuePredictionOutputBounda
 
         revenuePredictionViewModel.firePropertyChange();
     }
+
+    @Override
+    public void switchBack() {
+        viewManagerModel.getState().setCurViewName("homepage");
+        viewManagerModel.firePropertyChange();
+        revenuePredictionViewModel.getState().reset();
+    }
 }

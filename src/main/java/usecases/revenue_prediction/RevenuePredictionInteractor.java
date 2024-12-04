@@ -142,4 +142,9 @@ public class RevenuePredictionInteractor implements RevenuePredictionInputBounda
      * Record class to hold prediction results including confidence interval.
      */
     private record PredictionResult(double pointEstimate, double lowerBound, double upperBound) {}
+
+    @Override
+    public void switchBack() {
+        revenuePredictionPresenter.switchBack();
+    }
 }

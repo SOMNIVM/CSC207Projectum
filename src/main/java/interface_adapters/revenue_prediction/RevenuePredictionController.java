@@ -17,5 +17,9 @@ public class RevenuePredictionController {
         );
         revenuePredictionInteractor.execute(inputData);
     }
+
+    public void switchBack() {
+        revenuePredictionInteractor.switchBack();
+    }
 }
 

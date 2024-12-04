@@ -1,18 +1,29 @@
 package views;
 
-import interface_adapters.ViewManagerModel;
-import interface_adapters.revenue_prediction.RevenuePredictionController;
-import interface_adapters.revenue_prediction.RevenuePredictionState;
-import interface_adapters.revenue_prediction.RevenuePredictionViewModel;
-
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
+
+import interface_adapters.ViewManagerModel;
+import interface_adapters.revenue_prediction.RevenuePredictionController;
+import interface_adapters.revenue_prediction.RevenuePredictionState;
+import interface_adapters.revenue_prediction.RevenuePredictionViewModel;
 
 /**
  * The view component for revenue prediction.
@@ -30,6 +41,7 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
     private final JTextField intervalLengthField;
     private final JLabel resultLabel;
     private final JScrollPane scrollPane;
+    private JTable resultTable;
 
     /**
      * Constructs a new RevenuePredictionView.
@@ -130,7 +142,6 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
                             revenuePredictionViewModel.firePropertyChange();
                             return;
                         }
-
                         revenuePredictionController.execute(modelType, intervalLength, intervalType);
                     } catch (NumberFormatException ex) {
                         revenuePredictionViewModel.getState().setAsInvalid(
@@ -144,8 +155,8 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                viewManagerModel.getState().setCurViewName("homepage");
-                viewManagerModel.firePropertyChange();
+                removeTable();
+                revenuePredictionController.switchBack();
             }
         });
     }
@@ -163,8 +174,9 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
             errorMessageLabel.setText("");
             getTable(state);
         } else {
+            removeTable();
             errorMessageLabel.setText(state.getErrorMessage());
-            resultLabel.setText("");
+            resultLabel.setText("");        
         }
     }
 
@@ -195,6 +207,19 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
     public void setRevenuePredictionController(RevenuePredictionController controller) {
         this.revenuePredictionController = controller;
     }
+    
+    public void removeTable() {
+        if (resultTable != null) {
+            if (scrollPane != null) {
+                scrollPane.setViewportView(null);
+            }
+            resultTable = null;
+            this.revalidate();
+            this.repaint();
+        }
+    }
+
+
 
     /**
      * Gets the name of this view.

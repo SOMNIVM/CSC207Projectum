@@ -45,7 +45,6 @@ public class ModelEvaluationPresenter implements ModelEvaluationOutputBoundary {
         viewManagerModel.getState().setCurViewName("homepage");
         viewManagerModel.firePropertyChange();
         modelEvaluationViewModel.getState().reset();
-        System.out.println("Switching back to homepage");
     }
 }
 
