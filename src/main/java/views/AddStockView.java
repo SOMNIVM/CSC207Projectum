@@ -29,7 +29,6 @@ public class AddStockView extends JPanel implements PropertyChangeListener {
     private final JLabel errorMessageLabel;
 
     public AddStockView(AddStockViewModel buyStockModel) {
-        super();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.addStockViewModel = buyStockModel;
         this.viewName = buyStockModel.getViewName();
@@ -37,18 +36,18 @@ public class AddStockView extends JPanel implements PropertyChangeListener {
         this.errorMessageLabel = new JLabel();
         this.errorMessageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.stockInputPanel = new StockInputPanel();
-        this.sharesField = new JTextField(30);
-        JLabel title = new JLabel(this.viewName);
+        this.sharesField = new JTextField(AddStockViewModel.TEXTFIELD_COLS);
+        final JLabel title = new JLabel(this.viewName);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JPanel stockNamePanel = new JPanel();
+        final JPanel stockNamePanel = new JPanel();
         stockNamePanel.add(new JLabel(AddStockViewModel.STOCK_NAME_FIELD_LABEL));
         stockNamePanel.add(this.stockInputPanel);
-        JPanel sharesFieldPanel = new JPanel();
+        final JPanel sharesFieldPanel = new JPanel();
         sharesFieldPanel.add(new JLabel(AddStockViewModel.SHARES_FIELD_LABEL));
         sharesFieldPanel.add(this.sharesField);
-        JPanel buttonPanel = new JPanel();
-        JButton addStock = new JButton(AddStockViewModel.BUY_STOCK_BUTTON_LABEL);
-        JButton cancel = new JButton(AddStockViewModel.CANCEL_BUTTON_LABEL);
+        final JPanel buttonPanel = new JPanel();
+        final JButton addStock = new JButton(AddStockViewModel.BUY_STOCK_BUTTON_LABEL);
+        final JButton cancel = new JButton(AddStockViewModel.CANCEL_BUTTON_LABEL);
         buttonPanel.add(addStock);
         buttonPanel.add(cancel);
         stockNamePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -59,14 +58,18 @@ public class AddStockView extends JPanel implements PropertyChangeListener {
         this.add(sharesFieldPanel);
         this.add(this.errorMessageLabel);
         this.add(buttonPanel);
+        addActionListenersForButtons(addStock, cancel);
+    }
+
+    private void addActionListenersForButtons(JButton addStock, JButton cancel) {
         addStock.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (addStockController != null) {
-                    String stockNameInput = stockInputPanel.getText();
-                    String sharesInput = sharesField.getText();
+                    final String stockNameInput = stockInputPanel.getText();
+                    final String sharesInput = sharesField.getText();
                     if (sharesInput.matches("^[0-9]+$")) {
-                        int shares = Integer.parseInt(sharesInput);
+                        final int shares = Integer.parseInt(sharesInput);
                         addStockController.execute(stockNameInput, shares);
                     }
                     else {
@@ -88,7 +91,7 @@ public class AddStockView extends JPanel implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        AddStockState state = (AddStockState) evt.getNewValue();
+        final AddStockState state = (AddStockState) evt.getNewValue();
         if (state.checkIfValid()) {
             errorMessageLabel.setText("");
             JOptionPane.showMessageDialog(null,
@@ -101,9 +104,11 @@ public class AddStockView extends JPanel implements PropertyChangeListener {
             errorMessageLabel.setText(state.getErrorMessage());
         }
     }
+
     public String getViewName() {
         return viewName;
     }
+
     public void setBuyStockController(AddStockController controller) {
         addStockController = controller;
     }

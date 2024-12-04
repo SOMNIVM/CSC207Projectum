@@ -7,6 +7,13 @@ import interface_adapters.ViewModel;
  * Manages the state and UI constants used in the revenue prediction view.
  */
 public class RevenuePredictionViewModel extends ViewModel<RevenuePredictionState> {
+    public static final int SEPARATION_NARROW = 10;
+    public static final int SEPARATION_WIDE = 20;
+    public static final int TEXTFIELD_COL = 10;
+    public static final int SCROLLPANE_WIDTH = 200;
+    public static final int SCROLLPANE_HEIGHT = 200;
+
+    public static final int REVERSE_PERCENT_MULTIPLIER = 100;
     /** Label for the view title. */
     public static final String TITLE_LABEL = "Revenue Prediction";
 
