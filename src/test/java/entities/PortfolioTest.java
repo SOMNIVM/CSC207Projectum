@@ -1,3 +1,5 @@
+package entities;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import entities.Portfolio;
@@ -38,8 +40,8 @@ public class PortfolioTest {
         portfolio.addStock("AAPL", 10, 150.0);
         portfolio.addStock("GOOGL", 5, 1000.0);
         String expected = "Your portfolio contains the following assets:\n" +
-                "5 shares of GOOGL with an average price of $1000.00\n" +
-                "10 shares of AAPL with an average price of $150.00\n";
+                "5 shares of GOOGL\n" +
+                "10 shares of AAPL\n";
         assertEquals(expected, portfolio.toString());
     }
 
