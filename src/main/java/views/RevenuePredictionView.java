@@ -17,10 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-<<<<<<< HEAD
-import javax.swing.SwingUtilities;
-=======
->>>>>>> mingxiao.wei
 import javax.swing.table.DefaultTableModel;
 
 import interface_adapters.ViewManagerModel;
@@ -261,8 +257,6 @@ public class RevenuePredictionView extends JPanel implements PropertyChangeListe
             this.repaint();
         }
     }
-
-
 
     /**
      * Gets the name of this view.
